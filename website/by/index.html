@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>by o5102o</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0a0a0a;
+      color: #d0d0d0;
+      font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", "Courier New", monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 500px;
+      width: 100%;
+      padding: 2rem;
+    }
+
+    .back {
+      display: inline-block;
+      color: #505050;
+      text-decoration: none;
+      font-size: 0.75rem;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+
+    .back:hover {
+      color: #b0b0b0;
+    }
+
+    .title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #f0f0f0;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 0.875rem;
+      color: #505050;
+      margin-bottom: 2.5rem;
+    }
+
+    .projects {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .project {
+      display: block;
+      padding: 1rem 0;
+      border-bottom: 1px solid #141414;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .project:first-child {
+      border-top: 1px solid #141414;
+    }
+
+    .project:hover {
+      opacity: 0.7;
+    }
+
+    .project-name {
+      font-size: 0.9rem;
+      color: #e0e0e0;
+      margin-bottom: 0.25rem;
+    }
+
+    .project-desc {
+      font-size: 0.8rem;
+      color: #505050;
+      line-height: 1.5;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.75rem;
+      color: #303030;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <a href="https://o5102o.com" class="back">&larr; o5102o.com</a>
+
+    <h1 class="title">by o5102o</h1>
+    <p class="subtitle">things i've built</p>
+
+    <ul class="projects">
+      <li>
+        <a href="#" class="project">
+          <div class="project-name">project-alpha</div>
+          <div class="project-desc">프로젝트 설명을 여기에 작성하세요</div>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="project">
+          <div class="project-name">project-beta</div>
+          <div class="project-desc">프로젝트 설명을 여기에 작성하세요</div>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="project">
+          <div class="project-name">project-gamma</div>
+          <div class="project-desc">프로젝트 설명을 여기에 작성하세요</div>
+        </a>
+      </li>
+    </ul>
+
+    <p class="footer">&copy; 2026 o5102o</p>
+  </main>
+</body>
+</html>

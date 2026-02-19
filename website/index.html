@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>o5102o</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0a0a0a;
+      color: #d0d0d0;
+      font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", "Courier New", monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .card {
+      max-width: 400px;
+      width: 100%;
+      padding: 2rem;
+    }
+
+    .name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #f0f0f0;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .bio {
+      font-size: 0.875rem;
+      color: #707070;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .links a {
+      display: block;
+      padding: 0.75rem 1rem;
+      border: 1px solid #1a1a1a;
+      border-radius: 6px;
+      color: #b0b0b0;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .links a:hover {
+      border-color: #333;
+      color: #f0f0f0;
+    }
+
+    .links .label {
+      color: #505050;
+      font-size: 0.75rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .links .value {
+      color: inherit;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.75rem;
+      color: #303030;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1 class="name">o5102o</h1>
+    <p class="bio">developer</p>
+
+    <ul class="links">
+      <li>
+        <a href="https://by.o5102o.com">
+          <div class="label">portfolio</div>
+          <div class="value">by.o5102o.com</div>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/o5102o" target="_blank" rel="noopener">
+          <div class="label">github</div>
+          <div class="value">github.com/o5102o</div>
+        </a>
+      </li>
+      <li>
+        <a href="mailto:hello@o5102o.com">
+          <div class="label">email</div>
+          <div class="value">hello@o5102o.com</div>
+        </a>
+      </li>
+    </ul>
+
+    <p class="footer">&copy; 2026 o5102o</p>
+  </main>
+</body>
+</html>
