@@ -170,6 +170,32 @@
       color: var(--text-muted);
       letter-spacing: 0.02em;
     }
+
+    ::selection {
+      background: #222;
+      color: var(--text-primary);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .container { animation: none; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+
+      .title {
+        font-size: 1.5rem;
+      }
+
+      .project {
+        padding: 0.875rem 1rem;
+      }
+    }
   </style>
 </head>
 <body>
