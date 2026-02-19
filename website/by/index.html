@@ -3,8 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="by o5102o - things i've built">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta property="og:title" content="by o5102o">
+  <meta property="og:description" content="things i've built">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://by.o5102o.com">
   <title>by o5102o</title>
   <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --border: #1a1a1a;
+      --border-hover: #2a2a2a;
+      --text-primary: #e8e8e8;
+      --text-secondary: #888;
+      --text-tertiary: #484848;
+      --text-muted: #282828;
+      --font-mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", "Courier New", monospace;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -12,94 +31,153 @@
     }
 
     body {
-      background: #0a0a0a;
-      color: #d0d0d0;
-      font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", "Courier New", monospace;
+      background: var(--bg);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .container {
       max-width: 500px;
       width: 100%;
-      padding: 2rem;
+      padding: 2.5rem 2rem;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .back {
-      display: inline-block;
-      color: #505050;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      color: var(--text-tertiary);
       text-decoration: none;
       font-size: 0.75rem;
-      margin-bottom: 2rem;
-      transition: color 0.2s;
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.02em;
+      transition: color var(--transition);
     }
 
     .back:hover {
-      color: #b0b0b0;
+      color: var(--text-secondary);
+    }
+
+    .back:focus-visible {
+      outline: 1px solid var(--text-tertiary);
+      outline-offset: 2px;
+    }
+
+    .back .back-arrow {
+      transition: transform var(--transition);
+    }
+
+    .back:hover .back-arrow {
+      transform: translateX(-2px);
     }
 
     .title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #f0f0f0;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.02em;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.03em;
     }
 
     .subtitle {
-      font-size: 0.875rem;
-      color: #505050;
-      margin-bottom: 2.5rem;
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      margin-bottom: 3rem;
+      letter-spacing: 0.05em;
     }
 
     .projects {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 1px;
+      gap: 0.5rem;
     }
 
     .project {
-      display: block;
-      padding: 1rem 0;
-      border-bottom: 1px solid #141414;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.125rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       text-decoration: none;
-      transition: opacity 0.2s;
-    }
-
-    .project:first-child {
-      border-top: 1px solid #141414;
+      transition: border-color var(--transition), background var(--transition), transform var(--transition);
     }
 
     .project:hover {
-      opacity: 0.7;
+      border-color: var(--border-hover);
+      background: #141414;
+      transform: translateY(-1px);
+    }
+
+    .project:focus-visible {
+      outline: 1px solid var(--text-tertiary);
+      outline-offset: 2px;
+    }
+
+    .project-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      min-width: 0;
     }
 
     .project-name {
-      font-size: 0.9rem;
-      color: #e0e0e0;
-      margin-bottom: 0.25rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      transition: color var(--transition);
+    }
+
+    .project:hover .project-name {
+      color: var(--text-primary);
     }
 
     .project-desc {
-      font-size: 0.8rem;
-      color: #505050;
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
       line-height: 1.5;
     }
 
+    .project .arrow {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      flex-shrink: 0;
+      transition: color var(--transition), transform var(--transition);
+    }
+
+    .project:hover .arrow {
+      color: var(--text-tertiary);
+      transform: translateX(2px);
+    }
+
     .footer {
-      margin-top: 3rem;
-      font-size: 0.75rem;
-      color: #303030;
+      margin-top: 3.5rem;
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
     }
   </style>
 </head>
 <body>
   <main class="container">
-    <a href="https://o5102o.com" class="back">&larr; o5102o.com</a>
+    <a href="https://o5102o.com" class="back">
+      <span class="back-arrow">&larr;</span>
+      <span>o5102o.com</span>
+    </a>
 
     <h1 class="title">by o5102o</h1>
     <p class="subtitle">things i've built</p>
@@ -107,20 +185,29 @@
     <ul class="projects">
       <li>
         <a href="#" class="project">
-          <div class="project-name">project-alpha</div>
-          <div class="project-desc">프로젝트 설명을 여기에 작성하세요</div>
+          <span class="project-info">
+            <span class="project-name">project-alpha</span>
+            <span class="project-desc">프로젝트 설명을 여기에 작성하세요</span>
+          </span>
+          <span class="arrow">&rarr;</span>
         </a>
       </li>
       <li>
         <a href="#" class="project">
-          <div class="project-name">project-beta</div>
-          <div class="project-desc">프로젝트 설명을 여기에 작성하세요</div>
+          <span class="project-info">
+            <span class="project-name">project-beta</span>
+            <span class="project-desc">프로젝트 설명을 여기에 작성하세요</span>
+          </span>
+          <span class="arrow">&rarr;</span>
         </a>
       </li>
       <li>
         <a href="#" class="project">
-          <div class="project-name">project-gamma</div>
-          <div class="project-desc">프로젝트 설명을 여기에 작성하세요</div>
+          <span class="project-info">
+            <span class="project-name">project-gamma</span>
+            <span class="project-desc">프로젝트 설명을 여기에 작성하세요</span>
+          </span>
+          <span class="arrow">&rarr;</span>
         </a>
       </li>
     </ul>
