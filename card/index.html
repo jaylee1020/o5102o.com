@@ -3,441 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="o5102o — 명함">
-  <meta name="theme-color" content="#1b2b1c">
-  <meta property="og:title" content="o5102o / 명함">
-  <meta property="og:description" content="반가워요! 연락처를 남겨주세요.">
+  <meta name="description" content="o5102o card">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta property="og:title" content="o5102o / card">
+  <meta property="og:description" content="developer card + contact">
   <meta property="og:type" content="profile">
-  <meta property="og:url" content="https://o5102o.com/card/">
-  <title>o5102o / 명함</title>
+  <meta property="og:url" content="https://card.o5102o.com">
+  <title>o5102o / card</title>
   <style>
-    :root {
-      --bg:          #1b2b1c;
-      --surface:     #243424;
-      --surface-2:   #2c3e2d;
-      --fg:          #dceadc;
-      --fg-dim:      #7a9e7c;
-      --fg-muted:    #4a6b4c;
-      --accent:      #8fc86a;
-      --accent-text: #152215;
-      --border:      #2e3f2f;
-      --check:       #6aaa48;
-      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: var(--sans);
-      min-height: 100vh;
-      padding: 2.5rem 1.5rem 8rem;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ─── HEADER ────────────────────────────────────── */
-    .page-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .title {
-      font-size: clamp(1.75rem, 7vw, 2.25rem);
-      font-weight: 800;
-      color: var(--fg);
-      letter-spacing: -0.035em;
-      line-height: 1.1;
-    }
-
-    .lang-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      background: transparent;
-      border: 1.5px solid var(--border);
-      border-radius: 999px;
-      padding: 0.45rem 0.9rem;
-      color: var(--fg-dim);
-      font-size: 0.8125rem;
-      font-family: var(--sans);
-      cursor: pointer;
-      white-space: nowrap;
-      flex-shrink: 0;
-      transition: border-color 0.15s, color 0.15s;
-    }
-
-    .lang-btn:hover {
-      border-color: var(--fg-muted);
-      color: var(--fg);
-    }
-
-    .subtitle {
-      font-size: 0.9375rem;
-      color: var(--fg-dim);
-      margin-bottom: 2.5rem;
-      line-height: 1.5;
-    }
-
-    /* ─── FORM ──────────────────────────────────────── */
-    .form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.75rem;
-    }
-
-    /* ─── FIELD ─────────────────────────────────────── */
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 0.625rem;
-    }
-
-    .field-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-
-    .field-label {
-      font-size: 0.875rem;
-      color: var(--fg-dim);
-      line-height: 1.4;
-    }
-
-    .skip-btn {
-      background: none;
-      border: none;
-      color: var(--fg-muted);
-      font-size: 0.8125rem;
-      font-family: var(--sans);
-      cursor: pointer;
-      white-space: nowrap;
-      flex-shrink: 0;
-      transition: color 0.15s;
-    }
-
-    .skip-btn:hover {
-      color: var(--fg-dim);
-    }
-
-    /* ─── INPUT WRAP ─────────────────────────────────── */
-    .input-wrap {
-      display: flex;
-      align-items: center;
-      background: var(--surface);
-      border-radius: 14px;
-      padding: 1rem 1.125rem;
-      gap: 0.75rem;
-      transition: background 0.15s;
-    }
-
-    .input-wrap:focus-within {
-      background: var(--surface-2);
-    }
-
-    .input-wrap input {
-      flex: 1;
-      background: none;
-      border: none;
-      outline: none;
-      color: var(--fg);
-      font-size: 1rem;
-      font-family: var(--sans);
-      min-width: 0;
-    }
-
-    .input-wrap input::placeholder {
-      color: var(--fg-muted);
-    }
-
-    .input-wrap input[readonly] {
-      cursor: default;
-    }
-
-    /* ─── ICONS ──────────────────────────────────────── */
-    .field-icon {
-      font-size: 1.125rem;
-      flex-shrink: 0;
-      line-height: 1;
-    }
-
-    .check {
-      color: var(--check);
-      font-size: 1rem;
-      font-weight: 700;
-      flex-shrink: 0;
-      opacity: 0;
-      transform: scale(0.6);
-      transition: opacity 0.2s, transform 0.2s;
-    }
-
-    .check.visible {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    /* ─── PHONE PREFIX ───────────────────────────────── */
-    .phone-prefix {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      color: var(--fg-dim);
-      font-size: 0.9375rem;
-      padding-right: 0.875rem;
-      border-right: 1.5px solid var(--border);
-      flex-shrink: 0;
-      white-space: nowrap;
-    }
-
-    /* ─── SKIPPED STATE ──────────────────────────────── */
-    .field.is-skipped .input-wrap {
-      opacity: 0.35;
-      pointer-events: none;
-    }
-
-    /* ─── CTA ────────────────────────────────────────── */
-    .cta-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 1.25rem 1.5rem 2.25rem;
-      background: linear-gradient(to top, var(--bg) 65%, transparent);
-    }
-
-    .cta-btn {
-      width: 100%;
-      background: var(--accent);
-      color: var(--accent-text);
-      border: none;
-      border-radius: 14px;
-      padding: 1.125rem 1rem;
-      font-size: 1.0625rem;
-      font-weight: 700;
-      font-family: var(--sans);
-      cursor: pointer;
-      letter-spacing: -0.01em;
-      transition: opacity 0.15s, transform 0.1s;
-    }
-
-    .cta-btn:hover  { opacity: 0.92; }
-    .cta-btn:active { opacity: 0.85; transform: scale(0.99); }
-
-    /* ─── REDUCED MOTION ─────────────────────────────── */
-    @media (prefers-reduced-motion: reduce) {
-      .check, .cta-btn, .input-wrap,
-      .lang-btn, .skip-btn { transition: none; }
-    }
-
-    /* ─── DESKTOP ────────────────────────────────────── */
-    @media (min-width: 600px) {
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 4rem;
-      }
-
-      .page-header,
-      .subtitle,
-      .form {
-        width: 100%;
-        max-width: 420px;
-      }
-
-      .cta-bar {
-        position: static;
-        background: none;
-        padding: 2rem 0 0;
-        width: 100%;
-        max-width: 420px;
-      }
-    }
+    :root{--bg:#0a0a0a;--card:#0f0f0f;--fg:#e8e8e8;--mid:#8a8a8a;--line:#1d1d1d;--mono:"SF Mono","Fira Code","Roboto Mono",monospace}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--fg);font-family:var(--mono);padding:2rem;display:flex;justify-content:center}
+    .wrap{width:100%;max-width:420px;display:grid;gap:1rem}
+    .box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.25rem}
+    h1{font-size:1.7rem;letter-spacing:-.04em}
+    .sub{color:var(--mid);font-size:.78rem;margin-top:.4rem}
+    ul{list-style:none;margin-top:.8rem}
+    li a{display:flex;justify-content:space-between;padding:.7rem 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);font-size:.82rem}
+    label{font-size:.72rem;color:var(--mid);display:block;margin:.7rem 0 .35rem}
+    input{width:100%;background:#111;border:1px solid #222;color:var(--fg);padding:.7rem;border-radius:8px}
+    button{margin-top:.9rem;width:100%;padding:.78rem;border:0;border-radius:8px;background:#d9d9d9;color:#111;font-weight:700;cursor:pointer}
   </style>
 </head>
 <body>
+  <main class="wrap">
+    <section class="box">
+      <h1>o5102o</h1>
+      <p class="sub">이주영 (Jay) · 컴퓨터공학부 2학년</p>
+      <ul>
+        <li><a href="https://o5102o.com"><span>web</span><span>o5102o.com</span></a></li>
+        <li><a href="https://by.o5102o.com"><span>portfolio</span><span>by.o5102o.com</span></a></li>
+        <li><a href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer"><span>github</span><span>@jaylee1020</span></a></li>
+        <li><a href="mailto:jyounglee1020@gmail.com"><span>email</span><span>jyounglee1020@gmail.com</span></a></li>
+        <li><a href="https://www.instagram.com/o5102o" target="_blank" rel="noopener noreferrer"><span>instagram</span><span>@o5102o</span></a></li>
+      </ul>
+    </section>
 
-  <header class="page-header">
-    <h1 class="title">o5102o의 명함</h1>
-    <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇰🇷 한국어</button>
-  </header>
-
-  <p class="subtitle" id="subtitle">👋 반갑습니다! 연락처를 남겨주실래요?</p>
-
-  <form class="form" id="cardForm" onsubmit="handleSubmit(event)">
-
-    <!-- Date -->
-    <div class="field">
-      <div class="field-top">
-        <label class="field-label" id="lbl-date" for="date">이 특별한 순간은 언제였나요?</label>
-      </div>
-      <div class="input-wrap">
-        <span class="field-icon">📅</span>
-        <input type="text" id="date" readonly>
-        <span class="check visible" aria-hidden="true">✓</span>
-      </div>
-    </div>
-
-    <!-- Place -->
-    <div class="field">
-      <div class="field-top">
-        <label class="field-label" id="lbl-place" for="place">우리는 어디에서 처음 만났나요?</label>
-      </div>
-      <div class="input-wrap">
-        <span class="field-icon">📍</span>
-        <input type="text" id="place" placeholder="어디서 만났나요?" autocomplete="off">
-        <span class="check" id="place-check" aria-hidden="true">✓</span>
-      </div>
-    </div>
-
-    <!-- Name -->
-    <div class="field">
-      <div class="field-top">
-        <label class="field-label" id="lbl-name" for="name">반가워요! 성함이 어떻게 되시나요?</label>
-      </div>
-      <div class="input-wrap">
-        <span class="field-icon">👤</span>
-        <input type="text" id="name" placeholder="멋진 이름" autocomplete="name">
-        <span class="check" id="name-check" aria-hidden="true">✓</span>
-      </div>
-    </div>
-
-    <!-- Phone -->
-    <div class="field" id="phone-field">
-      <div class="field-top">
-        <label class="field-label" id="lbl-phone" for="phone">계속 연락하고 싶어요! 연락처를 남겨주시겠어요?</label>
-        <button type="button" class="skip-btn" id="skipBtn" onclick="skipPhone()">건너뛰기</button>
-      </div>
-      <div class="input-wrap">
-        <span class="phone-prefix">🇰🇷 +82</span>
-        <input type="tel" id="phone" placeholder="010-0000-0000" autocomplete="tel">
-        <span class="check" id="phone-check" aria-hidden="true">✓</span>
-      </div>
-    </div>
-
-  </form>
-
-  <div class="cta-bar">
-    <button class="cta-btn" id="ctaBtn" onclick="handleSubmit()">나만의 명함 만들기</button>
-  </div>
+    <section class="box">
+      <h1 style="font-size:1.05rem;letter-spacing:0">연락처 남기기</h1>
+      <label for="name">이름</label>
+      <input id="name" placeholder="홍길동" />
+      <label for="phone">연락처</label>
+      <input id="phone" placeholder="010-0000-0000" />
+      <label for="place">만난 장소(선택)</label>
+      <input id="place" placeholder="예: 해커톤" />
+      <button onclick="sendMail()">보내기</button>
+    </section>
+  </main>
 
   <script>
-    /* ── Language ─────────────────────────────────────── */
-    const strings = {
-      ko: {
-        title:    "o5102o의 명함",
-        subtitle: "👋 반갑습니다! 연락처를 남겨주실래요?",
-        lbl_date:  "이 특별한 순간은 언제였나요?",
-        lbl_place: "우리는 어디에서 처음 만났나요?",
-        ph_place:  "어디서 만났나요?",
-        lbl_name:  "반가워요! 성함이 어떻게 되시나요?",
-        ph_name:   "멋진 이름",
-        lbl_phone: "계속 연락하고 싶어요! 연락처를 남겨주시겠어요?",
-        ph_phone:  "010-0000-0000",
-        skip:      "건너뛰기",
-        cta:       "나만의 명함 만들기",
-        lang_btn:  "🇺🇸 English",
-      },
-      en: {
-        title:    "o5102o's Card",
-        subtitle: "👋 Nice to meet you! Want to leave your contact?",
-        lbl_date:  "When was this special moment?",
-        lbl_place: "Where did we first meet?",
-        ph_place:  "Where we met",
-        lbl_name:  "Hi there! What's your name?",
-        ph_name:   "Your great name",
-        lbl_phone: "I'd love to stay in touch! Would you leave your number?",
-        ph_phone:  "010-0000-0000",
-        skip:      "Skip",
-        cta:       "Create my card",
-        lang_btn:  "🇰🇷 한국어",
-      },
-    };
-
-    let lang = "ko";
-
-    function toggleLang() {
-      lang = lang === "ko" ? "en" : "ko";
-      applyLang();
-    }
-
-    function applyLang() {
-      const s = strings[lang];
-      document.querySelector(".title").textContent   = s.title;
-      document.getElementById("subtitle").textContent = s.subtitle;
-      document.getElementById("lbl-date").textContent  = s.lbl_date;
-      document.getElementById("lbl-place").textContent = s.lbl_place;
-      document.getElementById("place").placeholder     = s.ph_place;
-      document.getElementById("lbl-name").textContent  = s.lbl_name;
-      document.getElementById("name").placeholder      = s.ph_name;
-      document.getElementById("lbl-phone").textContent = s.lbl_phone;
-      document.getElementById("phone").placeholder     = s.ph_phone;
-      document.getElementById("skipBtn").textContent   = s.skip;
-      document.getElementById("ctaBtn").textContent    = s.cta;
-      document.getElementById("langBtn").textContent   = s.lang_btn;
-      document.documentElement.lang = lang;
-    }
-
-    /* ── Date ─────────────────────────────────────────── */
-    (function setDate() {
-      const d   = new Date();
-      const yr  = d.getFullYear();
-      const mo  = d.getMonth() + 1;
-      const day = d.getDate();
-      document.getElementById("date").value =
-        `${yr}년 ${mo}월 ${day}일`;
-    })();
-
-    /* ── Place from URL ───────────────────────────────── */
-    (function setPlace() {
-      const p = new URLSearchParams(window.location.search).get("place");
-      if (!p) return;
-      const inp = document.getElementById("place");
-      inp.value = p;
-      document.getElementById("place-check").classList.add("visible");
-    })();
-
-    /* ── Check marks on input ─────────────────────────── */
-    function watchCheck(inputId, checkId) {
-      document.getElementById(inputId).addEventListener("input", function () {
-        document.getElementById(checkId).classList.toggle("visible", !!this.value.trim());
-      });
-    }
-    watchCheck("place", "place-check");
-    watchCheck("name",  "name-check");
-    watchCheck("phone", "phone-check");
-
-    /* ── Skip phone ───────────────────────────────────── */
-    let phoneSkipped = false;
-    function skipPhone() {
-      phoneSkipped = true;
-      const field = document.getElementById("phone-field");
-      field.classList.add("is-skipped");
-      document.getElementById("phone").value = "";
-      document.getElementById("phone-check").classList.remove("visible");
-    }
-
-    /* ── Submit ───────────────────────────────────────── */
-    function handleSubmit(e) {
-      if (e) e.preventDefault();
-      const name  = document.getElementById("name").value.trim();
-      const place = document.getElementById("place").value.trim();
-      if (!name) {
-        document.getElementById("name").focus();
-        return;
-      }
-      const phone = phoneSkipped ? null : document.getElementById("phone").value.trim();
-      const date  = document.getElementById("date").value;
-      const params = new URLSearchParams({ name, place, date });
-      if (phone) params.set("phone", phone);
-      window.location.href = "https://o5102o.com?" + params.toString();
+    function sendMail(){
+      const name=document.getElementById('name').value.trim();
+      const phone=document.getElementById('phone').value.trim();
+      const place=document.getElementById('place').value.trim();
+      if(!name||!phone){alert('이름/연락처를 입력해줘요.');return;}
+      const body=`이름: ${name}%0A연락처: ${phone}%0A장소: ${place||'-'}`;
+      window.location.href=`mailto:jyounglee1020@gmail.com?subject=card contact&body=${body}`;
     }
   </script>
-
 </body>
 </html>

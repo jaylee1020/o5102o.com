@@ -7,9 +7,9 @@ Personal website and portfolio for o5102o — developer based in Seoul, Korea.
 | URL | Path | Description |
 |-----|------|-------------|
 | `o5102o.com` | `/index.html` | Main landing page |
-| `o5102o.com/by/` | `/by/index.html` | Portfolio — things I've built |
-| `o5102o.com/info/` | `/info/index.html` | Digital card / contact info |
-| `o5102o.com/card/` | `/card/index.html` | Contact capture page |
+| `by.o5102o.com` | `/by/index.html` | Portfolio |
+| `card.o5102o.com` | `/card/index.html` | Digital card + contact |
+| `o5102o.com/info/` | `/info/index.html` | Redirect to `card.o5102o.com` |
 
 ## Stack
 
