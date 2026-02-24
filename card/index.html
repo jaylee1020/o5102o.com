@@ -5,10 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="o5102o card">
   <meta name="theme-color" content="#0a0a0a">
+  <link rel="canonical" href="https://card.o5102o.com">
   <meta property="og:title" content="o5102o / card">
   <meta property="og:description" content="developer card + contact">
   <meta property="og:type" content="profile">
   <meta property="og:url" content="https://card.o5102o.com">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="o5102o / card">
+  <meta name="twitter:description" content="developer card + contact">
   <title>o5102o / card</title>
   <style>
     :root{--bg:#0a0a0a;--card:#0f0f0f;--fg:#e8e8e8;--mid:#8a8a8a;--line:#1d1d1d;--mono:"SF Mono","Fira Code","Roboto Mono",monospace}
@@ -22,6 +26,12 @@
     li a{display:flex;justify-content:space-between;padding:.7rem 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);font-size:.82rem}
     label{font-size:.72rem;color:var(--mid);display:block;margin:.7rem 0 .35rem}
     input{width:100%;background:#111;border:1px solid #222;color:var(--fg);padding:.7rem;border-radius:8px}
+    input:focus{outline:none;border-color:#3b3b3b}
+    input.invalid{border-color:#5e2a2a}
+    .hint{margin-top:.35rem;color:#777;font-size:.68rem}
+    .msg{margin-top:.7rem;font-size:.72rem;min-height:1.1em}
+    .msg.error{color:#d08a8a}
+    .msg.ok{color:#9acb9a}
     button{margin-top:.9rem;width:100%;padding:.78rem;border:0;border-radius:8px;background:#d9d9d9;color:#111;font-weight:700;cursor:pointer}
   </style>
 </head>
@@ -41,24 +51,73 @@
 
     <section class="box">
       <h1 style="font-size:1.05rem;letter-spacing:0">연락처 남기기</h1>
-      <label for="name">이름</label>
-      <input id="name" placeholder="홍길동" />
-      <label for="phone">연락처</label>
-      <input id="phone" placeholder="010-0000-0000" />
-      <label for="place">만난 장소(선택)</label>
+      <label for="name">이름 *</label>
+      <input id="name" placeholder="홍길동" autocomplete="name" />
+
+      <label for="phone">전화번호 (선택)</label>
+      <input id="phone" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" />
+
+      <label for="place">만난 곳 (선택)</label>
       <input id="place" placeholder="예: 해커톤" />
+
+      <p class="hint">* 이름만 입력해도 메일 초안이 열려요.</p>
+      <p id="message" class="msg" aria-live="polite"></p>
       <button onclick="sendMail()">보내기</button>
     </section>
   </main>
 
   <script>
-    function sendMail(){
-      const name=document.getElementById('name').value.trim();
-      const phone=document.getElementById('phone').value.trim();
-      const place=document.getElementById('place').value.trim();
-      if(!name||!phone){alert('이름/연락처를 입력해줘요.');return;}
-      const body=`이름: ${name}%0A연락처: ${phone}%0A장소: ${place||'-'}`;
-      window.location.href=`mailto:jyounglee1020@gmail.com?subject=card contact&body=${body}`;
+    const nameInput = document.getElementById('name');
+    const phoneInput = document.getElementById('phone');
+    const placeInput = document.getElementById('place');
+    const messageEl = document.getElementById('message');
+
+    function setMessage(text, type) {
+      messageEl.textContent = text || '';
+      messageEl.className = `msg${type ? ` ${type}` : ''}`;
+    }
+
+    function clearFieldError(field) {
+      field.classList.remove('invalid');
+    }
+
+    nameInput.addEventListener('input', () => {
+      clearFieldError(nameInput);
+      setMessage('');
+    });
+
+    phoneInput.addEventListener('input', () => {
+      clearFieldError(phoneInput);
+      setMessage('');
+    });
+
+    function sendMail() {
+      const name = nameInput.value.trim();
+      const phone = phoneInput.value.trim();
+      const place = placeInput.value.trim();
+
+      if (!name) {
+        nameInput.classList.add('invalid');
+        setMessage('이름을 입력해 주세요.', 'error');
+        nameInput.focus();
+        return;
+      }
+
+      if (phone && !/^[0-9+\-\s()]{7,20}$/.test(phone)) {
+        phoneInput.classList.add('invalid');
+        setMessage('전화번호 형식을 확인해 주세요. (숫자, +, -, 공백 가능)', 'error');
+        phoneInput.focus();
+        return;
+      }
+
+      const body = [
+        `이름: ${name}`,
+        `연락처: ${phone || '미기재'}`,
+        `장소: ${place || '-'}`
+      ].join('\n');
+
+      setMessage('메일 앱을 여는 중...', 'ok');
+      window.location.href = `mailto:jyounglee1020@gmail.com?subject=${encodeURIComponent('card contact')}&body=${encodeURIComponent(body)}`;
     }
   </script>
 </body>
