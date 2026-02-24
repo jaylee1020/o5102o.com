@@ -23,7 +23,8 @@
     h1{font-size:1.7rem;letter-spacing:-.04em}
     .sub{color:var(--mid);font-size:.78rem;margin-top:.4rem}
     ul{list-style:none;margin-top:.8rem}
-    li a{display:flex;justify-content:space-between;padding:.7rem 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);font-size:.82rem}
+    li a{display:flex;justify-content:space-between;padding:.7rem 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);font-size:.82rem;border-radius:6px}
+    li a:focus-visible{outline:1px solid #4a4a4a;outline-offset:2px;background:#121212}
     label{font-size:.72rem;color:var(--mid);display:block;margin:.7rem 0 .35rem}
     input{width:100%;background:#111;border:1px solid #222;color:var(--fg);padding:.7rem;border-radius:8px}
     input:focus{outline:none;border-color:#3b3b3b}
@@ -33,6 +34,7 @@
     .msg.error{color:#d08a8a}
     .msg.ok{color:#9acb9a}
     button{margin-top:.9rem;width:100%;padding:.78rem;border:0;border-radius:8px;background:#d9d9d9;color:#111;font-weight:700;cursor:pointer}
+    button:focus-visible{outline:1px solid #bdbdbd;outline-offset:2px}
   </style>
 </head>
 <body>
