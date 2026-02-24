@@ -7,8 +7,9 @@ Personal website and portfolio for o5102o — developer based in Seoul, Korea.
 | URL | Path | Description |
 |-----|------|-------------|
 | `o5102o.com` | `/index.html` | Main landing page |
-| `by.o5102o.com` | `/by/index.html` | Portfolio — things I've built |
-| `info.o5102o.com` | `/info/index.html` | Digital card / contact info |
+| `o5102o.com/by/` | `/by/index.html` | Portfolio — things I've built |
+| `o5102o.com/info/` | `/info/index.html` | Digital card / contact info |
+| `o5102o.com/card/` | `/card/index.html` | Contact capture page |
 
 ## Stack
 
@@ -37,5 +38,5 @@ o5102o.com/
 ## Contact
 
 - Web: [o5102o.com](https://o5102o.com)
-- GitHub: [@o5102o](https://github.com/o5102o)
-- Email: hello@o5102o.com
+- GitHub: [@jaylee1020](https://github.com/jaylee1020)
+- Email: jyounglee1020@gmail.com
