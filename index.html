@@ -185,6 +185,21 @@
       transform: translateX(2px);
     }
 
+    .links a:focus-visible {
+      outline: 1px solid var(--sub);
+      outline-offset: 2px;
+      background: #101010;
+    }
+
+    .links a:focus-visible .link-val {
+      color: var(--fg);
+    }
+
+    .links a:focus-visible .link-arrow {
+      color: var(--sub);
+      transform: translateX(2px);
+    }
+
     /* ─── FOOTER ──────────────────────────────────── */
     footer {
       padding: 1.25rem 2.5rem;
