@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="by o5102o - things i've built">
+  <meta name="description" content="by o5102o - portfolio coming soon">
   <meta name="theme-color" content="#0a0a0a">
   <title>by o5102o</title>
   <style>
@@ -11,7 +11,6 @@
       --bg: #0a0a0a;
       --surface: #111;
       --border: #1a1a1a;
-      --border-hover: #2a2a2a;
       --text-primary: #e8e8e8;
       --text-secondary: #9a9a9a;
       --text-tertiary: #555;
@@ -24,68 +23,37 @@
       font-family: var(--font-mono);
       min-height: 100vh;
       display: flex;
+      align-items: center;
       justify-content: center;
-      -webkit-font-smoothing: antialiased;
       padding: 2rem 1rem;
+      -webkit-font-smoothing: antialiased;
     }
-    .container { width: 100%; max-width: 680px; }
+    .container { width: 100%; max-width: 640px; }
     .back { color: var(--text-tertiary); text-decoration: none; font-size: 0.75rem; display: inline-block; margin-bottom: 2rem; }
     .back:hover { color: var(--text-secondary); }
     .title { color: var(--text-primary); font-size: 1.9rem; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
-    .subtitle { font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 2rem; }
-    .projects { list-style: none; display: grid; gap: 0.7rem; }
-    .project {
-      display: block;
+    .subtitle { font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 1.5rem; }
+    .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 1rem 1.1rem;
-      text-decoration: none;
-      color: inherit;
+      padding: 1.2rem;
+      line-height: 1.7;
+      font-size: 0.9rem;
     }
-    .project:hover { border-color: var(--border-hover); }
-    .name { color: var(--text-primary); font-size: 0.95rem; margin-bottom: 0.35rem; }
-    .desc { color: var(--text-secondary); font-size: 0.78rem; line-height: 1.5; margin-bottom: 0.5rem; }
-    .meta { color: var(--text-tertiary); font-size: 0.7rem; }
-    .footer { margin-top: 2.5rem; color: var(--text-tertiary); font-size: 0.68rem; }
+    .footer { margin-top: 2rem; color: var(--text-tertiary); font-size: 0.68rem; }
   </style>
 </head>
 <body>
   <main class="container">
     <a class="back" href="/">← o5102o.com</a>
     <h1 class="title">by o5102o</h1>
-    <p class="subtitle">내가 만든 것들 / 프로젝트 모음</p>
+    <p class="subtitle">things i've built</p>
 
-    <ul class="projects">
-      <li>
-        <a class="project" href="https://github.com/jaylee1020/ku-notice-monitor" target="_blank" rel="noopener noreferrer">
-          <p class="name">ku-notice-monitor</p>
-          <p class="desc">건국대 공지 RSS를 수집해서 관심도 분석 후 텔레그램으로 알림 보내는 자동화 프로젝트.</p>
-          <p class="meta">Python · Automation · Telegram</p>
-        </a>
-      </li>
-      <li>
-        <a class="project" href="https://github.com/jaylee1020/Voice" target="_blank" rel="noopener noreferrer">
-          <p class="name">Voice</p>
-          <p class="desc">음성 중심 인터랙션을 다루는 TypeScript 기반 프로젝트.</p>
-          <p class="meta">TypeScript</p>
-        </a>
-      </li>
-      <li>
-        <a class="project" href="https://github.com/jaylee1020/intent" target="_blank" rel="noopener noreferrer">
-          <p class="name">intent</p>
-          <p class="desc">사용자 의도 처리 흐름을 실험하는 Swift 프로젝트.</p>
-          <p class="meta">Swift · iOS</p>
-        </a>
-      </li>
-      <li>
-        <a class="project" href="https://github.com/jaylee1020/o5102o.com" target="_blank" rel="noopener noreferrer">
-          <p class="name">o5102o.com</p>
-          <p class="desc">개인 웹사이트 및 포트폴리오 소스 코드.</p>
-          <p class="meta">HTML/CSS · Personal Site</p>
-        </a>
-      </li>
-    </ul>
+    <section class="card">
+      아직 공개한 프로젝트는 없습니다.<br>
+      준비되는 대로 여기에 업데이트할게요.
+    </section>
 
     <p class="footer">© 2026 o5102o · Seoul, KR</p>
   </main>
