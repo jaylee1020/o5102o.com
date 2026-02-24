@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="o5102o — developer">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta property="og:title" content="o5102o / card">
+  <meta property="og:description" content="developer">
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://info.o5102o.com">
+  <title>o5102o / card</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --card: #0e0e0e;
+      --fg: #e8e8e8;
+      --dim: #333;
+      --mid: #555;
+      --sub: #888;
+      --line: #181818;
+      --mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--mono);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── CARD ────────────────────────────────────── */
+    .card {
+      width: 100%;
+      max-width: 340px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      animation: up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── HEADER ──────────────────────────────────── */
+    .card-header {
+      margin-bottom: 2rem;
+    }
+
+    .card-name {
+      font-size: 1.875rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--fg);
+      margin-bottom: 0.375rem;
+    }
+
+    .card-role {
+      font-size: 0.75rem;
+      color: var(--mid);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── DIVIDER ─────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--line);
+      margin: 0 0 2rem;
+    }
+
+    /* ─── CONTACTS ────────────────────────────────── */
+    .contacts {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .contacts li {
+      border-top: 1px solid var(--line);
+    }
+
+    .contacts li:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contacts a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 0;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .contact-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .contact-key {
+      font-size: 0.5625rem;
+      color: var(--dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .contact-val {
+      font-size: 0.75rem;
+      color: var(--mid);
+      transition: color 0.15s;
+    }
+
+    .contacts a:hover .contact-val {
+      color: var(--fg);
+    }
+
+    .contact-arrow {
+      font-size: 0.6875rem;
+      color: var(--dim);
+      transition: color 0.15s, transform 0.15s;
+    }
+
+    .contacts a:hover .contact-arrow {
+      color: var(--sub);
+      transform: translateX(2px);
+    }
+
+    /* ─── FOOTER ──────────────────────────────────── */
+    .card-footer {
+      margin-top: 2rem;
+      font-size: 0.5625rem;
+      color: var(--dim);
+      letter-spacing: 0.08em;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ─── REDUCED MOTION ──────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .card { animation: none; opacity: 1; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
+
+    ::selection {
+      background: #1e1e1e;
+      color: var(--fg);
+    }
+  </style>
+</head>
+<body>
+
+  <article class="card">
+
+    <header class="card-header">
+      <h1 class="card-name">o5102o</h1>
+      <p class="card-role">developer</p>
+    </header>
+
+    <hr class="divider">
+
+    <ul class="contacts">
+      <li>
+        <a href="https://o5102o.com">
+          <span class="contact-left">
+            <span class="contact-key">web</span>
+            <span class="contact-val">o5102o.com</span>
+          </span>
+          <span class="contact-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://by.o5102o.com">
+          <span class="contact-left">
+            <span class="contact-key">portfolio</span>
+            <span class="contact-val">by.o5102o.com</span>
+          </span>
+          <span class="contact-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/o5102o" target="_blank" rel="noopener noreferrer">
+          <span class="contact-left">
+            <span class="contact-key">github</span>
+            <span class="contact-val">github.com/o5102o</span>
+          </span>
+          <span class="contact-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="mailto:hello@o5102o.com">
+          <span class="contact-left">
+            <span class="contact-key">email</span>
+            <span class="contact-val">hello@o5102o.com</span>
+          </span>
+          <span class="contact-arrow">→</span>
+        </a>
+      </li>
+    </ul>
+
+    <footer class="card-footer">
+      <span>o5102o</span>
+      <span>Seoul, KR</span>
+    </footer>
+
+  </article>
+
+</body>
+</html>
