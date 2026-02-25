@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="o5102o card">
-  <meta name="theme-color" content="#0a0a0a">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f7f7f7" media="(prefers-color-scheme: light)">
+  <meta name="color-scheme" content="dark light">
   <link rel="manifest" href="/manifest.json">
   <link rel="canonical" href="https://card.o5102o.com">
   <meta property="og:title" content="o5102o / card">
@@ -34,6 +36,7 @@
       --btn-bg: #d9d9d9;
       --btn-fg: #111;
       --select-bg: #1e1e1e;
+      --placeholder: #6f6f6f;
       --mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
     }
 
@@ -50,10 +53,12 @@
         --btn-bg: #111111;
         --btn-fg: #f7f7f7;
         --select-bg: #dcdcdc;
+        --placeholder: #8f8f8f;
       }
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { color-scheme: dark light; }
 
     body {
       background: var(--bg);
@@ -89,12 +94,17 @@
       color: var(--fg);
       font-size: 0.82rem;
       border-radius: 6px;
+      transition: background 0.15s ease;
+    }
+
+    li a:hover {
+      background: var(--bg);
     }
 
     li a:focus-visible {
       outline: 1px solid var(--sub);
       outline-offset: 2px;
-      background: var(--panel);
+      background: var(--bg);
     }
 
     label {
@@ -116,6 +126,8 @@
 
     input:focus { outline: none; border-color: var(--dim); }
 
+    input::placeholder { color: var(--placeholder); }
+
     input.invalid { border-color: #5e2a2a; }
 
     .hint { margin-top: 0.35rem; color: var(--mid); font-size: 0.68rem; }
@@ -135,6 +147,15 @@
       font-family: var(--mono);
       font-weight: 700;
       cursor: pointer;
+      transition: transform 0.1s ease, opacity 0.15s ease;
+    }
+
+    button:active { transform: translateY(1px); }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
     }
 
     button:focus-visible { outline: 1px solid var(--dim); outline-offset: 2px; }
@@ -160,7 +181,7 @@
   <main class="wrap">
     <section class="box">
       <h1>o5102o</h1>
-      <p class="sub">이주영 (Jay) · 컴퓨터공학부 2학년</p>
+      <p class="sub">이주영 (Jay) · 컴퓨터공학부</p>
       <ul>
         <li><a href="https://o5102o.com"><span>web</span><span>o5102o.com</span></a></li>
         <li><a href="https://by.o5102o.com"><span>portfolio</span><span>by.o5102o.com</span></a></li>
@@ -172,7 +193,7 @@
 
     <section class="box">
       <h1 style="font-size:1.05rem;letter-spacing:0">연락처 남기기</h1>
-      <form id="contactForm">
+      <form id="contactForm" aria-busy="false">
         <label for="name">이름 *</label>
         <input id="name" name="name" placeholder="홍길동" autocomplete="name" required aria-describedby="hint" aria-invalid="false" />
 
@@ -182,9 +203,9 @@
         <label for="place">만난 곳 (선택)</label>
         <input id="place" name="place" placeholder="예: 해커톤" autocomplete="off" />
 
-        <p id="hint" class="hint">* 제출하면 DB에 자동 저장됩니다.</p>
+        <p id="hint" class="hint">* API 연결 시 자동 저장, 미연결 시 이메일 전송으로 전환됩니다.</p>
         <p id="message" class="msg" aria-live="polite"></p>
-        <button type="submit">보내기</button>
+        <button id="submitButton" type="submit">보내기</button>
       </form>
     </section>
   </main>
@@ -195,11 +216,14 @@
     const phoneInput = document.getElementById('phone');
     const placeInput = document.getElementById('place');
     const messageEl = document.getElementById('message');
+    const submitButton = document.getElementById('submitButton');
 
-    // Required DB API mode:
+    let isSubmitting = false;
+
+    // API mode:
     // - Set CONTACT_API_URL to your endpoint (POST JSON)
     // - Optional CONTACT_API_KEY for Bearer auth
-    // If unset, submission is blocked (no mail fallback)
+    // - If unset/failure, mailto fallback opens
     const CONTACT_API_URL = window.CONTACT_API_URL || '';
     const CONTACT_API_KEY = window.CONTACT_API_KEY || '';
 
@@ -211,6 +235,13 @@
     function clearFieldError(field) {
       field.classList.remove('invalid');
       field.setAttribute('aria-invalid', 'false');
+    }
+
+    function setSubmitting(next) {
+      isSubmitting = next;
+      submitButton.disabled = next;
+      submitButton.textContent = next ? '저장 중...' : '보내기';
+      contactForm.setAttribute('aria-busy', next ? 'true' : 'false');
     }
 
     function getPayload() {
@@ -277,6 +308,8 @@
     contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
+      if (isSubmitting) return;
+
       const payload = getPayload();
 
       if (!payload.name) {
@@ -300,6 +333,7 @@
       }
 
       try {
+        setSubmitting(true);
         setMessage('저장 중...', 'ok');
         const result = await saveToDatabase(payload);
         if (result.fallback === 'mailto') {
@@ -313,6 +347,8 @@
         const mailtoLink = buildMailtoFallback(payload);
         messageEl.innerHTML = '저장 실패. <a href="' + mailtoLink + '" style="color:#9acb9a;text-decoration:underline">이메일로 보내기</a>';
         messageEl.className = 'msg error';
+      } finally {
+        setSubmitting(false);
       }
     });
   </script>

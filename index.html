@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="o5102o — developer">
-  <meta name="theme-color" content="#0a0a0a">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f7f7f7" media="(prefers-color-scheme: light)">
+  <meta name="color-scheme" content="dark light">
   <link rel="manifest" href="/manifest.json">
   <link rel="canonical" href="https://o5102o.com">
   <meta property="og:title" content="o5102o">
@@ -30,6 +32,8 @@
       --sub: #888;
       --line: #141414;
       --panel: #0f0f0f;
+      --accent: #3f8a57;
+      --select-bg: #1e1e1e;
       --mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
     }
 
@@ -42,12 +46,17 @@
         --sub: #444;
         --line: #e7e7e7;
         --panel: #efefef;
+        --accent: #2f7a4f;
+        --select-bg: #dcdcdc;
       }
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { font-size: 16px; }
+    html {
+      font-size: 16px;
+      color-scheme: dark light;
+    }
 
     body {
       background: var(--bg);
@@ -57,6 +66,26 @@
       display: grid;
       grid-template-rows: auto 1fr auto;
       -webkit-font-smoothing: antialiased;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -3rem;
+      background: var(--panel);
+      color: var(--fg);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-size: 0.72rem;
+      padding: 0.55rem 0.75rem;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    .skip-link:focus-visible {
+      top: 1rem;
+      outline: 1px solid var(--sub);
+      outline-offset: 2px;
     }
 
     /* ─── NAV ─────────────────────────────────────── */
@@ -96,8 +125,8 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: #2a5a2a;
-      box-shadow: 0 0 6px #2a5a2a;
+      background: var(--accent);
+      box-shadow: 0 0 6px var(--accent);
     }
 
     /* ─── MAIN ────────────────────────────────────── */
@@ -190,7 +219,7 @@
       text-decoration: none;
       color: inherit;
       border-radius: 6px;
-      transition: background 0.15s;
+      transition: background 0.15s, transform 0.1s;
     }
 
     .link-key {
@@ -208,6 +237,10 @@
 
     .links a:hover {
       background: var(--panel);
+    }
+
+    .links a:active {
+      transform: translateY(1px);
     }
 
     .links a:hover .link-key {
@@ -288,12 +321,13 @@
     }
 
     ::selection {
-      background: #1e1e1e;
+      background: var(--select-bg);
       color: var(--fg);
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
 
   <nav>
     <span class="nav-id">o5102o.com</span>
@@ -302,7 +336,7 @@
     </div>
   </nav>
 
-  <main>
+  <main id="main-content">
 
     <section class="hero">
       <h1 class="handle">이주영(Jay)</h1>
