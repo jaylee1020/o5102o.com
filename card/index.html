@@ -57,10 +57,10 @@
       <h1 style="font-size:1.05rem;letter-spacing:0">연락처 남기기</h1>
       <form id="contactForm">
         <label for="name">이름 *</label>
-        <input id="name" name="name" placeholder="홍길동" autocomplete="name" required aria-describedby="hint" />
+        <input id="name" name="name" placeholder="홍길동" autocomplete="name" required aria-describedby="hint" aria-invalid="false" />
 
         <label for="phone">전화번호 (선택)</label>
-        <input id="phone" name="phone" type="tel" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" />
+        <input id="phone" name="phone" type="tel" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" aria-invalid="false" />
 
         <label for="place">만난 곳 (선택)</label>
         <input id="place" name="place" placeholder="예: 해커톤" autocomplete="off" />
@@ -93,6 +93,7 @@
 
     function clearFieldError(field) {
       field.classList.remove('invalid');
+      field.setAttribute('aria-invalid', 'false');
     }
 
     function getPayload() {
@@ -150,6 +151,7 @@
 
       if (!payload.name) {
         nameInput.classList.add('invalid');
+        nameInput.setAttribute('aria-invalid', 'true');
         setMessage('이름을 입력해 주세요.', 'error');
         nameInput.focus();
         return;
@@ -157,6 +159,7 @@
 
       if (payload.phone && !/^[0-9+\-\s()]{7,20}$/.test(payload.phone)) {
         phoneInput.classList.add('invalid');
+        phoneInput.setAttribute('aria-invalid', 'true');
         setMessage('전화번호 형식을 확인해 주세요. (숫자, +, -, 공백 가능)', 'error');
         phoneInput.focus();
         return;
