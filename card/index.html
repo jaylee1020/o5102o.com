@@ -107,6 +107,30 @@
       text-transform: uppercase;
     }
 
+    .profile-box {
+      padding: calc(var(--space-4) + 0.1rem) var(--space-4);
+    }
+
+    .profile-box h1 {
+      font-size: clamp(1.45rem, 5.8vw, 1.75rem);
+      letter-spacing: -0.02em;
+    }
+
+    .profile-box .sub {
+      margin-top: 0.35rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+    }
+
+    .profile-box ul {
+      margin-top: var(--space-2);
+    }
+
+    .profile-box li a {
+      padding: 0.58rem 0;
+      font-size: 0.74rem;
+    }
+
     .form-title {
       font-family: var(--font-ui);
       font-size: 0.95rem;
@@ -211,6 +235,9 @@
     @media (max-width: 420px) {
       body { padding: var(--space-4); }
       .box { padding: var(--space-4); border-radius: var(--radius-md); }
+      .profile-box { padding: 0.9rem; }
+      .profile-box .sub { font-size: 0.64rem; }
+      .profile-box li a { padding: 0.52rem 0; font-size: 0.72rem; }
       h1 { font-size: 1.75rem; }
       li a { font-size: 0.74rem; }
     }
@@ -229,7 +256,7 @@
 </head>
 <body>
   <main class="wrap">
-    <section class="box">
+    <section class="box profile-box">
       <h1>o5102o</h1>
       <p class="sub">이주영 (Jay) · 컴퓨터공학부</p>
       <ul>
