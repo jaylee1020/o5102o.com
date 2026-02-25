@@ -33,6 +33,16 @@
       --mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
     }
 
+    body[data-theme="light"] {
+      --bg: #f7f7f7;
+      --fg: #111111;
+      --dim: #8a8a8a;
+      --mid: #5f5f5f;
+      --sub: #444;
+      --line: #e7e7e7;
+      --panel: #efefef;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html { font-size: 16px; }
@@ -70,6 +80,35 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .theme-toggle {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--mid);
+      font-family: var(--mono);
+      font-size: 0.625rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .theme-toggle:hover {
+      background: var(--panel);
+      color: var(--fg);
+    }
+
+    .theme-toggle:focus-visible {
+      outline: 1px solid var(--sub);
+      outline-offset: 2px;
     }
 
     .nav-status::before {
@@ -279,7 +318,10 @@
 
   <nav>
     <span class="nav-id">o5102o.com</span>
-    <span class="nav-status">open to work</span>
+    <div class="nav-right">
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="테마 전환">light</button>
+      <span class="nav-status">open to work</span>
+    </div>
   </nav>
 
   <main>
@@ -345,6 +387,31 @@
     <span>© 2026 o5102o</span>
     <span>Seoul, KR</span>
   </footer>
+
+  <script>
+    const STORAGE_KEY = 'o5102o-theme';
+    const themeToggle = document.getElementById('themeToggle');
+
+    function applyTheme(theme) {
+      document.body.setAttribute('data-theme', theme);
+      themeToggle.textContent = theme === 'dark' ? 'light' : 'dark';
+    }
+
+    function getInitialTheme() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved === 'dark' || saved === 'light') return saved;
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+
+    let currentTheme = getInitialTheme();
+    applyTheme(currentTheme);
+
+    themeToggle.addEventListener('click', () => {
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem(STORAGE_KEY, currentTheme);
+      applyTheme(currentTheme);
+    });
+  </script>
 
 </body>
 </html>
