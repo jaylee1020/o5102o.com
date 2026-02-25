@@ -425,7 +425,13 @@
       } catch (error) {
         console.error(error);
         const mailtoLink = buildMailtoFallback(payload);
-        messageEl.innerHTML = '저장 실패. <a href="' + mailtoLink + '" style="color:#9acb9a;text-decoration:underline">이메일로 보내기</a>';
+        messageEl.textContent = '저장 실패. ';
+        const fallbackLink = document.createElement('a');
+        fallbackLink.href = mailtoLink;
+        fallbackLink.textContent = '이메일로 보내기';
+        fallbackLink.style.color = '#9acb9a';
+        fallbackLink.style.textDecoration = 'underline';
+        messageEl.appendChild(fallbackLink);
         messageEl.className = 'msg error';
       } finally {
         setSubmitting(false);
