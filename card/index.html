@@ -120,13 +120,16 @@
       display: flex;
       justify-content: space-between;
       padding: var(--space-3) 0;
-      border-top: 1px solid var(--line);
       text-decoration: none;
       color: var(--fg);
       font-family: var(--font-ui);
       font-size: 0.78rem;
       border-radius: var(--radius-sm);
       transition: background 0.15s ease;
+    }
+
+    li + li a {
+      border-top: 1px solid var(--line);
     }
 
     li a:hover {
