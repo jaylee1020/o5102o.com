@@ -79,6 +79,13 @@
     const placeInput = document.getElementById('place');
     const messageEl = document.getElementById('message');
 
+    // Optional API mode (recommended):
+    // 1) Set CONTACT_API_URL to your endpoint
+    // 2) Endpoint should accept POST JSON and return 2xx on success
+    // 3) If unset/fails, this page falls back to mailto
+    const CONTACT_API_URL = window.CONTACT_API_URL || '';
+    const CONTACT_API_KEY = window.CONTACT_API_KEY || '';
+
     function setMessage(text, type) {
       messageEl.textContent = text || '';
       messageEl.className = `msg${type ? ` ${type}` : ''}`;
@@ -86,6 +93,51 @@
 
     function clearFieldError(field) {
       field.classList.remove('invalid');
+    }
+
+    function getPayload() {
+      return {
+        name: nameInput.value.trim(),
+        phone: phoneInput.value.trim() || null,
+        place: placeInput.value.trim() || null,
+        source: 'card.o5102o.com',
+        createdAt: new Date().toISOString()
+      };
+    }
+
+    async function saveToDatabase(payload) {
+      if (!CONTACT_API_URL) return { skipped: true };
+
+      const headers = {
+        'Content-Type': 'application/json'
+      };
+
+      if (CONTACT_API_KEY) {
+        headers['Authorization'] = `Bearer ${CONTACT_API_KEY}`;
+      }
+
+      const response = await fetch(CONTACT_API_URL, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        const text = await response.text().catch(() => '');
+        throw new Error(text || `HTTP ${response.status}`);
+      }
+
+      return { ok: true };
+    }
+
+    function sendMail(payload) {
+      const body = [
+        `이름: ${payload.name}`,
+        `연락처: ${payload.phone || '미기재'}`,
+        `장소: ${payload.place || '-'}`
+      ].join('\n');
+
+      window.location.href = `mailto:jyounglee1020@gmail.com?subject=${encodeURIComponent('card contact')}&body=${encodeURIComponent(body)}`;
     }
 
     nameInput.addEventListener('input', () => {
@@ -98,39 +150,43 @@
       setMessage('');
     });
 
-    contactForm.addEventListener('submit', (event) => {
+    contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
-      sendMail();
-    });
 
-    function sendMail() {
-      const name = nameInput.value.trim();
-      const phone = phoneInput.value.trim();
-      const place = placeInput.value.trim();
+      const payload = getPayload();
 
-      if (!name) {
+      if (!payload.name) {
         nameInput.classList.add('invalid');
         setMessage('이름을 입력해 주세요.', 'error');
         nameInput.focus();
         return;
       }
 
-      if (phone && !/^[0-9+\-\s()]{7,20}$/.test(phone)) {
+      if (payload.phone && !/^[0-9+\-\s()]{7,20}$/.test(payload.phone)) {
         phoneInput.classList.add('invalid');
         setMessage('전화번호 형식을 확인해 주세요. (숫자, +, -, 공백 가능)', 'error');
         phoneInput.focus();
         return;
       }
 
-      const body = [
-        `이름: ${name}`,
-        `연락처: ${phone || '미기재'}`,
-        `장소: ${place || '-'}`
-      ].join('\n');
+      try {
+        setMessage('저장 중...', 'ok');
+        const result = await saveToDatabase(payload);
 
-      setMessage('메일 앱을 여는 중...', 'ok');
-      window.location.href = `mailto:jyounglee1020@gmail.com?subject=${encodeURIComponent('card contact')}&body=${encodeURIComponent(body)}`;
-    }
+        if (result.skipped) {
+          setMessage('DB 연결이 없어 메일 앱을 열어요...', 'ok');
+          sendMail(payload);
+          return;
+        }
+
+        setMessage('저장 완료. 감사합니다!', 'ok');
+        contactForm.reset();
+      } catch (error) {
+        console.error(error);
+        setMessage('저장 실패. 메일 방식으로 전환합니다.', 'error');
+        sendMail(payload);
+      }
+    });
   </script>
 </body>
 </html>
