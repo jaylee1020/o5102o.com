@@ -271,13 +271,13 @@
       <h1 class="form-title">연락처 남기기</h1>
       <form id="contactForm" aria-busy="false">
         <label for="name">이름 *</label>
-        <input id="name" name="name" placeholder="홍길동" autocomplete="name" required aria-describedby="hint" aria-invalid="false" maxlength="40" />
+        <input id="name" name="name" placeholder="홍길동" autocomplete="name" required aria-describedby="hint" aria-invalid="false" maxlength="40" enterkeyhint="next" />
 
         <label for="phone">전화번호 (선택)</label>
-        <input id="phone" name="phone" type="tel" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" aria-invalid="false" maxlength="20" />
+        <input id="phone" name="phone" type="tel" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" aria-invalid="false" maxlength="20" enterkeyhint="next" />
 
         <label for="place">만난 곳 (선택)</label>
-        <input id="place" name="place" placeholder="예: 해커톤" autocomplete="off" maxlength="60" />
+        <input id="place" name="place" placeholder="예: 해커톤" autocomplete="off" maxlength="60" enterkeyhint="send" />
 
         <p id="hint" class="hint">* API 연결 시 자동 저장, 미연결 시 이메일 전송으로 전환됩니다.</p>
         <p id="message" class="msg" role="status" aria-live="polite" aria-atomic="true"></p>
