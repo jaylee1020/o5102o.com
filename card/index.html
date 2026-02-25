@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="o5102o card">
   <meta name="theme-color" content="#0a0a0a">
+  <link rel="manifest" href="/manifest.json">
   <link rel="canonical" href="https://card.o5102o.com">
   <meta property="og:title" content="o5102o / card">
   <meta property="og:description" content="developer card + contact">
@@ -12,32 +13,127 @@
   <meta property="og:url" content="https://card.o5102o.com">
   <meta property="og:site_name" content="o5102o">
   <meta property="og:locale" content="ko_KR">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://o5102o.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="o5102o / card">
   <meta name="twitter:description" content="developer card + contact">
+  <meta name="twitter:image" content="https://o5102o.com/og-image.png">
   <title>o5102o / card</title>
   <style>
-    :root{--bg:#0a0a0a;--card:#0f0f0f;--fg:#e8e8e8;--mid:#8a8a8a;--line:#1d1d1d;--mono:"SF Mono","Fira Code","Roboto Mono",monospace}
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{background:var(--bg);color:var(--fg);font-family:var(--mono);padding:2rem;display:flex;justify-content:center}
-    .wrap{width:100%;max-width:420px;display:grid;gap:1rem}
-    .box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.25rem}
-    h1{font-size:1.7rem;letter-spacing:-.04em}
-    .sub{color:var(--mid);font-size:.78rem;margin-top:.4rem}
-    ul{list-style:none;margin-top:.8rem}
-    li a{display:flex;justify-content:space-between;padding:.7rem 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);font-size:.82rem;border-radius:6px}
-    li a:focus-visible{outline:1px solid #4a4a4a;outline-offset:2px;background:#121212}
-    label{font-size:.72rem;color:var(--mid);display:block;margin:.7rem 0 .35rem}
-    input{width:100%;background:#111;border:1px solid #222;color:var(--fg);padding:.7rem;border-radius:8px}
-    input:focus{outline:none;border-color:#3b3b3b}
-    input.invalid{border-color:#5e2a2a}
-    .hint{margin-top:.35rem;color:#777;font-size:.68rem}
-    .msg{margin-top:.7rem;font-size:.72rem;min-height:1.1em}
-    .msg.error{color:#d08a8a}
-    .msg.ok{color:#9acb9a}
-    button{margin-top:.9rem;width:100%;padding:.78rem;border:0;border-radius:8px;background:#d9d9d9;color:#111;font-weight:700;cursor:pointer}
-    button:focus-visible{outline:1px solid #bdbdbd;outline-offset:2px}
-    @media (max-width:420px){body{padding:1rem}.box{padding:1rem;border-radius:10px}}
+    :root {
+      --bg: #0a0a0a;
+      --fg: #e8e8e8;
+      --dim: #3a3a3a;
+      --mid: #555;
+      --sub: #888;
+      --line: #141414;
+      --panel: #0f0f0f;
+      --mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--mono);
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap { width: 100%; max-width: 420px; display: grid; gap: 1rem; }
+
+    .box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    h1 { font-size: 1.7rem; letter-spacing: -0.04em; }
+
+    .sub { color: var(--sub); font-size: 0.78rem; margin-top: 0.4rem; }
+
+    ul { list-style: none; margin-top: 0.8rem; }
+
+    li a {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.7rem 0;
+      border-top: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--fg);
+      font-size: 0.82rem;
+      border-radius: 6px;
+    }
+
+    li a:focus-visible {
+      outline: 1px solid var(--sub);
+      outline-offset: 2px;
+      background: var(--panel);
+    }
+
+    label {
+      font-size: 0.72rem;
+      color: var(--sub);
+      display: block;
+      margin: 0.7rem 0 0.35rem;
+    }
+
+    input {
+      width: 100%;
+      background: #111;
+      border: 1px solid var(--line);
+      color: var(--fg);
+      padding: 0.7rem;
+      border-radius: 8px;
+      font-family: var(--mono);
+    }
+
+    input:focus { outline: none; border-color: var(--dim); }
+
+    input.invalid { border-color: #5e2a2a; }
+
+    .hint { margin-top: 0.35rem; color: var(--mid); font-size: 0.68rem; }
+
+    .msg { margin-top: 0.7rem; font-size: 0.72rem; min-height: 1.1em; }
+    .msg.error { color: #d08a8a; }
+    .msg.ok { color: #9acb9a; }
+
+    button {
+      margin-top: 0.9rem;
+      width: 100%;
+      padding: 0.78rem;
+      border: 0;
+      border-radius: 8px;
+      background: #d9d9d9;
+      color: #111;
+      font-family: var(--mono);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:focus-visible { outline: 1px solid #bdbdbd; outline-offset: 2px; }
+
+    @media (max-width: 420px) {
+      body { padding: 1rem; }
+      .box { padding: 1rem; border-radius: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    ::selection {
+      background: #1e1e1e;
+      color: var(--fg);
+    }
   </style>
 </head>
 <body>
@@ -107,9 +203,22 @@
       };
     }
 
+    function buildMailtoFallback(payload) {
+      const subject = encodeURIComponent(`[card.o5102o.com] ${payload.name}님의 연락처`);
+      const body = encodeURIComponent(
+        `이름: ${payload.name}\n` +
+        `전화번호: ${payload.phone || '미입력'}\n` +
+        `만난 곳: ${payload.place || '미입력'}\n` +
+        `시간: ${payload.createdAt}`
+      );
+      return `mailto:jyounglee1020@gmail.com?subject=${subject}&body=${body}`;
+    }
+
     async function saveToDatabase(payload) {
       if (!CONTACT_API_URL) {
-        throw new Error('CONTACT_API_URL is not configured');
+        const mailtoLink = buildMailtoFallback(payload);
+        window.location.href = mailtoLink;
+        return { ok: true, fallback: 'mailto' };
       }
 
       const headers = {
@@ -158,22 +267,32 @@
         return;
       }
 
-      if (payload.phone && !/^[0-9+\-\s()]{7,20}$/.test(payload.phone)) {
-        phoneInput.classList.add('invalid');
-        phoneInput.setAttribute('aria-invalid', 'true');
-        setMessage('전화번호 형식을 확인해 주세요. (숫자, +, -, 공백 가능)', 'error');
-        phoneInput.focus();
-        return;
+      if (payload.phone) {
+        const digits = payload.phone.replace(/[\s\-()]/g, '');
+        const isValid = /^(01[016789]\d{7,8}|0[2-6][1-9]\d{6,7}|\+82\d{9,10})$/.test(digits);
+        if (!isValid) {
+          phoneInput.classList.add('invalid');
+          phoneInput.setAttribute('aria-invalid', 'true');
+          setMessage('올바른 전화번호를 입력해 주세요. (예: 010-1234-5678)', 'error');
+          phoneInput.focus();
+          return;
+        }
       }
 
       try {
         setMessage('저장 중...', 'ok');
-        await saveToDatabase(payload);
-        setMessage('저장 완료. 감사합니다!', 'ok');
+        const result = await saveToDatabase(payload);
+        if (result.fallback === 'mailto') {
+          setMessage('이메일 앱이 열립니다. 전송해 주세요!', 'ok');
+        } else {
+          setMessage('저장 완료. 감사합니다!', 'ok');
+        }
         contactForm.reset();
       } catch (error) {
         console.error(error);
-        setMessage('저장 실패: 관리자 DB 연결 설정을 확인해 주세요.', 'error');
+        const mailtoLink = buildMailtoFallback(payload);
+        messageEl.innerHTML = '저장 실패. <a href="' + mailtoLink + '" style="color:#9acb9a;text-decoration:underline">이메일로 보내기</a>';
+        messageEl.className = 'msg error';
       }
     });
   </script>
