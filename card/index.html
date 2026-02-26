@@ -89,6 +89,19 @@
 
     .wrap { width: 100%; max-width: 460px; display: grid; gap: var(--space-4); }
 
+    .back {
+      font-family: var(--font-ui);
+      color: var(--mid);
+      text-decoration: none;
+      font-size: 0.75rem;
+      display: inline-block;
+      margin-bottom: var(--space-2);
+      border-radius: var(--radius-sm);
+    }
+
+    .back:hover { color: var(--sub); }
+    .back:focus-visible { outline: 1px solid var(--sub); outline-offset: 2px; color: var(--fg); }
+
     .box {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -260,6 +273,8 @@
 </head>
 <body>
   <main class="wrap">
+    <a class="back" href="https://o5102o.com">← o5102o.com</a>
+
     <section class="box profile-box">
       <h1>o5102o</h1>
       <p class="sub">이주영 (Jay) · 컴퓨터공학부 2학년</p>
