@@ -23,6 +23,11 @@
   <meta name="twitter:description" content="developer card + contact">
   <meta name="twitter:image" content="https://o5102o.com/og-image.png">
   <title>o5102o / card</title>
+  <script>
+    if (location.hostname === 'o5102o.com' || location.hostname === 'www.o5102o.com') {
+      location.replace(`https://card.o5102o.com${location.search}${location.hash}`);
+    }
+  </script>
   <style>
     :root {
       --bg: #0a0a0a;
