@@ -41,7 +41,7 @@ o5102o.com/
 ## Design
 
 - Dark theme (`#0a0a0a` background)
-- Monospace font stack (SF Mono, Fira Code, Fira Mono, Roboto Mono)
+- System UI font stack with monospace fallback (ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas)
 - Responsive — mobile-first
 - Accessible — `prefers-reduced-motion` support, keyboard navigation, focus states
 
