@@ -48,7 +48,7 @@
       --space-4: 1rem;
       --space-5: 1.5rem;
       --space-6: 2rem;
-      --radius-sm: 8px;
+      --radius-sm: 6px;
       --radius-md: 12px;
     }
 
@@ -421,7 +421,12 @@
       } catch (error) {
         console.error(error);
         const mailtoLink = buildMailtoFallback(payload);
-        messageEl.innerHTML = '저장 실패. <a href="' + mailtoLink + '" style="color:#9acb9a;text-decoration:underline">이메일로 보내기</a>';
+        const linkEl = document.createElement('a');
+        linkEl.href = mailtoLink;
+        linkEl.textContent = '이메일로 보내기';
+        linkEl.style.cssText = 'color:#9acb9a;text-decoration:underline';
+        messageEl.textContent = '';
+        messageEl.append('저장 실패. ', linkEl);
         messageEl.className = 'msg error';
       } finally {
         setSubmitting(false);

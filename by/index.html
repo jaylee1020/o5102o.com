@@ -143,6 +143,11 @@
         margin-bottom: var(--space-4);
       }
     }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -154,7 +159,7 @@
     <section class="card">
       아직 공개한 프로젝트는 없습니다.<br>
       준비되는 대로 여기에 업데이트할게요.<br>
-      <a class="social-link" href="https://www.instagram.com/by.o5102o?igsh=YWl2NjdnNnBha2g%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">📷 @by.o5102o</a>
+      <a class="social-link" href="https://www.instagram.com/by.o5102o" target="_blank" rel="noopener noreferrer" aria-label="Instagram: @by.o5102o"><span aria-hidden="true">📷</span> @by.o5102o</a>
     </section>
 
     <p class="footer">© 2026 o5102o · Seoul, KR</p>
