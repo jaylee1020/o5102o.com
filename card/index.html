@@ -48,13 +48,16 @@
       --font-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
+      --space-1: 0.25rem;
       --space-2: 0.5rem;
       --space-3: 0.75rem;
       --space-4: 1rem;
       --space-5: 1.5rem;
       --space-6: 2rem;
-      --radius-sm: 8px;
-      --radius-md: 12px;
+      --space-7: 3rem;
+      --space-8: 5rem;
+      --radius-sm: 6px;
+      --radius-md: 10px;
     }
 
     @media (prefers-color-scheme: light) {
@@ -77,10 +80,32 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { color-scheme: dark light; }
 
+    .skip-link {
+      position: absolute;
+      left: var(--space-4);
+      top: -3rem;
+      background: var(--panel);
+      color: var(--fg);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      padding: 0.55rem var(--space-3);
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    .skip-link:focus-visible {
+      top: 1rem;
+      outline: 1px solid var(--sub);
+      outline-offset: 2px;
+    }
+
     body {
       background: var(--bg);
       color: var(--fg);
       font-family: var(--font-body);
+      min-height: 100vh;
       padding: var(--space-6);
       display: flex;
       justify-content: center;
@@ -147,7 +172,7 @@
     }
 
     .profile-box li a {
-      padding: 0.5rem 0.28rem;
+      padding: 0.5rem 0.5rem;
       font-size: 0.74rem;
     }
 
@@ -171,7 +196,6 @@
       border-radius: var(--radius-sm);
       transition: background 0.15s ease;
     }
-
 
     li a:hover {
       background: var(--bg);
@@ -221,6 +245,7 @@
     .msg { margin-top: var(--space-3); font-size: 0.72rem; min-height: 1.1em; }
     .msg.error { color: #d08a8a; }
     .msg.ok { color: #9acb9a; }
+    .msg a.fallback-link { color: #9acb9a; text-decoration: underline; }
 
     button {
       margin-top: var(--space-4);
@@ -254,7 +279,7 @@
       .box { padding: var(--space-4); border-radius: var(--radius-md); }
       .profile-box { padding: 0.9rem; }
       .profile-box .sub { font-size: 0.64rem; }
-      .profile-box li a { padding: 0.52rem 0; font-size: 0.72rem; }
+      .profile-box li a { padding: 0.52rem 0.4rem; font-size: 0.72rem; }
       h1 { font-size: 1.75rem; }
       li a { font-size: 0.74rem; }
     }
@@ -272,7 +297,8 @@
   </style>
 </head>
 <body>
-  <main class="wrap">
+  <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
+  <main id="main-content" class="wrap">
     <a class="back" href="https://o5102o.com">← o5102o.com</a>
 
     <section class="box profile-box">
@@ -297,7 +323,7 @@
         <input id="phone" name="phone" type="tel" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" aria-describedby="hint" aria-invalid="false" maxlength="20" enterkeyhint="next" />
 
         <label for="place">만난 곳 (선택)</label>
-        <input id="place" name="place" placeholder="예: 해커톤" autocomplete="off" aria-describedby="hint" maxlength="60" enterkeyhint="send" />
+        <input id="place" name="place" placeholder="예: 해커톤" autocomplete="off" aria-describedby="hint" aria-invalid="false" maxlength="60" enterkeyhint="send" />
 
         <p id="hint" class="hint">* API 연결 시 자동 저장, 미연결 시 이메일 전송으로 전환됩니다.</p>
         <p id="message" class="msg" role="status" aria-live="polite" aria-atomic="true"></p>
@@ -449,8 +475,7 @@
         const fallbackLink = document.createElement('a');
         fallbackLink.href = mailtoLink;
         fallbackLink.textContent = '이메일로 보내기';
-        fallbackLink.style.color = '#9acb9a';
-        fallbackLink.style.textDecoration = 'underline';
+        fallbackLink.className = 'fallback-link';
         messageEl.appendChild(fallbackLink);
         messageEl.className = 'msg error';
       } finally {
