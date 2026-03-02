@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="o5102o developer card and contact form">
+  <meta name="description" content="o5102o — developer card &amp; contact">
   <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#f7f7f7" media="(prefers-color-scheme: light)">
   <meta name="color-scheme" content="dark light">
@@ -29,6 +29,7 @@
     }
   </script>
   <style>
+    /* ─── DESIGN TOKENS ──────────────────────────────── */
     :root {
       --bg: #0a0a0a;
       --fg: #e8e8e8;
@@ -37,22 +38,19 @@
       --sub: #8f8f8f;
       --line: #141414;
       --panel: #0f0f0f;
+      --accent: #3f8a57;
+      --accent-dim: rgba(63, 138, 87, 0.15);
       --input-bg: #111;
       --btn-bg: #d9d9d9;
       --btn-fg: #111;
       --select-bg: #1e1e1e;
       --placeholder: #6f6f6f;
 
-      --font-display: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --font-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-      --space-2: 0.5rem;
-      --space-3: 0.75rem;
-      --space-4: 1rem;
-      --space-5: 1.5rem;
-      --space-6: 2rem;
+      --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+      --space-5: 1.5rem; --space-6: 2rem;
       --radius-sm: 8px;
       --radius-md: 12px;
     }
@@ -66,6 +64,8 @@
         --sub: #464646;
         --line: #e7e7e7;
         --panel: #efefef;
+        --accent: #2f7a4f;
+        --accent-dim: rgba(47, 122, 79, 0.12);
         --input-bg: #ffffff;
         --btn-bg: #111111;
         --btn-fg: #f7f7f7;
@@ -74,32 +74,45 @@
       }
     }
 
+    /* ─── RESET ──────────────────────────────────────── */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { color-scheme: dark light; }
 
     body {
       background: var(--bg);
       color: var(--fg);
-      font-family: var(--font-body);
+      font-family: var(--font-sans);
       padding: var(--space-6);
       display: flex;
       justify-content: center;
       -webkit-font-smoothing: antialiased;
     }
 
-    .wrap { width: 100%; max-width: 460px; display: grid; gap: var(--space-4); }
+    /* ─── ANIMATIONS ─────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 460px;
+      display: grid;
+      gap: var(--space-4);
+    }
 
     .back {
-      font-family: var(--font-ui);
       color: var(--mid);
       text-decoration: none;
       font-size: 0.75rem;
       display: inline-block;
       margin-bottom: var(--space-2);
       border-radius: var(--radius-sm);
+      transition: color 0.15s;
+      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
-    .back:hover { color: var(--sub); }
+    .back:hover { color: var(--fg); }
     .back:focus-visible { outline: 1px solid var(--sub); outline-offset: 2px; color: var(--fg); }
 
     .box {
@@ -107,10 +120,10 @@
       border: 1px solid var(--line);
       border-radius: var(--radius-md);
       padding: var(--space-5);
+      animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s) both;
     }
 
     h1 {
-      font-family: var(--font-display);
       font-size: clamp(1.8rem, 6vw, 2.2rem);
       letter-spacing: -0.03em;
       line-height: 1.05;
@@ -118,15 +131,16 @@
 
     .sub {
       color: var(--sub);
-      font-family: var(--font-ui);
       font-size: 0.75rem;
       margin-top: var(--space-2);
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
+    /* ─── PROFILE BOX ────────────────────────────────── */
     .profile-box {
       padding: calc(var(--space-4) + 0.1rem) var(--space-4);
+      --delay: 0.05s;
     }
 
     .profile-box h1 {
@@ -141,6 +155,7 @@
     }
 
     .profile-box ul {
+      list-style: none;
       margin-top: var(--space-2);
       display: grid;
       gap: 0.15rem;
@@ -151,40 +166,125 @@
       font-size: 0.74rem;
     }
 
-    .form-title {
-      font-family: var(--font-ui);
-      font-size: 0.95rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    ul { list-style: none; margin-top: var(--space-3); }
-
     li a {
       display: flex;
       justify-content: space-between;
       padding: var(--space-3) 0;
       text-decoration: none;
       color: var(--fg);
-      font-family: var(--font-ui);
       font-size: 0.78rem;
       border-radius: var(--radius-sm);
-      transition: background 0.15s ease;
+      transition: background 0.15s, padding-left 0.15s;
     }
-
 
     li a:hover {
       background: var(--bg);
+      padding-left: 4px;
     }
 
+    li a:hover span:first-child { color: var(--accent); }
+
     li a:focus-visible {
-      outline: 1px solid var(--sub);
+      outline: 1px solid var(--accent);
       outline-offset: 2px;
       background: var(--bg);
     }
 
+    /* ─── SAVE CONTACT SECTION ───────────────────────── */
+    .save-box {
+      --delay: 0.1s;
+      text-align: center;
+    }
+
+    .save-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: var(--space-2);
+    }
+
+    .save-desc {
+      font-size: 0.7rem;
+      color: var(--sub);
+      margin-bottom: var(--space-4);
+      letter-spacing: 0.03em;
+    }
+
+    .save-actions {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .action-btn {
+      width: 100%;
+      padding: 0.78rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+    }
+
+    .action-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .action-btn:active { transform: translateY(1px); }
+
+    .action-btn:focus-visible {
+      outline: 1px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .action-btn svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .wallet-btn {
+      background: #000;
+      color: #fff;
+      border-color: #333;
+    }
+
+    .wallet-btn:hover {
+      background: #1a1a1a;
+      border-color: #555;
+    }
+
+    @media (prefers-color-scheme: light) {
+      .wallet-btn { background: #000; color: #fff; border-color: #000; }
+      .wallet-btn:hover { background: #222; border-color: #222; }
+    }
+
+    .save-note {
+      margin-top: var(--space-3);
+      font-size: 0.6rem;
+      color: var(--mid);
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── FORM SECTION ───────────────────────────────── */
+    .form-box { --delay: 0.15s; }
+
+    .form-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
     label {
-      font-family: var(--font-ui);
       font-size: 0.68rem;
       color: var(--sub);
       display: block;
@@ -200,29 +300,28 @@
       color: var(--fg);
       padding: 0.72rem;
       border-radius: var(--radius-sm);
-      font-family: var(--font-body);
+      font-family: var(--font-sans);
       font-size: 0.92rem;
+      transition: border-color 0.15s;
     }
 
-    input:focus { outline: none; border-color: var(--dim); }
-
+    input:focus { outline: none; border-color: var(--accent); }
     input::placeholder { color: var(--placeholder); }
-
-    input.invalid { border-color: #5e2a2a; }
+    input.invalid { border-color: #8b3a3a; }
 
     .hint {
       margin-top: 0.35rem;
       color: var(--mid);
-      font-family: var(--font-ui);
       font-size: 0.64rem;
       letter-spacing: 0.05em;
     }
 
     .msg { margin-top: var(--space-3); font-size: 0.72rem; min-height: 1.1em; }
     .msg.error { color: #d08a8a; }
-    .msg.ok { color: #9acb9a; }
+    .msg.ok { color: #7bc47b; }
+    .msg a { color: #7bc47b; text-decoration: underline; }
 
-    button {
+    .submit-btn {
       margin-top: var(--space-4);
       width: 100%;
       padding: 0.78rem;
@@ -230,28 +329,48 @@
       border-radius: var(--radius-sm);
       background: var(--btn-bg);
       color: var(--btn-fg);
-      font-family: var(--font-ui);
+      font-family: var(--font-sans);
       font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       cursor: pointer;
-      transition: transform 0.1s ease, opacity 0.15s ease;
+      transition: transform 0.1s, opacity 0.15s;
     }
 
-    button:active { transform: translateY(1px); }
+    .submit-btn:active { transform: translateY(1px); }
+    .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+    .submit-btn:focus-visible { outline: 1px solid var(--dim); outline-offset: 2px; }
 
-    button:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-      transform: none;
+    /* ─── SUCCESS STATE ──────────────────────────────── */
+    .success-prompt {
+      display: none;
+      margin-top: var(--space-4);
+      padding: var(--space-4);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-sm);
+      text-align: center;
+      animation: fadeUp 0.4s ease-out both;
     }
 
-    button:focus-visible { outline: 1px solid var(--dim); outline-offset: 2px; }
+    .success-prompt.visible { display: block; }
 
+    .success-prompt p {
+      font-size: 0.72rem;
+      color: var(--fg);
+      margin-bottom: var(--space-3);
+    }
+
+    .success-prompt .action-btn {
+      font-size: 0.7rem;
+      padding: 0.6rem;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
     @media (max-width: 420px) {
       body { padding: var(--space-4); }
-      .box { padding: var(--space-4); border-radius: var(--radius-md); }
+      .box { padding: var(--space-4); }
       .profile-box { padding: 0.9rem; }
       .profile-box .sub { font-size: 0.64rem; }
       .profile-box li a { padding: 0.52rem 0; font-size: 0.72rem; }
@@ -262,19 +381,18 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
       }
     }
 
-    ::selection {
-      background: var(--select-bg);
-      color: var(--fg);
-    }
+    ::selection { background: var(--select-bg); color: var(--fg); }
   </style>
 </head>
 <body>
   <main class="wrap">
     <a class="back" href="https://o5102o.com">← o5102o.com</a>
 
+    <!-- Profile Card -->
     <section class="box profile-box">
       <h1>o5102o</h1>
       <p class="sub">이주영 (Jay) · 컴퓨터공학부 2학년</p>
@@ -287,8 +405,26 @@
       </ul>
     </section>
 
-    <section class="box">
-      <h1 class="form-title">연락처 남기기</h1>
+    <!-- Save Contact Section -->
+    <section class="box save-box">
+      <h2 class="save-title">내 연락처 저장</h2>
+      <p class="save-desc">아래 버튼으로 제 연락처를 저장해 가세요.</p>
+      <div class="save-actions">
+        <button type="button" class="action-btn" id="vcardBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-1a5 5 0 0 1 10 0v1"/></svg>
+          연락처에 저장
+        </button>
+        <button type="button" class="action-btn wallet-btn" id="walletBtn" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h2"/><path d="M12 15h6"/></svg>
+          Apple Wallet에 추가
+        </button>
+      </div>
+      <p class="save-note" id="saveNote"></p>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="box form-box">
+      <h2 class="form-title">연락처 남기기</h2>
       <form id="contactForm" aria-busy="false">
         <label for="name">이름 *</label>
         <input id="name" name="name" placeholder="홍길동" autocomplete="name" required aria-describedby="hint" aria-invalid="false" maxlength="40" enterkeyhint="next" />
@@ -299,28 +435,111 @@
         <label for="place">만난 곳 (선택)</label>
         <input id="place" name="place" placeholder="예: 해커톤" autocomplete="off" aria-describedby="hint" maxlength="60" enterkeyhint="send" />
 
-        <p id="hint" class="hint">* API 연결 시 자동 저장, 미연결 시 이메일 전송으로 전환됩니다.</p>
+        <p id="hint" class="hint">* 제출 시 자동 저장됩니다. API 미연결 시 이메일로 전환됩니다.</p>
         <p id="message" class="msg" role="status" aria-live="polite" aria-atomic="true"></p>
-        <button id="submitButton" type="submit">보내기</button>
+        <button id="submitButton" class="submit-btn" type="submit">보내기</button>
+
+        <div class="success-prompt" id="successPrompt">
+          <p>감사합니다! 제 연락처도 저장해 가세요.</p>
+          <button type="button" class="action-btn" id="promptVcardBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-1a5 5 0 0 1 10 0v1"/></svg>
+            연락처에 저장
+          </button>
+        </div>
       </form>
     </section>
   </main>
 
   <script>
+    // ─── Platform Detection ───────────────────────────
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/.test(navigator.userAgent);
+
+    // Show Apple Wallet button on iOS
+    const walletBtn = document.getElementById('walletBtn');
+    const saveNote = document.getElementById('saveNote');
+
+    if (isIOS) {
+      walletBtn.hidden = false;
+      saveNote.textContent = 'Apple Wallet에 추가하면 카드 형태로 저장됩니다.';
+    } else if (isAndroid) {
+      saveNote.textContent = '연락처 파일이 다운로드되면 연락처 앱에서 자동으로 열립니다.';
+    }
+
+    // ─── vCard Generation ─────────────────────────────
+    function generateVCard() {
+      const vcard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        'N:이;주영;;;',
+        'FN:이주영 (Jay)',
+        'NICKNAME:o5102o',
+        'TITLE:Designer & Developer',
+        'EMAIL;TYPE=INTERNET:jyounglee1020@gmail.com',
+        'URL:https://o5102o.com',
+        'X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/o5102o',
+        'X-SOCIALPROFILE;TYPE=github:https://github.com/jaylee1020',
+        'NOTE:o5102o.com - Designer & Developer',
+        'END:VCARD'
+      ].join('\r\n');
+
+      const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'o5102o.vcf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('vcardBtn').addEventListener('click', generateVCard);
+    document.getElementById('promptVcardBtn').addEventListener('click', generateVCard);
+
+    // ─── Apple Wallet ─────────────────────────────────
+    // Apple Wallet pass requires server-side generation with Apple Developer certificates.
+    // Set WALLET_PASS_URL to the endpoint that serves the .pkpass file.
+    // Example: Cloudflare Pages Function at /api/wallet
+    const WALLET_PASS_URL = window.WALLET_PASS_URL || '/api/wallet';
+
+    if (walletBtn) {
+      walletBtn.addEventListener('click', async () => {
+        try {
+          const res = await fetch(WALLET_PASS_URL);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+          const blob = await res.blob();
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'o5102o.pkpass';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        } catch {
+          // Fallback to vCard if wallet pass is not available
+          generateVCard();
+          saveNote.textContent = 'Wallet 패스를 불러올 수 없어 연락처 파일로 대체합니다.';
+        }
+      });
+    }
+
+    // ─── Contact Form ─────────────────────────────────
     const contactForm = document.getElementById('contactForm');
     const nameInput = document.getElementById('name');
     const phoneInput = document.getElementById('phone');
     const placeInput = document.getElementById('place');
     const messageEl = document.getElementById('message');
     const submitButton = document.getElementById('submitButton');
+    const successPrompt = document.getElementById('successPrompt');
 
     let isSubmitting = false;
 
-    // API mode:
-    // - Set CONTACT_API_URL to your endpoint (POST JSON)
-    // - Optional CONTACT_API_KEY for Bearer auth
-    // - If unset/failure, mailto fallback opens
-    const CONTACT_API_URL = window.CONTACT_API_URL || '';
+    // Contact API: set to your Cloudflare Pages Function endpoint
+    const CONTACT_API_URL = window.CONTACT_API_URL || '/api/contact';
     const CONTACT_API_KEY = window.CONTACT_API_KEY || '';
 
     function setMessage(text, type) {
@@ -361,17 +580,8 @@
       return `mailto:jyounglee1020@gmail.com?subject=${subject}&body=${body}`;
     }
 
-    async function saveToDatabase(payload) {
-      if (!CONTACT_API_URL) {
-        const mailtoLink = buildMailtoFallback(payload);
-        window.location.href = mailtoLink;
-        return { ok: true, fallback: 'mailto' };
-      }
-
-      const headers = {
-        'Content-Type': 'application/json'
-      };
-
+    async function saveContact(payload) {
+      const headers = { 'Content-Type': 'application/json' };
       if (CONTACT_API_KEY) {
         headers['Authorization'] = `Bearer ${CONTACT_API_KEY}`;
       }
@@ -390,24 +600,12 @@
       return { ok: true };
     }
 
-
-    nameInput.addEventListener('input', () => {
-      clearFieldError(nameInput);
-      setMessage('');
-    });
-
-    phoneInput.addEventListener('input', () => {
-      clearFieldError(phoneInput);
-      setMessage('');
-    });
-
-    placeInput.addEventListener('input', () => {
-      setMessage('');
-    });
+    nameInput.addEventListener('input', () => { clearFieldError(nameInput); setMessage(''); });
+    phoneInput.addEventListener('input', () => { clearFieldError(phoneInput); setMessage(''); });
+    placeInput.addEventListener('input', () => { setMessage(''); });
 
     contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
-
       if (isSubmitting) return;
 
       const payload = getPayload();
@@ -435,22 +633,18 @@
       try {
         setSubmitting(true);
         setMessage('저장 중...', 'ok');
-        const result = await saveToDatabase(payload);
-        if (result.fallback === 'mailto') {
-          setMessage('이메일 앱이 열립니다. 전송해 주세요!', 'ok');
-        } else {
-          setMessage('저장 완료. 감사합니다!', 'ok');
-        }
+        await saveContact(payload);
+        setMessage('저장 완료. 감사합니다!', 'ok');
         contactForm.reset();
-      } catch (error) {
-        console.error(error);
+        successPrompt.classList.add('visible');
+      } catch {
+        // Fallback to mailto
         const mailtoLink = buildMailtoFallback(payload);
+        messageEl.innerHTML = '';
         messageEl.textContent = '저장 실패. ';
         const fallbackLink = document.createElement('a');
         fallbackLink.href = mailtoLink;
         fallbackLink.textContent = '이메일로 보내기';
-        fallbackLink.style.color = '#9acb9a';
-        fallbackLink.style.textDecoration = 'underline';
         messageEl.appendChild(fallbackLink);
         messageEl.className = 'msg error';
       } finally {
