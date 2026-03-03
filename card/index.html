@@ -15,13 +15,13 @@
   <meta property="og:url" content="https://card.o5102o.com">
   <meta property="og:site_name" content="o5102o">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:image" content="https://o5102o.com/og-image.png">
+  <meta property="og:image" content="https://o5102o.com/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="o5102o / card">
   <meta name="twitter:description" content="developer card + contact">
-  <meta name="twitter:image" content="https://o5102o.com/og-image.png">
+  <meta name="twitter:image" content="https://o5102o.com/og-image.svg">
   <title>o5102o / card</title>
   <script>
     if (location.hostname === 'o5102o.com' || location.hostname === 'www.o5102o.com') {
@@ -451,20 +451,15 @@
   </main>
 
   <script>
-    // ─── Platform Detection ───────────────────────────
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     const isAndroid = /Android/.test(navigator.userAgent);
 
-    // Show Apple Wallet button on iOS
     const walletBtn = document.getElementById('walletBtn');
     const saveNote = document.getElementById('saveNote');
 
-    if (isIOS) {
-      walletBtn.hidden = false;
-      saveNote.textContent = 'Apple Wallet에 추가하면 카드 형태로 저장됩니다.';
-    } else if (isAndroid) {
-      saveNote.textContent = '연락처 파일이 다운로드되면 연락처 앱에서 자동으로 열립니다.';
+    function setSaveNote(text) {
+      saveNote.textContent = text || '';
     }
 
     // ─── vCard Generation ─────────────────────────────
@@ -499,10 +494,44 @@
     document.getElementById('promptVcardBtn').addEventListener('click', generateVCard);
 
     // ─── Apple Wallet ─────────────────────────────────
-    // Apple Wallet pass requires server-side generation with Apple Developer certificates.
-    // Set WALLET_PASS_URL to the endpoint that serves the .pkpass file.
-    // Example: Cloudflare Pages Function at /api/wallet
     const WALLET_PASS_URL = window.WALLET_PASS_URL || '/api/wallet';
+
+    async function probeWalletPass() {
+      try {
+        const head = await fetch(WALLET_PASS_URL, { method: 'HEAD' });
+        if (head.ok) return true;
+      } catch {}
+
+      try {
+        const get = await fetch(WALLET_PASS_URL, { method: 'GET' });
+        return get.ok;
+      } catch {
+        return false;
+      }
+    }
+
+    async function initWalletButton() {
+      if (!isIOS) {
+        if (isAndroid) {
+          setSaveNote('연락처 파일(.vcf)이 다운로드되면 연락처 앱에서 열어 저장할 수 있습니다.');
+        } else {
+          setSaveNote('기기와 관계없이 연락처 저장 버튼으로 바로 저장할 수 있습니다.');
+        }
+        return;
+      }
+
+      setSaveNote('Apple Wallet 지원 여부를 확인 중입니다...');
+      const walletAvailable = await probeWalletPass();
+
+      if (walletAvailable) {
+        walletBtn.hidden = false;
+        setSaveNote('Apple Wallet 또는 연락처 저장 중 편한 방법을 선택하세요.');
+        return;
+      }
+
+      walletBtn.hidden = true;
+      setSaveNote('현재 Wallet 패스는 준비 중입니다. 아래 연락처 저장 버튼은 항상 사용할 수 있습니다.');
+    }
 
     if (walletBtn) {
       walletBtn.addEventListener('click', async () => {
@@ -519,13 +548,15 @@
           a.click();
           document.body.removeChild(a);
           URL.revokeObjectURL(url);
+          setSaveNote('Wallet 패스를 다운로드했습니다. 파일을 열어 추가해 주세요.');
         } catch {
-          // Fallback to vCard if wallet pass is not available
           generateVCard();
-          saveNote.textContent = 'Wallet 패스를 불러올 수 없어 연락처 파일로 대체합니다.';
+          setSaveNote('Wallet 다운로드에 실패해 연락처 파일(.vcf)로 전환했습니다.');
         }
       });
     }
+
+    initWalletButton();
 
     // ─── Contact Form ─────────────────────────────────
     const contactForm = document.getElementById('contactForm');
@@ -538,7 +569,6 @@
 
     let isSubmitting = false;
 
-    // Contact API: set to your Cloudflare Pages Function endpoint
     const CONTACT_API_URL = window.CONTACT_API_URL || '/api/contact';
     const CONTACT_API_KEY = window.CONTACT_API_KEY || '';
 
@@ -624,7 +654,7 @@
         if (!isValid) {
           phoneInput.classList.add('invalid');
           phoneInput.setAttribute('aria-invalid', 'true');
-          setMessage('올바른 전화번호를 입력해 주세요. (예: 010-1234-5678)', 'error');
+          setMessage('전화번호 형식이 맞지 않습니다. 예: 010-1234-5678', 'error');
           phoneInput.focus();
           return;
         }
@@ -632,19 +662,18 @@
 
       try {
         setSubmitting(true);
-        setMessage('저장 중...', 'ok');
+        setMessage('연락처를 저장하고 있어요...', 'ok');
         await saveContact(payload);
-        setMessage('저장 완료. 감사합니다!', 'ok');
+        setMessage('저장이 완료되었습니다. 남겨주셔서 감사합니다!', 'ok');
         contactForm.reset();
         successPrompt.classList.add('visible');
       } catch {
-        // Fallback to mailto
         const mailtoLink = buildMailtoFallback(payload);
         messageEl.innerHTML = '';
-        messageEl.textContent = '저장 실패. ';
+        messageEl.append('서버 저장이 어려워 이메일 전송으로 전환합니다. ');
         const fallbackLink = document.createElement('a');
         fallbackLink.href = mailtoLink;
-        fallbackLink.textContent = '이메일로 보내기';
+        fallbackLink.textContent = '이메일 앱에서 보내기';
         messageEl.appendChild(fallbackLink);
         messageEl.className = 'msg error';
       } finally {

@@ -15,16 +15,15 @@
   <meta property="og:url" content="https://by.o5102o.com">
   <meta property="og:site_name" content="o5102o">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:image" content="https://o5102o.com/og-image.png">
+  <meta property="og:image" content="https://o5102o.com/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="by o5102o">
   <meta name="twitter:description" content="portfolio">
-  <meta name="twitter:image" content="https://o5102o.com/og-image.png">
+  <meta name="twitter:image" content="https://o5102o.com/og-image.svg">
   <title>by o5102o</title>
   <style>
-    /* ─── DESIGN TOKENS ──────────────────────────────── */
     :root {
       --bg: #0a0a0a;
       --fg: #e8e8e8;
@@ -36,9 +35,7 @@
       --accent: #3f8a57;
       --accent-dim: rgba(63, 138, 87, 0.15);
       --select-bg: #1e1e1e;
-
       --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-
       --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
       --space-5: 1.5rem; --space-6: 2rem;
       --radius-sm: 8px;
@@ -60,7 +57,6 @@
       }
     }
 
-    /* ─── RESET ──────────────────────────────────────── */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { color-scheme: dark light; }
 
@@ -76,7 +72,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ─── ANIMATIONS ─────────────────────────────────── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
@@ -121,8 +116,8 @@
       border: 1px solid var(--line);
       border-radius: var(--radius-md);
       padding: var(--space-5);
-      line-height: 1.85;
-      font-size: 0.98rem;
+      line-height: 1.8;
+      font-size: 0.95rem;
       transition: border-color 0.2s, transform 0.2s;
     }
 
@@ -131,11 +126,51 @@
       transform: translateY(-1px);
     }
 
+    .projects-title {
+      font-size: 0.72rem;
+      color: var(--mid);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-3);
+    }
+
+    .projects-list {
+      list-style: none;
+      display: grid;
+      gap: var(--space-2);
+      margin-top: var(--space-3);
+    }
+
+    .project-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 0.7rem 0.75rem;
+      background: var(--bg);
+    }
+
+    .project-link {
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 0.82rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .project-link:hover { color: var(--accent); }
+    .project-desc { color: var(--sub); font-size: 0.74rem; margin-top: 0.2rem; line-height: 1.55; }
+    .project-meta { color: var(--mid); font-size: 0.68rem; margin-top: 0.2rem; }
+
+    .status-text {
+      font-size: 0.76rem;
+      color: var(--mid);
+    }
+
     .social-link {
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      margin-top: var(--space-3);
+      margin-top: var(--space-4);
       padding: 0.35rem 0.6rem;
       border: 1px solid var(--line);
       border-radius: 999px;
@@ -150,8 +185,6 @@
       background: var(--accent-dim);
     }
 
-    .social-link:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
-
     .footer {
       margin-top: var(--space-6);
       color: var(--mid);
@@ -160,15 +193,8 @@
     }
 
     @media (max-width: 600px) {
-      .card { padding: var(--space-4); font-size: 0.94rem; }
+      .card { padding: var(--space-4); }
       .subtitle { margin-bottom: var(--space-4); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-      }
     }
 
     ::selection { background: var(--select-bg); color: var(--fg); }
@@ -180,13 +206,63 @@
     <h1 class="title">by o5102o</h1>
     <p class="subtitle">things i've built</p>
 
-    <section class="card">
-      아직 공개한 프로젝트는 없습니다.<br>
-      준비되는 대로 여기에 업데이트할게요.<br>
+    <section class="card" aria-live="polite">
+      <h2 class="projects-title">recent github projects</h2>
+      <p class="status-text" id="projectStatus">프로젝트 목록을 불러오는 중...</p>
+      <ul class="projects-list" id="projectsList" hidden></ul>
       <a class="social-link" href="https://www.instagram.com/by.o5102o" target="_blank" rel="noopener noreferrer">@by.o5102o</a>
     </section>
 
     <p class="footer">© 2026 o5102o · Seoul, KR</p>
   </main>
+
+  <script>
+    const projectsList = document.getElementById('projectsList');
+    const projectStatus = document.getElementById('projectStatus');
+
+    async function loadProjects() {
+      try {
+        const response = await fetch('https://api.github.com/users/jaylee1020/repos?sort=updated&per_page=4&type=public');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const repos = await response.json();
+        if (!Array.isArray(repos) || repos.length === 0) {
+          projectStatus.textContent = '아직 공개된 프로젝트가 없습니다. 곧 업데이트할게요.';
+          return;
+        }
+
+        projectsList.innerHTML = '';
+        repos.forEach((repo) => {
+          const item = document.createElement('li');
+          item.className = 'project-item';
+
+          const link = document.createElement('a');
+          link.className = 'project-link';
+          link.href = repo.html_url;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = repo.name;
+
+          const desc = document.createElement('p');
+          desc.className = 'project-desc';
+          desc.textContent = repo.description || '설명이 아직 등록되지 않았습니다.';
+
+          const meta = document.createElement('p');
+          meta.className = 'project-meta';
+          meta.textContent = `Updated ${new Date(repo.updated_at).toLocaleDateString('ko-KR')}`;
+
+          item.append(link, desc, meta);
+          projectsList.appendChild(item);
+        });
+
+        projectStatus.hidden = true;
+        projectsList.hidden = false;
+      } catch {
+        projectStatus.textContent = '프로젝트를 지금은 불러오지 못했어요. 잠시 후 다시 시도해 주세요.';
+      }
+    }
+
+    loadProjects();
+  </script>
 </body>
 </html>

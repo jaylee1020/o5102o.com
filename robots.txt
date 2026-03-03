@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://o5102o.com/sitemap.xml
