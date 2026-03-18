@@ -26,11 +26,18 @@
     }
 
     #screen {
-      width: 100vw;
-      height: 100vh;
       background: #000;
       display: block;
       cursor: none;
+    }
+
+    #chat-input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
     }
 
     #camera,
@@ -83,6 +90,7 @@
 </head>
 <body>
   <canvas id="screen"></canvas>
+  <input id="chat-input" type="text" autocomplete="off">
   <video id="camera" autoplay playsinline muted></video>
   <canvas id="buffer"></canvas>
   <div id="status-overlay" class="status-overlay" hidden aria-live="polite" role="alert">

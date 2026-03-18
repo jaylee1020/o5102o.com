@@ -1,10 +1,18 @@
 import { createAsciiCameraApp } from "./ascii-camera-app.js";
+import { createChatApi } from "./chat-api.js";
+import { createChatWindow } from "./chat-window.js";
+
+const chatInput = document.getElementById("chat-input");
+const chatApi = createChatApi();
 
 const app = createAsciiCameraApp({
   screen: document.getElementById("screen"),
   video: document.getElementById("camera"),
   buffer: document.getElementById("buffer"),
-  overlay: document.getElementById("status-overlay")
+  overlay: document.getElementById("status-overlay"),
+  chatInput,
+  chatApi,
+  chatWindowFactory: createChatWindow
 });
 
 app.initialize();
@@ -41,7 +49,15 @@ function toggleFullscreen() {
 
 let pendingClickTimeoutId = 0;
 
+function isChatActive() {
+  const cw = app.getChatWindow();
+  return cw && cw.isActive();
+}
+
 function scheduleClickToggle() {
+  // Don't toggle fullscreen when chat is active
+  if (isChatActive()) return;
+
   if (pendingClickTimeoutId) {
     window.clearTimeout(pendingClickTimeoutId);
   }
@@ -64,12 +80,16 @@ function cancelPendingClickToggle() {
 document.addEventListener("click", scheduleClickToggle);
 
 document.addEventListener("dblclick", (e) => {
+  if (isChatActive()) return;
   e.preventDefault();
   cancelPendingClickToggle();
   toggleFullscreen();
 });
 
 document.addEventListener("keydown", (e) => {
+  // Skip fullscreen toggle when typing in chat
+  if (document.activeElement === chatInput) return;
+
   if (e.key === "f" || e.key === "F" || e.key === "F11") {
     e.preventDefault();
     cancelPendingClickToggle();

@@ -193,7 +193,10 @@ const CONV_MAX_FRAGMENTS = 6;
 // ── Observer Count ──────────────────────────────────────────────────────────
 const OBSERVER_SMOOTH_RATE = 0.04;
 
-export function createAsciiCameraApp({ screen, video, buffer, overlay }) {
+const ASPECT_RATIO = 4 / 3; // iPad Pro M4
+
+export function createAsciiCameraApp({ screen, video, buffer, overlay, chatInput, chatApi, chatWindowFactory }) {
+  let chatWindow = null;
   const bufferContext = buffer.getContext("2d", { willReadFrequently: true });
   const screenContext = screen.getContext("2d");
   const statusOverlay = createStatusOverlay(overlay);
@@ -253,6 +256,8 @@ export function createAsciiCameraApp({ screen, video, buffer, overlay }) {
   // Eraser mode
   let eraserMode = false;
   let currentBufferPixels = null;
+  // Chat region rendering flag — when true, cell backgrounds are semi-transparent
+  let cellBgAlpha = 1;
   // Observer count
   let smoothedObserverCount = 0;
   // Conversation feed
@@ -936,6 +941,14 @@ export function createAsciiCameraApp({ screen, video, buffer, overlay }) {
         lockedAt: timestamp,
         progress: 1
       };
+      // Activate chat window on any mode
+      if (chatWindow) {
+        chatWindow.activate(
+          pendingDigitEffect.digit,
+          DIGIT_COLORS[pendingDigitEffect.digit],
+          pendingDigitEffect.origin
+        );
+      }
       pendingDigitEffect = null;
     }
   }
@@ -1155,16 +1168,28 @@ export function createAsciiCameraApp({ screen, video, buffer, overlay }) {
   }
 
   function resizeRenderer() {
+    // ── 4:3 aspect ratio (iPad Pro M4) ──
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    let canvasW, canvasH;
+    if (vw / vh > ASPECT_RATIO) {
+      canvasH = vh;
+      canvasW = Math.floor(vh * ASPECT_RATIO);
+    } else {
+      canvasW = vw;
+      canvasH = Math.floor(vw / ASPECT_RATIO);
+    }
+
     fontSize = clamp(
-      window.innerWidth / (64 * DETAIL_SCALE) * PIXEL_SIZE_SCALE,
+      canvasW / (64 * DETAIL_SCALE) * PIXEL_SIZE_SCALE,
       MIN_FONT_SIZE,
       MAX_FONT_SIZE
     );
     cellWidth = Math.max(fontSize * CHARACTER_WIDTH_RATIO, measureCharacterWidth(fontSize));
     cellHeight = fontSize * LINE_HEIGHT_RATIO;
 
-    columns = Math.max(36 * DETAIL_SCALE, Math.floor(window.innerWidth / cellWidth));
-    rows = Math.max(22 * DETAIL_SCALE, Math.floor(window.innerHeight / cellHeight));
+    columns = Math.max(36 * DETAIL_SCALE, Math.floor(canvasW / cellWidth));
+    rows = Math.max(22 * DETAIL_SCALE, Math.floor(canvasH / cellHeight));
     sampleWidth = columns * SAMPLE_X;
     sampleHeight = rows * SAMPLE_Y;
 
@@ -1179,16 +1204,25 @@ export function createAsciiCameraApp({ screen, video, buffer, overlay }) {
     bufferContext.imageSmoothingEnabled = true;
     bufferContext.imageSmoothingQuality = "high";
 
-    screen.width = window.innerWidth;
-    screen.height = window.innerHeight;
-    screen.style.width = window.innerWidth + "px";
-    screen.style.height = window.innerHeight + "px";
+    screen.width = canvasW;
+    screen.height = canvasH;
+    screen.style.width = canvasW + "px";
+    screen.style.height = canvasH + "px";
+    // Center canvas in viewport
+    screen.style.position = "absolute";
+    screen.style.left = Math.floor((vw - canvasW) / 2) + "px";
+    screen.style.top = Math.floor((vh - canvasH) / 2) + "px";
     screenContext.textAlign = "center";
     screenContext.textBaseline = "middle";
     glyphFont =
       Math.max(5, Math.min(14, fontSize * 1.08)) +
       "px " + FONT_FAMILY;
     screenContext.font = glyphFont;
+
+    // Resize chat window
+    if (chatWindow) {
+      chatWindow.resize(canvasW, canvasH, fontSize, cellWidth, cellHeight);
+    }
   }
 
   function getToneBucketName(tone) {
@@ -1885,7 +1919,7 @@ export function createAsciiCameraApp({ screen, video, buffer, overlay }) {
       }
     }
 
-    screenContext.globalAlpha = 1;
+    screenContext.globalAlpha = cellBgAlpha;
     screenContext.fillStyle = fieldInfo.effectDarkColor;
     screenContext.fillRect(x, y, width, height);
 
@@ -1974,6 +2008,31 @@ export function createAsciiCameraApp({ screen, video, buffer, overlay }) {
       }
     }
 
+    screenContext.globalAlpha = 1;
+  }
+
+  // Variant that reduces ASCII art cell background opacity in chat region
+  function renderAdaptiveCellsWithChat(metricsMap, fieldMap, currentActiveEffect, timestamp) {
+    // Background already filled + chat rendered before this call
+    screenContext.font = glyphFont;
+
+    for (let row = 0; row < rows; row += 1) {
+      for (let column = 0; column < columns; column += 1) {
+        const index = row * columns + column;
+        const x = column * cellWidth;
+        const y = row * cellHeight;
+        const fieldInfo = fieldMap[index];
+        const metrics = metricsMap[index];
+
+        // In chat region, make cell background semi-transparent so chat text shows through
+        const inChat = chatWindow && chatWindow.isChatRegion(x + cellWidth * 0.5, y + cellHeight * 0.5);
+        cellBgAlpha = inChat ? 0.3 : 1;
+
+        renderCell(index, x, y, cellWidth, cellHeight, metrics, fieldInfo, timestamp);
+      }
+    }
+
+    cellBgAlpha = 1;
     screenContext.globalAlpha = 1;
   }
 
@@ -2296,9 +2355,27 @@ export function createAsciiCameraApp({ screen, video, buffer, overlay }) {
 
     smoothedObserverCount = lerp(smoothedObserverCount, activeHands.length, OBSERVER_SMOOTH_RATE);
 
+    // Update and render chat background BEFORE ASCII cells
+    if (chatWindow) {
+      chatWindow.update(timestamp);
+    }
+
     const metricsMap = buildMetricsMap(luma, timestamp);
     const fieldMap = buildGlyphField(metricsMap, activeDigitEffect, pendingDigitEffect);
-    renderAdaptiveCells(metricsMap, fieldMap, activeDigitEffect, timestamp);
+
+    // Render chat behind ASCII art
+    if (chatWindow && chatWindow.isActive()) {
+      // First fill background
+      screenContext.globalAlpha = 1;
+      screenContext.fillStyle = activeDigitEffect ? activeDigitEffect.gradientStart : "#000";
+      screenContext.fillRect(0, 0, screen.width, screen.height);
+      // Render chat content
+      chatWindow.renderBackground(screenContext);
+      // Now render ASCII cells with reduced alpha in chat region
+      renderAdaptiveCellsWithChat(metricsMap, fieldMap, activeDigitEffect, timestamp);
+    } else {
+      renderAdaptiveCells(metricsMap, fieldMap, activeDigitEffect, timestamp);
+    }
     emitHandSymbolParticles(timestamp);
     renderHandConnectionEffect(timestamp);
     updateAndRenderHandSymbolParticles(timestamp);
@@ -2382,6 +2459,10 @@ export function createAsciiCameraApp({ screen, video, buffer, overlay }) {
 
   async function initialize() {
     isDestroyed = false;
+    // Initialize chat window
+    if (chatWindowFactory && chatInput && chatApi) {
+      chatWindow = chatWindowFactory({ chatInput, chatApi });
+    }
     initActiveGlyphSets();
     resizeRenderer();
     loadGhostLayer(); // restore ghost once at startup; not on every resize
@@ -2408,6 +2489,7 @@ export function createAsciiCameraApp({ screen, video, buffer, overlay }) {
 
   return {
     initialize,
-    destroy
+    destroy,
+    getChatWindow() { return chatWindow; }
   };
 }
