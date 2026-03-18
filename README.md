@@ -9,7 +9,7 @@ Personal website and portfolio for o5102o — developer based in Seoul, Korea.
 | `o5102o.com` | `/index.html` | Main landing page |
 | `by.o5102o.com` | `/by/index.html` | Portfolio |
 | `card.o5102o.com` | `/card/index.html` | Digital card + contact |
-| `defalt.o5102o.com` | `/defalt/index.html` | Exhibition ASCII camera app |
+| `default.o5102o.com` | `/default/index.html` | Exhibition ASCII camera app |
 | `o5102o.com/info/` | `/info/index.html` | Redirect to `card.o5102o.com` |
 
 ## Stack
@@ -28,7 +28,7 @@ o5102o.com/
 │   └── index.html   # Portfolio page
 ├── card/
 │   └── index.html   # Digital card + contact
-├── defalt/
+├── default/
 │   ├── index.html   # Exhibition ASCII camera app
 │   ├── js/          # App logic
 │   ├── assets/      # Models
