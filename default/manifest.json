@@ -1,7 +1,6 @@
 {
-  "name": "Webcam Particle Poster",
-  "short_name": "Particle",
-  "description": "Webcam particle poster experience",
+  "name": "default",
+  "short_name": "default",
   "start_url": "/",
   "display": "fullscreen",
   "background_color": "#000000",
