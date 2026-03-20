@@ -2,16 +2,34 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- iOS PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="default" />
-    <title>default</title>
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+
+    <!-- Android PWA -->
     <link rel="manifest" href="/manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/assets/index-BYpDMb72.js" as="script" crossorigin />
+    <link rel="preload" href="/assets/index-B0V9KlC0.css" as="style" crossorigin />
+    <link rel="preload" href="/models/selfie_segmenter.tflite" as="fetch" crossorigin />
+
+    <title>default</title>
     <link rel="stylesheet" crossorigin href="/assets/index-B0V9KlC0.css" />
     <script type="module" crossorigin src="/assets/index-BYpDMb72.js"></script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>JavaScript is required to run this app.</noscript>
   </body>
 </html>
