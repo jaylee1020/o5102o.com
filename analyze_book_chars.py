@@ -7,11 +7,9 @@ from pathlib import Path
 from typing import Optional
 
 
-LEGACY_BOOK_PATH = Path("/Users/ijuyeong/Desktop/app/전시 gemini/output/book.md")
 DEFAULT_BOOK_CANDIDATES = (
     Path.cwd() / "book.md",
     Path(__file__).resolve().parent / "book.md",
-    LEGACY_BOOK_PATH,
 )
 
 

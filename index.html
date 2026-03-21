@@ -3,36 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
   <title>o5102o</title>
   <meta name="description" content="이주영(Jay) — designer · developer">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f7f7f7" media="(prefers-color-scheme: light)">
+  <link rel="canonical" href="https://o5102o.com/">
+  <link rel="icon" href="/icon-192.png" type="image/png">
+  <link rel="manifest" href="/manifest.json">
   <meta property="og:title" content="o5102o">
   <meta property="og:description" content="이주영(Jay) — designer · developer">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://o5102o.com">
+  <meta property="og:url" content="https://o5102o.com/">
+  <meta property="og:site_name" content="o5102o">
   <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://o5102o.com/og-image.svg">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="o5102o">
   <meta name="twitter:description" content="이주영(Jay) — designer · developer">
-  <link rel="icon" href="/icon-192.png" type="image/png">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#0a0a0a">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html, body {
-      height: 100%;
-      background: #0a0a0a;
-      color: #e8e8e8;
-      font-family: "D2Coding", "Nanum Gothic Coding", "Noto Sans Mono CJK KR", monospace;
-      -webkit-font-smoothing: antialiased;
+    :root {
+      --bg: #0a0a0a;
+      --fg: #e8e8e8;
+      --dim: rgba(255, 255, 255, 0.12);
+      --dim-hover: rgba(255, 255, 255, 0.4);
+      --sub: rgba(255, 255, 255, 0.5);
+      --muted: rgba(255, 255, 255, 0.25);
+      --subtle: rgba(255, 255, 255, 0.35);
+      --hover-bg: rgba(255, 255, 255, 0.04);
     }
 
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f7f7f7;
+        --fg: #111;
+        --dim: rgba(0, 0, 0, 0.1);
+        --dim-hover: rgba(0, 0, 0, 0.3);
+        --sub: rgba(0, 0, 0, 0.45);
+        --muted: rgba(0, 0, 0, 0.25);
+        --subtle: rgba(0, 0, 0, 0.35);
+        --hover-bg: rgba(0, 0, 0, 0.03);
+      }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
+      height: 100vh;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "D2Coding", "Nanum Gothic Coding", "Noto Sans Mono CJK KR", monospace;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 2rem;
+      -webkit-font-smoothing: antialiased;
     }
 
     .hub {
@@ -41,7 +67,7 @@
       text-align: center;
     }
 
-    .name {
+    h1 {
       font-size: 1.25rem;
       font-weight: 700;
       letter-spacing: 0.04em;
@@ -50,7 +76,7 @@
 
     .desc {
       font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.5);
+      color: var(--sub);
       margin-bottom: 2.5rem;
     }
 
@@ -64,8 +90,8 @@
     .links a {
       display: block;
       padding: 0.9rem 1rem;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #e8e8e8;
+      border: 1px solid var(--dim);
+      color: var(--fg);
       text-decoration: none;
       font-size: 0.85rem;
       letter-spacing: 0.02em;
@@ -74,8 +100,8 @@
 
     .links a:hover,
     .links a:focus-visible {
-      border-color: rgba(255, 255, 255, 0.4);
-      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--dim-hover);
+      background: var(--hover-bg);
       outline: none;
     }
 
@@ -88,42 +114,21 @@
       display: block;
       margin-top: 0.2rem;
       font-size: 0.72rem;
-      color: rgba(255, 255, 255, 0.4);
+      color: var(--sub);
     }
 
     footer {
       margin-top: 3rem;
       font-size: 0.7rem;
-      color: rgba(255, 255, 255, 0.25);
+      color: var(--muted);
     }
 
     footer a {
-      color: rgba(255, 255, 255, 0.35);
+      color: var(--subtle);
       text-decoration: none;
     }
 
-    footer a:hover { color: rgba(255, 255, 255, 0.6); }
-
-    @media (prefers-color-scheme: light) {
-      html, body {
-        background: #f7f7f7;
-        color: #111;
-      }
-      .desc { color: rgba(0, 0, 0, 0.45); }
-      .links a {
-        border-color: rgba(0, 0, 0, 0.1);
-        color: #111;
-      }
-      .links a:hover,
-      .links a:focus-visible {
-        border-color: rgba(0, 0, 0, 0.3);
-        background: rgba(0, 0, 0, 0.03);
-      }
-      .links .sub { color: rgba(0, 0, 0, 0.4); }
-      footer { color: rgba(0, 0, 0, 0.25); }
-      footer a { color: rgba(0, 0, 0, 0.35); }
-      footer a:hover { color: rgba(0, 0, 0, 0.6); }
-    }
+    footer a:hover { color: var(--sub); }
 
     @media (prefers-reduced-motion: reduce) {
       .links a { transition: none; }
@@ -132,28 +137,30 @@
 </head>
 <body>
   <main class="hub">
-    <p class="name">o5102o</p>
+    <h1>o5102o</h1>
     <p class="desc">이주영(Jay) — designer · developer</p>
-    <ul class="links">
-      <li>
-        <a href="https://card.o5102o.com/" target="_blank" rel="noopener noreferrer">
-          <span class="label">Card</span>
-          <span class="sub">developer card + contact</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://by.o5102o.com/" target="_blank" rel="noopener noreferrer">
-          <span class="label">Portfolio</span>
-          <span class="sub">by o5102o</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://default.o5102o.com/" target="_blank" rel="noopener noreferrer">
-          <span class="label">Exhibition</span>
-          <span class="sub">webcam particle poster</span>
-        </a>
-      </li>
-    </ul>
+    <nav>
+      <ul class="links">
+        <li>
+          <a href="https://card.o5102o.com/">
+            <span class="label">Card</span>
+            <span class="sub">developer card + contact</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://by.o5102o.com/">
+            <span class="label">Portfolio</span>
+            <span class="sub">by o5102o</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://default.o5102o.com/">
+            <span class="label">Exhibition</span>
+            <span class="sub">webcam particle poster</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </main>
   <footer>
     <a href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer">github</a>

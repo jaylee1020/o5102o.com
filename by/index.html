@@ -192,6 +192,8 @@
       letter-spacing: 0.08em;
     }
 
+    .github-section { margin-top: var(--space-3); }
+
     @media (max-width: 600px) {
       .card { padding: var(--space-4); }
       .subtitle { margin-bottom: var(--space-4); }
@@ -216,7 +218,7 @@
       </ul>
     </section>
 
-    <section class="card" style="margin-top: var(--space-3)" aria-live="polite">
+    <section class="card github-section" aria-live="polite">
       <h2 class="projects-title">recent github projects</h2>
       <p class="status-text" id="projectStatus">프로젝트 목록을 불러오는 중...</p>
       <ul class="projects-list" id="projectsList" hidden></ul>
@@ -241,7 +243,7 @@
           return;
         }
 
-        projectsList.innerHTML = '';
+        projectsList.textContent = '';
         repos.forEach((repo) => {
           const item = document.createElement('li');
           item.className = 'project-item';
@@ -267,7 +269,8 @@
 
         projectStatus.hidden = true;
         projectsList.hidden = false;
-      } catch {
+      } catch (err) {
+        console.error('Failed to load projects:', err);
         projectStatus.textContent = '프로젝트를 지금은 불러오지 못했어요. 잠시 후 다시 시도해 주세요.';
       }
     }

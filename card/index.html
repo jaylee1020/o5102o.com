@@ -23,11 +23,6 @@
   <meta name="twitter:description" content="developer card + contact">
   <meta name="twitter:image" content="https://o5102o.com/og-image.svg">
   <title>o5102o / card</title>
-  <script>
-    if (location.hostname === 'o5102o.com' || location.hostname === 'www.o5102o.com') {
-      location.replace(`https://card.o5102o.com${location.search}${location.hash}`);
-    }
-  </script>
   <style>
     /* ─── DESIGN TOKENS ──────────────────────────────── */
     :root {
@@ -494,18 +489,14 @@
     document.getElementById('promptVcardBtn').addEventListener('click', generateVCard);
 
     // ─── Apple Wallet ─────────────────────────────────
-    const WALLET_PASS_URL = window.WALLET_PASS_URL || '/api/wallet';
+    const WALLET_PASS_URL = '/api/wallet';
 
     async function probeWalletPass() {
       try {
-        const head = await fetch(WALLET_PASS_URL, { method: 'HEAD' });
-        if (head.ok) return true;
-      } catch {}
-
-      try {
-        const get = await fetch(WALLET_PASS_URL, { method: 'GET' });
-        return get.ok;
-      } catch {
+        const res = await fetch(WALLET_PASS_URL, { method: 'HEAD' });
+        return res.ok;
+      } catch (err) {
+        console.warn('Wallet probe failed:', err);
         return false;
       }
     }
@@ -549,7 +540,8 @@
           document.body.removeChild(a);
           URL.revokeObjectURL(url);
           setSaveNote('Wallet 패스를 다운로드했습니다. 파일을 열어 추가해 주세요.');
-        } catch {
+        } catch (err) {
+          console.error('Wallet download failed:', err);
           generateVCard();
           setSaveNote('Wallet 다운로드에 실패해 연락처 파일(.vcf)로 전환했습니다.');
         }
@@ -569,8 +561,7 @@
 
     let isSubmitting = false;
 
-    const CONTACT_API_URL = window.CONTACT_API_URL || '/api/contact';
-    const CONTACT_API_KEY = window.CONTACT_API_KEY || '';
+    const CONTACT_API_URL = '/api/contact';
 
     function setMessage(text, type) {
       messageEl.textContent = text || '';
@@ -611,14 +602,9 @@
     }
 
     async function saveContact(payload) {
-      const headers = { 'Content-Type': 'application/json' };
-      if (CONTACT_API_KEY) {
-        headers['Authorization'] = `Bearer ${CONTACT_API_KEY}`;
-      }
-
       const response = await fetch(CONTACT_API_URL, {
         method: 'POST',
-        headers,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
 
@@ -667,9 +653,10 @@
         setMessage('저장이 완료되었습니다. 남겨주셔서 감사합니다!', 'ok');
         contactForm.reset();
         successPrompt.classList.add('visible');
-      } catch {
+      } catch (err) {
+        console.error('Contact save failed:', err);
         const mailtoLink = buildMailtoFallback(payload);
-        messageEl.innerHTML = '';
+        messageEl.textContent = '';
         messageEl.append('서버 저장이 어려워 이메일 전송으로 전환합니다. ');
         const fallbackLink = document.createElement('a');
         fallbackLink.href = mailtoLink;
