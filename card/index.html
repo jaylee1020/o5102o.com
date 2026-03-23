@@ -2,7 +2,11 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="o5102o card">
+  <link rel="apple-touch-icon" href="/icon-192.png">
   <meta name="description" content="o5102o — developer card &amp; contact">
   <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#f7f7f7" media="(prefers-color-scheme: light)">
@@ -78,6 +82,7 @@
       color: var(--fg);
       font-family: var(--font-sans);
       padding: var(--space-6);
+      padding-top: max(var(--space-6), env(safe-area-inset-top));
       display: flex;
       justify-content: center;
       -webkit-font-smoothing: antialiased;
