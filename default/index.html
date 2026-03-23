@@ -82,9 +82,45 @@
       })();
     </script>
     <script>
-      // M4 iPad performance hints — maximize GPU/CPU utilization
+      // Apple Silicon & high-performance device detection + GPU warmup
       (function() {
-        // Force high-performance GPU on dual-GPU devices
+        // ─── Apple Silicon Detection ─────────────────────
+        var ua = navigator.userAgent;
+        var tp = navigator.maxTouchPoints || 0;
+        var plat = navigator.platform || '';
+        var cores = navigator.hardwareConcurrency || 4;
+
+        // iPad with Apple Silicon: "MacIntel" + touch + Safari WebGL
+        var isIPad = (plat === 'MacIntel' && tp > 1) ||
+                     /iPad/.test(ua);
+        // Mac with Apple Silicon: ARM Mac or high-core Mac (heuristic)
+        var isMacAS = plat === 'MacIntel' && tp === 0 && cores >= 8;
+        // iPhone with A-series (A14+)
+        var isIPhone = /iPhone/.test(ua) && cores >= 6;
+
+        var isAppleSilicon = isIPad || isMacAS || isIPhone;
+
+        // ─── Performance Tier ────────────────────────────
+        // ultra: Apple Silicon with 8+ cores (M1/M2/M3/M4, A14+)
+        // high: Apple Silicon or desktop with 4+ cores
+        var tier = 'high';
+        if (isAppleSilicon && cores >= 8) tier = 'ultra';
+        else if (isAppleSilicon) tier = 'high';
+
+        window.__PERF_TIER = tier;
+        window.__APPLE_SILICON = isAppleSilicon;
+        window.__HW_CORES = cores;
+
+        // ─── SIMD Detection (all Apple Silicon supports SIMD) ──
+        window.__WASM_SIMD = (function() {
+          try {
+            return WebAssembly.validate(new Uint8Array([
+              0,97,115,109,1,0,0,0,1,5,1,96,0,1,123,3,2,1,0,10,10,1,8,0,65,0,253,15,253,98,11
+            ]));
+          } catch(e) { return false; }
+        })();
+
+        // ─── GPU Warmup ──────────────────────────────────
         var c = document.createElement('canvas');
         var gl = c.getContext('webgl2', {
           powerPreference: 'high-performance',
@@ -98,27 +134,23 @@
           preserveDrawingBuffer: false
         });
         if (gl) {
-          // Warm up GPU pipeline
           gl.clearColor(0, 0, 0, 1);
           gl.clear(gl.COLOR_BUFFER_BIT);
+          // Detect GPU renderer for Apple Silicon confirmation
+          var dbg = gl.getExtension('WEBGL_debug_renderer_info');
+          if (dbg) {
+            var renderer = gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || '';
+            if (/Apple/.test(renderer)) window.__APPLE_SILICON = true;
+            window.__GPU_RENDERER = renderer;
+          }
           var loseCtx = gl.getExtension('WEBGL_lose_context');
           if (loseCtx) loseCtx.loseContext();
         }
         c = null;
 
-        // Expose SIMD capability flag for WASM loader
-        window.__WASM_SIMD = (function() {
-          try {
-            return WebAssembly.validate(new Uint8Array([
-              0,97,115,109,1,0,0,0,1,5,1,96,0,1,123,3,2,1,0,10,10,1,8,0,65,0,253,15,253,98,11
-            ]));
-          } catch(e) { return false; }
-        })();
-
-        // Signal high refresh rate availability (120Hz ProMotion)
-        if (window.screen && window.screen.availWidth >= 1024) {
-          document.documentElement.style.setProperty('--target-fps', '120');
-        }
+        // Re-evaluate tier after GPU detection
+        if (window.__APPLE_SILICON && cores >= 8) window.__PERF_TIER = 'ultra';
+        else if (window.__APPLE_SILICON) window.__PERF_TIER = 'high';
       })();
     </script>
     <noscript>JavaScript is required to run this app.</noscript>
