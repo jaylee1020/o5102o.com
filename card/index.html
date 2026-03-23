@@ -2,7 +2,11 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="o5102o card">
+  <link rel="apple-touch-icon" href="/icon-192.png">
   <meta name="description" content="o5102o — developer card &amp; contact">
   <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#f7f7f7" media="(prefers-color-scheme: light)">
@@ -78,15 +82,18 @@
       color: var(--fg);
       font-family: var(--font-sans);
       padding: var(--space-6);
+      padding-top: max(var(--space-6), env(safe-area-inset-top));
       display: flex;
       justify-content: center;
       -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     /* ─── ANIMATIONS ─────────────────────────────────── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translate3d(0, 16px, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
     .wrap {
@@ -234,7 +241,7 @@
       background: var(--accent-dim);
     }
 
-    .action-btn:active { transform: translateY(1px); }
+    .action-btn:active { transform: translate3d(0, 1px, 0); }
 
     .action-btn:focus-visible {
       outline: 1px solid var(--accent);
@@ -271,7 +278,7 @@
     }
 
     /* ─── FORM SECTION ───────────────────────────────── */
-    .form-box { --delay: 0.15s; }
+    .form-box { --delay: 0.15s; content-visibility: auto; contain-intrinsic-size: auto 480px; }
 
     .form-title {
       font-size: 0.85rem;
@@ -333,7 +340,7 @@
       transition: transform 0.1s, opacity 0.15s;
     }
 
-    .submit-btn:active { transform: translateY(1px); }
+    .submit-btn:active { transform: translate3d(0, 1px, 0); }
     .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
     .submit-btn:focus-visible { outline: 1px solid var(--dim); outline-offset: 2px; }
 
@@ -548,7 +555,12 @@
       });
     }
 
-    initWalletButton();
+    // Defer wallet probe to avoid blocking main thread
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initWalletButton);
+    } else {
+      setTimeout(initWalletButton, 0);
+    }
 
     // ─── Contact Form ─────────────────────────────────
     const contactForm = document.getElementById('contactForm');

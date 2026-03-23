@@ -2,7 +2,11 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="by o5102o">
+  <link rel="apple-touch-icon" href="/icon-192.png">
   <meta name="description" content="by o5102o — portfolio">
   <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#f7f7f7" media="(prefers-color-scheme: light)">
@@ -69,12 +73,15 @@
       align-items: flex-start;
       justify-content: center;
       padding: var(--space-6) var(--space-4);
+      padding-top: max(var(--space-6), env(safe-area-inset-top));
       -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translate3d(0, 16px, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
     .container {
@@ -123,7 +130,7 @@
 
     .card:hover {
       border-color: var(--dim);
-      transform: translateY(-1px);
+      transform: translate3d(0, -1px, 0);
     }
 
     .projects-title {
@@ -192,7 +199,7 @@
       letter-spacing: 0.08em;
     }
 
-    .github-section { margin-top: var(--space-3); }
+    .github-section { margin-top: var(--space-3); content-visibility: auto; contain-intrinsic-size: auto 300px; }
 
     @media (max-width: 600px) {
       .card { padding: var(--space-4); }
