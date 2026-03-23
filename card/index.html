@@ -86,12 +86,14 @@
       display: flex;
       justify-content: center;
       -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     /* ─── ANIMATIONS ─────────────────────────────────── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translate3d(0, 16px, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
     .wrap {
@@ -239,7 +241,7 @@
       background: var(--accent-dim);
     }
 
-    .action-btn:active { transform: translateY(1px); }
+    .action-btn:active { transform: translate3d(0, 1px, 0); }
 
     .action-btn:focus-visible {
       outline: 1px solid var(--accent);
@@ -276,7 +278,7 @@
     }
 
     /* ─── FORM SECTION ───────────────────────────────── */
-    .form-box { --delay: 0.15s; }
+    .form-box { --delay: 0.15s; content-visibility: auto; contain-intrinsic-size: auto 480px; }
 
     .form-title {
       font-size: 0.85rem;
@@ -338,7 +340,7 @@
       transition: transform 0.1s, opacity 0.15s;
     }
 
-    .submit-btn:active { transform: translateY(1px); }
+    .submit-btn:active { transform: translate3d(0, 1px, 0); }
     .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
     .submit-btn:focus-visible { outline: 1px solid var(--dim); outline-offset: 2px; }
 
@@ -553,7 +555,12 @@
       });
     }
 
-    initWalletButton();
+    // Defer wallet probe to avoid blocking main thread
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initWalletButton);
+    } else {
+      setTimeout(initWalletButton, 0);
+    }
 
     // ─── Contact Form ─────────────────────────────────
     const contactForm = document.getElementById('contactForm');

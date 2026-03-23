@@ -19,10 +19,12 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
 
-    <!-- Preload critical assets -->
-    <link rel="preload" href="/assets/index-BYpDMb72.js" as="script" crossorigin />
-    <link rel="preload" href="/assets/index-B0V9KlC0.css" as="style" crossorigin />
+    <!-- Preload critical assets — high priority for M4 GPU pipeline -->
+    <link rel="preload" href="/assets/index-BYpDMb72.js" as="script" crossorigin fetchpriority="high" />
+    <link rel="preload" href="/assets/index-B0V9KlC0.css" as="style" crossorigin fetchpriority="high" />
     <link rel="preload" href="/models/selfie_segmenter.tflite" as="fetch" crossorigin />
+    <link rel="preload" href="/vendor/mediapipe/wasm/vision_wasm_internal.wasm" as="fetch" crossorigin type="application/wasm" />
+    <link rel="preload" href="/models/gesture_recognizer.task" as="fetch" crossorigin />
 
     <!-- OG / Twitter -->
     <meta property="og:type" content="website" />
@@ -77,6 +79,46 @@
             show('카메라 접근이 차단되었습니다', '설정 > Safari > 카메라 에서 권한을 허용한 후 새로고침 해주세요.');
           }
         }).catch(function() {});
+      })();
+    </script>
+    <script>
+      // M4 iPad performance hints — maximize GPU/CPU utilization
+      (function() {
+        // Force high-performance GPU on dual-GPU devices
+        var c = document.createElement('canvas');
+        var gl = c.getContext('webgl2', {
+          powerPreference: 'high-performance',
+          antialias: false,
+          desynchronized: true,
+          preserveDrawingBuffer: false
+        }) || c.getContext('webgl', {
+          powerPreference: 'high-performance',
+          antialias: false,
+          desynchronized: true,
+          preserveDrawingBuffer: false
+        });
+        if (gl) {
+          // Warm up GPU pipeline
+          gl.clearColor(0, 0, 0, 1);
+          gl.clear(gl.COLOR_BUFFER_BIT);
+          var loseCtx = gl.getExtension('WEBGL_lose_context');
+          if (loseCtx) loseCtx.loseContext();
+        }
+        c = null;
+
+        // Expose SIMD capability flag for WASM loader
+        window.__WASM_SIMD = (function() {
+          try {
+            return WebAssembly.validate(new Uint8Array([
+              0,97,115,109,1,0,0,0,1,5,1,96,0,1,123,3,2,1,0,10,10,1,8,0,65,0,253,15,253,98,11
+            ]));
+          } catch(e) { return false; }
+        })();
+
+        // Signal high refresh rate availability (120Hz ProMotion)
+        if (window.screen && window.screen.availWidth >= 1024) {
+          document.documentElement.style.setProperty('--target-fps', '120');
+        }
       })();
     </script>
     <noscript>JavaScript is required to run this app.</noscript>

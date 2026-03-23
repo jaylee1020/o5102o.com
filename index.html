@@ -8,6 +8,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="o5102o">
   <link rel="apple-touch-icon" href="/icon-192.png">
+  <link rel="dns-prefetch" href="https://card.o5102o.com">
+  <link rel="dns-prefetch" href="https://by.o5102o.com">
+  <link rel="dns-prefetch" href="https://default.o5102o.com">
+  <link rel="preconnect" href="https://card.o5102o.com" crossorigin>
   <title>o5102o</title>
   <meta name="description" content="이주영(Jay) — designer · developer">
   <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
@@ -54,6 +58,7 @@
 
     body {
       height: 100vh;
+      height: 100dvh;
       background: var(--bg);
       color: var(--fg);
       font-family: "D2Coding", "Nanum Gothic Coding", "Noto Sans Mono CJK KR", monospace;
@@ -64,6 +69,8 @@
       padding: 2rem;
       padding-top: max(2rem, env(safe-area-inset-top));
       -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     .hub {
@@ -101,6 +108,8 @@
       font-size: 0.85rem;
       letter-spacing: 0.02em;
       transition: border-color 0.2s, background 0.2s;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
     }
 
     .links a:hover,
