@@ -20,7 +20,7 @@
   <meta property="og:locale" content="ko_KR">
   <meta property="og:image" content="https://card.o5102o.com/og-image.svg">
   <meta name="twitter:card" content="summary_large_image">
-  <script>var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
+  <script>var t=new URLSearchParams(location.search).get('t')||localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
   <style>
     /* Themes */
     html[data-theme="1"]{--bg:#dcdcdc;--fg:#1b00c8}
@@ -149,6 +149,9 @@
       }catch(err){var s=encodeURIComponent('[card] '+p.name),bd=encodeURIComponent('이름: '+p.name+'\n전화번호: '+(p.phone||'-')+'\n만난 곳: '+(p.place||'-'));msgEl.innerHTML='';msgEl.append('서버 오류. ');var a=document.createElement('a');a.href='mailto:jyounglee1020@gmail.com?subject='+s+'&body='+bd;a.textContent='이메일로 보내기';msgEl.appendChild(a);msgEl.className='msg error'
       }finally{sending=false;sub.disabled=false;sub.textContent='보내기'}
     });
+    /* Pass theme to back link */
+    var bt=new URLSearchParams(location.search).get('t');
+    if(bt){var bk=document.querySelector('.back');if(bk)bk.href+='?t='+bt}
     if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});
   </script>
 </body>

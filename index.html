@@ -127,8 +127,9 @@
 
   <script>
     /* Links */
+    function getTheme(){return document.documentElement.getAttribute('data-theme')||'1'}
     var urls={'l-card':'https://card.o5102o.com/','l-portfolio':'https://by.o5102o.com/','l-blog':'https://blog.o5102o.com/','l-exhibit':'https://default.o5102o.com/','l-github':'https://github.com/jaylee1020','l-instagram':'https://www.instagram.com/o5102o'};
-    Object.keys(urls).forEach(function(id){document.getElementById(id).addEventListener('click',function(){window.open(urls[id],'_blank')})});
+    Object.keys(urls).forEach(function(id){document.getElementById(id).addEventListener('click',function(){var u=urls[id];if(u.includes('o5102o.com'))u+='?t='+getTheme();window.open(u,'_blank')})});
 
     /* Email copy */
     var emailBtn=document.getElementById('email-btn'),emailMob=emailBtn.querySelector('.mobile-only');

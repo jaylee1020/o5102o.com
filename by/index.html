@@ -20,7 +20,7 @@
   <meta property="og:locale" content="ko_KR">
   <meta property="og:image" content="https://by.o5102o.com/og-image.svg">
   <meta name="twitter:card" content="summary_large_image">
-  <script>var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
+  <script>var t=new URLSearchParams(location.search).get('t')||localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
   <style>
     /* Themes */
     html[data-theme="1"]{--bg:#dcdcdc;--fg:#1b00c8}
@@ -111,6 +111,8 @@
       }catch(e){status.textContent='불러오기 실패. ';var btn=document.createElement('button');btn.className='retry';btn.textContent='[다시 시도]';btn.addEventListener('click',load);status.appendChild(btn)}
     }
     load();
+    var bt=new URLSearchParams(location.search).get('t');
+    if(bt){var bk=document.querySelector('.back');if(bk)bk.href+='?t='+bt}
     if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});
   </script>
 </body>
