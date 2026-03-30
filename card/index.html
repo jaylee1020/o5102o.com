@@ -69,6 +69,7 @@
         --btn-fg: #fafafa;
         --error: #dc2626;
         --error-muted: rgba(220, 38, 38, 0.06);
+        --success: #15803d;
         --placeholder: #a1a1aa;
       }
     }
@@ -86,6 +87,7 @@
       justify-content: center;
       -webkit-font-smoothing: antialiased;
       -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     @keyframes fadeIn {
@@ -630,17 +632,17 @@
     nameInput.addEventListener('input', () => { clearFieldError(nameInput); setMessage(''); });
     placeInput.addEventListener('input', () => { setMessage(''); });
 
+    function shakeField(field) {
+      field.classList.add('invalid', 'shake');
+      field.setAttribute('aria-invalid', 'true');
+      field.addEventListener('animationend', () => field.classList.remove('shake'), { once: true });
+    }
+
     contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (isSubmitting) return;
 
       const payload = getPayload();
-
-      function shakeField(field) {
-        field.classList.add('invalid', 'shake');
-        field.setAttribute('aria-invalid', 'true');
-        field.addEventListener('animationend', () => field.classList.remove('shake'), { once: true });
-      }
 
       if (!payload.name) {
         shakeField(nameInput);
@@ -686,7 +688,6 @@
     const offlineBanner = document.getElementById('offlineBanner');
     function updateOnlineStatus() {
       offlineBanner.classList.toggle('visible', !navigator.onLine);
-      submitButton.disabled = !navigator.onLine && !isSubmitting;
     }
     window.addEventListener('online', updateOnlineStatus);
     window.addEventListener('offline', updateOnlineStatus);

@@ -60,13 +60,14 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { color-scheme: dark light; }
 
     body {
       background: var(--bg);
       color: var(--text);
       font-family: var(--sans);
-      height: 100vh;
-      height: 100dvh;
+      min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -75,6 +76,7 @@
       padding-top: max(2rem, env(safe-area-inset-top));
       -webkit-font-smoothing: antialiased;
       -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     @keyframes fadeIn {
