@@ -126,7 +126,7 @@
 
   <script>
     /* vCard */
-    function vcard(){var v=['BEGIN:VCARD','VERSION:3.0','N:LEE;JOOYOUNG;;;','FN:JOOYOUNG LEE','NICKNAME:o5102o','TITLE:Designer & Developer','EMAIL;TYPE=INTERNET:jyounglee1020@gmail.com','URL:https://o5102o.com','X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/o5102o','X-SOCIALPROFILE;TYPE=github:https://github.com/jaylee1020','NOTE:o5102o.com','END:VCARD'].join('\r\n');var b=new Blob([v],{type:'text/vcard;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='o5102o.vcf';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)}
+    function vcard(){var v=['BEGIN:VCARD','VERSION:3.0','N:이;주영;;;','FN:이주영 (JOOYOUNG LEE)','NICKNAME:o5102o','TITLE:Designer & Developer','TEL;TYPE=CELL:010-8520-7201','EMAIL;TYPE=INTERNET:jyounglee1020@gmail.com','URL:https://o5102o.com','X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/o5102o','X-SOCIALPROFILE;TYPE=github:https://github.com/jaylee1020','NOTE:o5102o.com','END:VCARD'].join('\r\n');var b=new Blob([v],{type:'text/vcard;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='o5102o.vcf';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)}
     document.getElementById('vcardBtn').addEventListener('click',vcard);
     document.getElementById('vcardBtn2').addEventListener('click',vcard);
 
