@@ -1,71 +1,59 @@
-const CACHE_VERSION = "v2";
-const CACHE_NAME = `o5102o-${CACHE_VERSION}`;
-const HTML_FALLBACK_URL = "/";
-const PRECACHE_URLS = ["/", "/icon-192.png", "/icon-512.png", "/manifest.json"];
+const CACHE = 'o5102o-v1';
 
-function isLocalGetRequest(request) {
-  const url = new URL(request.url);
+const PRECACHE = [
+  '/',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/manifest.json',
+];
 
-  return (
-    request.method === "GET" &&
-    url.origin === self.location.origin &&
-    !url.pathname.startsWith("/api/")
-  );
-}
-
-function isHtmlRequest(request) {
-  const acceptHeader = request.headers.get("Accept") || "";
-  return acceptHeader.includes("text/html");
-}
-
-async function putInCache(request, response) {
-  if (!response?.ok) {
-    return response;
-  }
-
-  const cache = await caches.open(CACHE_NAME);
-  await cache.put(request, response.clone());
-  return response;
-}
-
-async function networkFirst(request) {
-  try {
-    const response = await fetch(request);
-    return await putInCache(request, response);
-  } catch {
-    return (await caches.match(request)) || caches.match(HTML_FALLBACK_URL);
-  }
-}
-
-async function cacheFirst(request) {
-  const cachedResponse = await caches.match(request);
-  if (cachedResponse) {
-    return cachedResponse;
-  }
-
-  const response = await fetch(request);
-  return putInCache(request, response);
-}
-
-self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS)));
+self.addEventListener('install', (e) => {
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECACHE)));
   self.skipWaiting();
 });
 
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
+      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
     )
   );
   self.clients.claim();
 });
 
-self.addEventListener("fetch", (event) => {
-  const { request } = event;
-  if (!isLocalGetRequest(request)) {
+self.addEventListener('fetch', (e) => {
+  const { request } = e;
+  const url = new URL(request.url);
+
+  if (request.method !== 'GET') return;
+  if (url.pathname.startsWith('/api/')) return;
+  if (url.origin !== self.location.origin) return;
+
+  // HTML: network first, cache fallback
+  if (request.headers.get('Accept')?.includes('text/html')) {
+    e.respondWith(
+      fetch(request)
+        .then((res) => {
+          const clone = res.clone();
+          caches.open(CACHE).then((c) => c.put(request, clone));
+          return res;
+        })
+        .catch(() => caches.match(request).then((r) => r || caches.match('/')))
+    );
     return;
   }
 
-  event.respondWith(isHtmlRequest(request) ? networkFirst(request) : cacheFirst(request));
+  // Assets: cache first, network fallback
+  e.respondWith(
+    caches.match(request).then((cached) => {
+      if (cached) return cached;
+      return fetch(request).then((res) => {
+        if (res.ok) {
+          const clone = res.clone();
+          caches.open(CACHE).then((c) => c.put(request, clone));
+        }
+        return res;
+      });
+    })
+  );
 });
