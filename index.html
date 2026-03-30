@@ -43,6 +43,7 @@
       background:var(--bg);color:var(--fg);
       -webkit-font-smoothing:antialiased;
       -webkit-tap-highlight-color:transparent;
+      -webkit-user-select:none;user-select:none;
       touch-action:manipulation;
     }
 
@@ -62,7 +63,7 @@
     }
 
     /* ─── Rows ────────────────────────────────────── */
-    .row{height:26px;user-select:none;width:100%}
+    .row{height:26px;width:100%}
     .row p{display:inline-block;padding-left:3px;border-radius:2px}
     .row-empty{height:26px}
     .section-gap{height:36px}
@@ -82,9 +83,10 @@
       display:inline;content:" [⬏]"
     }
 
-    button{padding-left:3px;border-radius:2px;text-transform:uppercase;white-space:nowrap}
+    button{padding:1px 4px;border-radius:2px;text-transform:uppercase;white-space:nowrap;-webkit-user-select:none;user-select:none}
     button:focus-visible{color:var(--bg);background:var(--fg);outline:none}
     button:active{color:var(--bg);background:var(--fg)}
+    @media(hover:hover){button:hover{color:var(--bg);background:var(--fg)}}
 
     .theme-row{margin-top:32px}
 
