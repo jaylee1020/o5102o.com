@@ -1,58 +1,41 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="1">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1a1a1e">
   <title>404 — o5102o</title>
+  <script>var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
   <style>
-    :root {
-      --bg: #09090b;
-      --text: #fafafa;
-      --text-2: #a1a1aa;
-      --text-3: #71717a;
-      --accent: #4ade80;
-      --accent-muted: rgba(74, 222, 128, 0.08);
-      --border: #27272a;
-      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    html[data-theme="1"]{--bg:#1a1a1e;--fg:#dcdcdc}
+    html[data-theme="2"]{--bg:#0078bf;--fg:#ff6c2f}
+    html[data-theme="3"]{--bg:#f65058;--fg:#00a95c}
+    html[data-theme="4"]{--bg:#925f52;--fg:#5ec8e5}
+    html[data-theme="5"]{--bg:#ff48b0;--fg:#ffe916}
+    :root{--bg:#1a1a1e;--fg:#dcdcdc}
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{
+      min-height:100vh;min-height:100dvh;height:100%;
+      font-size:17px;line-height:26px;
+      font-family:"SF Mono",ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Monaco,Consolas,monospace;
+      font-weight:400;background:var(--bg);color:var(--fg);
+      -webkit-font-smoothing:antialiased;-webkit-user-select:none;user-select:none;
     }
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #fafafa; --text: #09090b; --text-2: #52525b;
-        --text-3: #a1a1aa; --accent: #16a34a;
-        --accent-muted: rgba(22,163,74,0.06); --border: #e4e4e7;
-      }
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { color-scheme: dark light; }
-    body {
-      background: var(--bg); color: var(--text); font-family: var(--sans);
-      min-height: 100vh; min-height: 100dvh;
-      display: flex; align-items: center; justify-content: center;
-      padding: 2rem; -webkit-font-smoothing: antialiased;
-    }
-    .wrap { text-align: center; max-width: 360px; }
-    .code { font-family: var(--mono); font-size: 4rem; font-weight: 700; letter-spacing: -0.04em; opacity: 0.15; }
-    .msg { font-size: 0.88rem; color: var(--text-2); margin-top: 0.5rem; line-height: 1.6; }
-    .home {
-      display: inline-block; margin-top: 1.5rem; padding: 0.6rem 1.2rem;
-      border: 1px solid var(--border); border-radius: 8px;
-      color: var(--text); text-decoration: none; font-size: 0.78rem; font-weight: 600;
-      transition: border-color 0.15s, background 0.15s;
-    }
-    .home:hover { border-color: var(--accent); background: var(--accent-muted); }
-    .home:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    @media (prefers-reduced-motion: reduce) { .home { transition: none; } }
+    .outer{width:100%;min-height:100vh;min-height:100dvh;display:flex;align-items:flex-start;justify-content:flex-start;padding:40px 36px;padding-top:max(40px,env(safe-area-inset-top,0px))}
+    .inner{width:100%;max-width:480px}
+    .row{height:26px;width:100%}
+    .row p{display:inline-block;padding-left:3px}
+    .dim{opacity:.45}
+    .back{display:inline-block;padding:1px 4px;border-radius:2px;text-decoration:none;color:var(--fg);opacity:.45;margin-top:36px}
+    .back:hover{opacity:1}
+    @media(max-width:768px){body{font-size:16px;line-height:28px}.outer{padding:28px 20px;padding-top:max(28px,env(safe-area-inset-top,0px))}.row{height:28px}}
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <p class="code">404</p>
-    <p class="msg">페이지를 찾을 수 없습니다.</p>
-    <a class="home" href="https://o5102o.com">홈으로 돌아가기</a>
-  </main>
+  <div class="outer"><div class="inner">
+    <div class="row"><p>404</p></div>
+    <div class="row"><p class="dim">페이지를 찾을 수 없습니다.</p></div>
+    <a class="back" href="https://o5102o.com">&larr; o5102o.com</a>
+  </div></div>
 </body>
 </html>

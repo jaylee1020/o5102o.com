@@ -20,15 +20,21 @@
   <meta property="og:locale" content="ko_KR">
   <meta property="og:image" content="https://card.o5102o.com/og-image.svg">
   <meta name="twitter:card" content="summary_large_image">
+  <script>var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
   <style>
+    /* Themes */
     html[data-theme="1"]{--bg:#1a1a1e;--fg:#dcdcdc}
     html[data-theme="2"]{--bg:#0078bf;--fg:#ff6c2f}
     html[data-theme="3"]{--bg:#f65058;--fg:#00a95c}
     html[data-theme="4"]{--bg:#925f52;--fg:#5ec8e5}
     html[data-theme="5"]{--bg:#ff48b0;--fg:#ffe916}
     :root{--bg:#1a1a1e;--fg:#dcdcdc;--copy-text:" [+]"}
-    <script>var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
+
+    /* Reset */
     *{margin:0;padding:0;box-sizing:border-box}
+    button{border:none;background:none;font:inherit;color:inherit;cursor:default}
+
+    /* Base */
     html,body{
       min-height:100vh;min-height:100dvh;height:100%;
       font-size:17px;line-height:26px;
@@ -37,31 +43,21 @@
       -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
       -webkit-user-select:none;user-select:none;touch-action:manipulation;
     }
-    body{line-height:1}
-    button{border:none;background:none;font:inherit;color:inherit;cursor:default}
+
     .mobile-only{display:none}
-    .outer{
-      width:100%;min-height:100vh;min-height:100dvh;
-      display:flex;align-items:flex-start;justify-content:flex-start;
-      padding:40px 36px;
-      padding-top:max(40px,env(safe-area-inset-top,0px));
-      padding-bottom:max(40px,env(safe-area-inset-bottom,0px));
-    }
+    .outer{width:100%;min-height:100vh;min-height:100dvh;display:flex;align-items:flex-start;justify-content:flex-start;padding:40px 36px;padding-top:max(40px,env(safe-area-inset-top,0px));padding-bottom:max(40px,env(safe-area-inset-bottom,0px))}
     .inner{width:100%;max-width:480px}
     .row{height:26px;width:100%}
-    .row p,.row span{display:inline-block;padding-left:3px;border-radius:2px}
+    .row p{display:inline-block;padding-left:3px;border-radius:2px}
     .gap{height:36px}
     .dim{opacity:.45}
-
     .back{display:inline-block;padding:1px 4px;border-radius:2px;text-decoration:none;color:var(--fg);opacity:.45;margin-bottom:8px}
     .back:hover{opacity:1}
 
-    /* Links — same row, label left, value right */
+    /* Info rows */
     .info{display:flex;justify-content:space-between;padding:1px 4px;text-decoration:none;color:var(--fg);border-radius:2px;height:26px;align-items:baseline}
     .info span:last-child{opacity:.45}
-    .info:hover{color:var(--bg);background:var(--fg)}
-    .info:active{color:var(--bg);background:var(--fg)}
-    .info:focus-visible{color:var(--bg);background:var(--fg);outline:none}
+    .info:hover,.info:active,.info:focus-visible{color:var(--bg);background:var(--fg);outline:none}
 
     /* Buttons */
     .link:hover::after,.link:active::after,.link:focus-visible::after{display:inline;content:" [↗]"}
@@ -72,38 +68,33 @@
 
     /* Form */
     label{display:block;padding-left:3px;opacity:.45;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-top:12px;margin-bottom:4px}
-    input{
-      width:100%;background:transparent;border:none;border-bottom:1px solid rgba(220,220,220,0.15);
-      color:var(--fg);padding:6px 3px;font:inherit;font-size:15px;
-      -webkit-user-select:text;user-select:text;outline:none;border-radius:0;
-    }
+    input{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(220,220,220,0.15);color:var(--fg);padding:6px 3px;font:inherit;font-size:15px;-webkit-user-select:text;user-select:text;outline:none;border-radius:0}
     input:focus{border-bottom-color:var(--fg)}
     input::placeholder{color:rgba(220,220,220,0.2)}
     input.invalid{border-bottom-color:#f87171}
     .msg{padding-left:3px;font-size:14px;min-height:1.2em;margin-top:10px}
-    .msg.error{color:#f87171} .msg.ok{color:#4ade80}
+    .msg.error{color:#f87171}
+    .msg.ok{color:#4ade80}
     .msg a{color:#4ade80;text-decoration:underline}
-    .submit{
-      margin-top:14px;padding:1px 4px;border-radius:2px;
-      text-transform:uppercase;white-space:nowrap;outline:none;
-    }
+    .submit{margin-top:14px;padding:1px 4px;border-radius:2px;text-transform:uppercase;white-space:nowrap;outline:none}
     .submit:disabled{opacity:.3;cursor:not-allowed}
     .done{display:none;margin-top:14px;opacity:.45;font-size:14px;padding-left:3px}
     .done.visible{display:block}
+    .done button{display:inline;padding:0 2px}
     @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-4px)}40%,80%{transform:translateX(4px)}}
     .shake{animation:shake .35s ease-out}
 
-    @media only screen and (max-width:768px){
-      body{font-size:16px;line-height:28px}
-      .mobile-only{display:block}
+    /* Mobile */
+    @media(max-width:768px){
+      body{font-size:16px;line-height:28px}.mobile-only{display:block}
       .outer{padding:28px 20px;padding-top:max(28px,env(safe-area-inset-top,0px));padding-bottom:max(28px,env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-      .row{height:28px} .info{height:28px} .gap{height:28px}
+      .row,.info{height:28px}.gap{height:28px}
       button{padding:3px;font-size:16px;line-height:28px;width:100%;display:flex;min-height:44px;align-items:center}
       .btn-label{flex-grow:1;text-align:left}
       .link::after,.copy::after{content:""!important}
       input{font-size:16px}
     }
-    @media only screen and (max-width:380px){body{font-size:15px;line-height:26px}.outer{padding:24px 16px}}
+    @media(max-width:380px){body{font-size:15px;line-height:26px}.outer{padding:24px 16px}}
   </style>
 </head>
 <body>
@@ -117,9 +108,7 @@
     <a class="info" href="mailto:jyounglee1020@gmail.com"><span>Email</span><span>jyounglee1020@gmail.com</span></a>
     <div class="gap"></div>
 
-    <div class="row">
-      <button class="link" id="vcardBtn"><span class="btn-label">연락처에 저장</span><span class="mobile-only">[+]</span></button>
-    </div>
+    <div class="row"><button class="link" id="vcardBtn"><span class="btn-label">연락처에 저장</span><span class="mobile-only">[+]</span></button></div>
     <div class="gap"></div>
 
     <div class="row"><p>연락처 남기기</p></div>
@@ -132,36 +121,32 @@
       <input id="place" name="place" placeholder="해커톤" autocomplete="off" maxlength="60" enterkeyhint="send"/>
       <p id="msg" class="msg" role="status" aria-live="polite"></p>
       <button id="sub" class="submit" type="submit">보내기</button>
-      <p class="done" id="done">감사합니다. <button type="button" id="vcardBtn2" style="display:inline;padding:0 2px">연락처에 저장</button></p>
+      <p class="done" id="done">감사합니다. <button type="button" id="vcardBtn2">연락처에 저장</button></p>
     </form>
   </div></div>
 
   <script>
-    function vcard(){
-      var v=['BEGIN:VCARD','VERSION:3.0','N:LEE;JOOYOUNG;;;','FN:JOOYOUNG LEE','NICKNAME:o5102o','TITLE:Designer & Developer','EMAIL;TYPE=INTERNET:jyounglee1020@gmail.com','URL:https://o5102o.com','X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/o5102o','X-SOCIALPROFILE;TYPE=github:https://github.com/jaylee1020','NOTE:o5102o.com','END:VCARD'].join('\r\n');
-      var b=new Blob([v],{type:'text/vcard;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='o5102o.vcf';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
-    }
+    /* vCard */
+    function vcard(){var v=['BEGIN:VCARD','VERSION:3.0','N:LEE;JOOYOUNG;;;','FN:JOOYOUNG LEE','NICKNAME:o5102o','TITLE:Designer & Developer','EMAIL;TYPE=INTERNET:jyounglee1020@gmail.com','URL:https://o5102o.com','X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/o5102o','X-SOCIALPROFILE;TYPE=github:https://github.com/jaylee1020','NOTE:o5102o.com','END:VCARD'].join('\r\n');var b=new Blob([v],{type:'text/vcard;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='o5102o.vcf';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)}
     document.getElementById('vcardBtn').addEventListener('click',vcard);
     document.getElementById('vcardBtn2').addEventListener('click',vcard);
 
-    var form=document.getElementById('form'),nameI=document.getElementById('name'),phoneI=document.getElementById('phone'),placeI=document.getElementById('place'),msgEl=document.getElementById('msg'),sub=document.getElementById('sub'),doneEl=document.getElementById('done');
-    var sending=false;
+    /* Form */
+    var form=document.getElementById('form'),nameI=document.getElementById('name'),phoneI=document.getElementById('phone'),placeI=document.getElementById('place'),msgEl=document.getElementById('msg'),sub=document.getElementById('sub'),doneEl=document.getElementById('done'),sending=false;
     function setMsg(t,c){msgEl.textContent=t||'';msgEl.className='msg'+(c?' '+c:'')}
     function fmt(v){var d=v.replace(/\D/g,'');if(d.length<=3)return d;if(d.length<=7)return d.slice(0,3)+'-'+d.slice(3);return d.slice(0,3)+'-'+d.slice(3,7)+'-'+d.slice(7,11)}
-    phoneI.addEventListener('input',function(){var p=phoneI.selectionStart,b=phoneI.value,f=fmt(b);if(f!==b){phoneI.value=f;var d=f.length-b.length;phoneI.setSelectionRange(p+d,p+d)}phoneI.classList.remove('invalid','shake');setMsg('')});
-    nameI.addEventListener('input',function(){nameI.classList.remove('invalid','shake');setMsg('')});
-
+    function shake(el){el.classList.add('invalid','shake');el.addEventListener('animationend',function(){el.classList.remove('shake')},{once:true})}
+    phoneI.addEventListener('input',function(){var p=phoneI.selectionStart,b=phoneI.value,f=fmt(b);if(f!==b){phoneI.value=f;phoneI.setSelectionRange(p+f.length-b.length,p+f.length-b.length)}phoneI.classList.remove('invalid');setMsg('')});
+    nameI.addEventListener('input',function(){nameI.classList.remove('invalid');setMsg('')});
     form.addEventListener('submit',async function(e){
       e.preventDefault();if(sending)return;
-      var payload={name:nameI.value.trim(),phone:phoneI.value.trim()||null,place:placeI.value.trim()||null,source:'card.o5102o.com',createdAt:new Date().toISOString()};
-      if(!payload.name){nameI.classList.add('invalid','shake');nameI.addEventListener('animationend',function(){nameI.classList.remove('shake')},{once:true});setMsg('이름을 입력해 주세요.','error');nameI.focus();return}
-      if(payload.phone){var digits=payload.phone.replace(/[\s\-()]/g,'');if(!/^(01[016789]\d{7,8}|0[2-6][1-9]\d{6,7}|\+82\d{9,10})$/.test(digits)){phoneI.classList.add('invalid','shake');phoneI.addEventListener('animationend',function(){phoneI.classList.remove('shake')},{once:true});setMsg('전화번호 형식이 맞지 않습니다.','error');phoneI.focus();return}}
+      var p={name:nameI.value.trim(),phone:phoneI.value.trim()||null,place:placeI.value.trim()||null,source:'card.o5102o.com',createdAt:new Date().toISOString()};
+      if(!p.name){shake(nameI);setMsg('이름을 입력해 주세요.','error');nameI.focus();return}
+      if(p.phone){var d=p.phone.replace(/[\s\-()]/g,'');if(!/^(01[016789]\d{7,8}|0[2-6][1-9]\d{6,7}|\+82\d{9,10})$/.test(d)){shake(phoneI);setMsg('전화번호 형식이 맞지 않습니다.','error');phoneI.focus();return}}
       try{sending=true;sub.disabled=true;sub.textContent='저장 중...';setMsg('','ok');
-        var r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-        if(!r.ok)throw new Error(r.status);setMsg('저장 완료.','ok');form.reset();doneEl.classList.add('visible');
-      }catch(err){
-        var s=encodeURIComponent('[card] '+payload.name),b=encodeURIComponent('이름: '+payload.name+'\n전화번호: '+(payload.phone||'-')+'\n만난 곳: '+(payload.place||'-'));
-        msgEl.innerHTML='';msgEl.append('서버 오류. ');var a=document.createElement('a');a.href='mailto:jyounglee1020@gmail.com?subject='+s+'&body='+b;a.textContent='이메일로 보내기';msgEl.appendChild(a);msgEl.className='msg error';
+        var r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});if(!r.ok)throw new Error(r.status);
+        setMsg('저장 완료.','ok');form.reset();doneEl.classList.add('visible');
+      }catch(err){var s=encodeURIComponent('[card] '+p.name),bd=encodeURIComponent('이름: '+p.name+'\n전화번호: '+(p.phone||'-')+'\n만난 곳: '+(p.place||'-'));msgEl.innerHTML='';msgEl.append('서버 오류. ');var a=document.createElement('a');a.href='mailto:jyounglee1020@gmail.com?subject='+s+'&body='+bd;a.textContent='이메일로 보내기';msgEl.appendChild(a);msgEl.className='msg error'
       }finally{sending=false;sub.disabled=false;sub.textContent='보내기'}
     });
     if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});
