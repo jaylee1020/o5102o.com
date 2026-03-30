@@ -75,7 +75,9 @@
     .msg.error{color:#f87171}
     .msg.ok{color:#4ade80}
     .msg a{color:#4ade80;text-decoration:underline}
-    .submit{margin-top:14px;padding:1px 4px;border-radius:2px;text-transform:uppercase;white-space:nowrap;outline:none}
+    .submit{margin-top:16px;width:100%;padding:10px 4px;border:1px solid var(--fg);border-radius:2px;background:var(--fg);color:var(--bg);text-transform:uppercase;white-space:nowrap;outline:none;font:inherit;font-size:14px;letter-spacing:.06em;cursor:pointer}
+    .submit:hover{opacity:.85}
+    .submit:active{opacity:.7}
     .submit:disabled{opacity:.3;cursor:not-allowed}
     .done{display:none;margin-top:14px;opacity:.45;font-size:14px;padding-left:3px}
     .done.visible{display:block}
@@ -114,8 +116,8 @@
     <form id="form" aria-busy="false">
       <label for="name">이름 *</label>
       <input id="name" name="name" placeholder="홍길동" autocomplete="name" required maxlength="40" enterkeyhint="next" aria-describedby="msg"/>
-      <label for="phone">전화번호</label>
-      <input id="phone" name="phone" type="tel" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" maxlength="20" enterkeyhint="next" aria-describedby="msg"/>
+      <label for="phone">전화번호 *</label>
+      <input id="phone" name="phone" type="tel" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" required maxlength="20" enterkeyhint="next" aria-describedby="msg"/>
       <label for="place">만난 곳</label>
       <input id="place" name="place" placeholder="해커톤" autocomplete="off" maxlength="60" enterkeyhint="send"/>
       <p id="msg" class="msg" role="status" aria-live="polite"></p>
@@ -139,9 +141,10 @@
     nameI.addEventListener('input',function(){nameI.classList.remove('invalid');setMsg('')});
     form.addEventListener('submit',async function(e){
       e.preventDefault();if(sending)return;
-      var p={name:nameI.value.trim(),phone:phoneI.value.trim()||null,place:placeI.value.trim()||null,source:'card.o5102o.com',createdAt:new Date().toISOString()};
+      var p={name:nameI.value.trim(),phone:phoneI.value.trim(),place:placeI.value.trim()||null,source:'card.o5102o.com',createdAt:new Date().toISOString()};
       if(!p.name){shake(nameI);setMsg('이름을 입력해 주세요.','error');nameI.focus();return}
-      if(p.phone){var d=p.phone.replace(/[\s\-()]/g,'');if(!/^(01[016789]\d{7,8}|0[2-6][1-9]\d{6,7}|\+82\d{9,10})$/.test(d)){shake(phoneI);setMsg('전화번호 형식이 맞지 않습니다.','error');phoneI.focus();return}}
+      if(!p.phone){shake(phoneI);setMsg('전화번호를 입력해 주세요.','error');phoneI.focus();return}
+      var d=p.phone.replace(/[\s\-()]/g,'');if(!/^(01[016789]\d{7,8}|0[2-6][1-9]\d{6,7}|\+82\d{9,10})$/.test(d)){shake(phoneI);setMsg('전화번호 형식이 맞지 않습니다.','error');phoneI.focus();return}
       try{sending=true;sub.disabled=true;sub.textContent='저장 중...';setMsg('','ok');
         var r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});if(!r.ok)throw new Error(r.status);
         setMsg('저장 완료.','ok');form.reset();doneEl.classList.add('visible');
