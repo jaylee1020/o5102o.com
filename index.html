@@ -80,9 +80,9 @@
       display:inline;content:var(--copy-text)
     }
 
-    button{padding:1px 4px;border-radius:2px;text-transform:uppercase;white-space:nowrap;-webkit-user-select:none;user-select:none}
-    button:focus-visible{color:var(--bg);background:var(--fg);outline:none}
-    button:active{color:var(--bg);background:var(--fg)}
+    button{padding:1px 4px;border-radius:2px;text-transform:uppercase;white-space:nowrap;-webkit-user-select:none;user-select:none;outline:1px solid transparent;outline-offset:2px;transition:outline-color .15s}
+    button:focus-visible{outline-color:var(--fg)}
+    button:active{outline-color:var(--fg)}
 
     .theme-row{margin-top:32px}
 
