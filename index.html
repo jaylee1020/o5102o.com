@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="6">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -24,15 +24,8 @@
   <meta name="twitter:title" content="o5102o">
   <meta name="twitter:description" content="JOOYOUNG LEE — designer · developer">
   <style>
-    /* ─── Themes ──────────────────────────────────── */
-    html[data-theme="1"]{--bg:#fafaf9;--fg:#292524}
-    html[data-theme="2"]{--bg:#d6d3d1;--fg:#1c1917}
-    html[data-theme="3"]{--bg:#c4a35a;--fg:#1c1917}
-    html[data-theme="4"]{--bg:#44444a;--fg:#b4b4b7}
-    html[data-theme="5"]{--bg:#0a0a0b;--fg:#4ade80}
-    html[data-theme="6"]{--bg:#0a0a0b;--fg:#d4d4d8}
-    html[data-theme="7"]{--bg:#0a0a0b;--fg:#c4a35a}
-    html[data-theme="8"]{--bg:#2449d1;--fg:#ffffff}
+    /* ─── Theme ───────────────────────────────────── */
+    :root{--bg:#0a0a0b;--fg:#d4d4d8}
 
     :root{--copy-text:" [+]"}
 
@@ -44,7 +37,7 @@
     /* ─── Base ────────────────────────────────────── */
     html,body{
       min-height:100vh;min-height:100dvh;height:100%;
-      font-size:15px;line-height:22px;
+      font-size:17px;line-height:26px;
       font-family:"SF Mono",ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Monaco,Consolas,monospace;
       font-weight:400;
       background:var(--bg);color:var(--fg);
@@ -69,10 +62,10 @@
     }
 
     /* ─── Rows ────────────────────────────────────── */
-    .row{height:22px;user-select:none;width:100%}
+    .row{height:26px;user-select:none;width:100%}
     .row p{display:inline-block;padding-left:3px;border-radius:2px}
-    .row-empty{height:22px}
-    .section-gap{height:32px}
+    .row-empty{height:26px}
+    .section-gap{height:36px}
     .dim{opacity:.45}
 
     /* ─── Hover indicators (p.cv pattern) ─────────── */
@@ -89,7 +82,7 @@
       display:inline;content:" [⬏]"
     }
 
-    button{padding-left:3px;border-radius:2px;text-transform:uppercase}
+    button{padding-left:3px;border-radius:2px;text-transform:uppercase;white-space:nowrap}
     button:focus-visible{color:var(--bg);background:var(--fg);outline:none}
     button:active{color:var(--bg);background:var(--fg)}
 
@@ -97,7 +90,7 @@
 
     /* ─── Mobile ──────────────────────────────────── */
     @media only screen and (max-width:768px){
-      body{font-size:15px;line-height:26px}
+      body{font-size:16px;line-height:28px}
       .mobile-only{display:block}
       button.mobile-only{display:flex}
       .outer{
@@ -108,11 +101,11 @@
         padding-right:max(20px,env(safe-area-inset-right,0px));
         align-items:flex-start;
       }
-      .row{height:26px}
-      .row-empty{height:18px}
-      .section-gap{height:26px}
+      .row{height:28px}
+      .row-empty{height:20px}
+      .section-gap{height:28px}
       button,.nolink{
-        padding:3px;font-size:15px;line-height:26px;
+        padding:3px;font-size:16px;line-height:28px;
         width:100%;display:flex;min-height:44px;align-items:center;
       }
       .btn-label{flex-grow:1;text-align:left}
@@ -122,10 +115,10 @@
 
     /* Small phones */
     @media only screen and (max-width:380px){
-      body{font-size:14px;line-height:24px}
+      body{font-size:15px;line-height:26px}
       .outer{padding:24px 16px}
-      .row{height:24px}
-      button,.nolink{font-size:14px;line-height:24px}
+      .row{height:26px}
+      button,.nolink{font-size:15px;line-height:26px}
     }
 
     /* Landscape mobile */
@@ -265,24 +258,9 @@
       }
     });
 
-    /* ─── Theme toggle ────────────────────────────── */
+    /* ─── Theme toggle (reserved) ────────────────── */
     var themeBtn = document.getElementById('theme-btn');
-    var totalThemes = 8;
-    var stored = localStorage.getItem('theme');
-    var systemDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
-
-    if (stored) {
-      document.documentElement.setAttribute('data-theme', stored);
-    } else if (!systemDark) {
-      document.documentElement.setAttribute('data-theme', '1');
-    }
-
-    themeBtn.addEventListener('click', function() {
-      var current = parseInt(document.documentElement.getAttribute('data-theme')) || 6;
-      var next = (current % totalThemes) + 1;
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-    });
+    themeBtn.addEventListener('click', function() {});
 
     /* ─── Typing animation ────────────────────────── */
     var lines = document.querySelectorAll('.intro-line');
