@@ -19,13 +19,13 @@
   <meta property="og:url" content="https://card.o5102o.com/">
   <meta property="og:site_name" content="o5102o">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:image" content="https://o5102o.com/og-image.svg">
+  <meta property="og:image" content="https://card.o5102o.com/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="o5102o / card">
   <meta name="twitter:description" content="developer card + contact">
-  <meta name="twitter:image" content="https://o5102o.com/og-image.svg">
+  <meta name="twitter:image" content="https://card.o5102o.com/og-image.svg">
   <title>o5102o / card</title>
   <style>
     :root {
@@ -370,6 +370,8 @@
       }
     }
 
+    body.leaving { opacity: 0; transition: opacity 0.18s ease; }
+
     ::selection { background: var(--select-bg); color: var(--text); }
   </style>
 </head>
@@ -381,7 +383,7 @@
 
     <section class="card profile">
       <h1 class="profile-name">o5102o</h1>
-      <p class="profile-bio">이주영 (Jay) &middot; 컴퓨터공학부 2학년</p>
+      <p class="profile-bio">JOOYOUNG LEE &middot; 컴퓨터공학부 2학년</p>
       <ul class="profile-links">
         <li><a href="https://o5102o.com"><span>web</span><span>o5102o.com</span></a></li>
         <li><a href="https://by.o5102o.com" target="_blank" rel="noopener noreferrer"><span>portfolio</span><span>by.o5102o.com</span></a></li>
@@ -450,15 +452,15 @@
       const vcard = [
         'BEGIN:VCARD',
         'VERSION:3.0',
-        'N:이;주영;;;',
-        'FN:이주영 (Jay)',
+        'N:LEE;JOOYOUNG;;;',
+        'FN:JOOYOUNG LEE',
         'NICKNAME:o5102o',
         'TITLE:Designer & Developer',
         'EMAIL;TYPE=INTERNET:jyounglee1020@gmail.com',
         'URL:https://o5102o.com',
         'X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/o5102o',
         'X-SOCIALPROFILE;TYPE=github:https://github.com/jaylee1020',
-        'NOTE:o5102o.com - Designer & Developer',
+        'NOTE:o5102o.com - JOOYOUNG LEE - Designer & Developer',
         'END:VCARD'
       ].join('\r\n');
 
@@ -692,6 +694,18 @@
     window.addEventListener('online', updateOnlineStatus);
     window.addEventListener('offline', updateOnlineStatus);
     updateOnlineStatus();
+
+    // Page exit transition
+    document.querySelector('.back').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.body.classList.add('leaving');
+      setTimeout(() => { location.href = e.currentTarget.href; }, 180);
+    });
+
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
   </script>
 </body>
 </html>

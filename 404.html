@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+  <title>404 — o5102o</title>
+  <style>
+    :root {
+      --bg: #09090b;
+      --text: #fafafa;
+      --text-2: #a1a1aa;
+      --text-3: #71717a;
+      --accent: #4ade80;
+      --accent-muted: rgba(74, 222, 128, 0.08);
+      --border: #27272a;
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #fafafa; --text: #09090b; --text-2: #52525b;
+        --text-3: #a1a1aa; --accent: #16a34a;
+        --accent-muted: rgba(22,163,74,0.06); --border: #e4e4e7;
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { color-scheme: dark light; }
+    body {
+      background: var(--bg); color: var(--text); font-family: var(--sans);
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem; -webkit-font-smoothing: antialiased;
+    }
+    .wrap { text-align: center; max-width: 360px; }
+    .code { font-family: var(--mono); font-size: 4rem; font-weight: 700; letter-spacing: -0.04em; opacity: 0.15; }
+    .msg { font-size: 0.88rem; color: var(--text-2); margin-top: 0.5rem; line-height: 1.6; }
+    .home {
+      display: inline-block; margin-top: 1.5rem; padding: 0.6rem 1.2rem;
+      border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); text-decoration: none; font-size: 0.78rem; font-weight: 600;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .home:hover { border-color: var(--accent); background: var(--accent-muted); }
+    .home:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { .home { transition: none; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="code">404</p>
+    <p class="msg">페이지를 찾을 수 없습니다.</p>
+    <a class="home" href="https://o5102o.com">홈으로 돌아가기</a>
+  </main>
+</body>
+</html>

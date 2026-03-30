@@ -19,13 +19,13 @@
   <meta property="og:url" content="https://blog.o5102o.com/">
   <meta property="og:site_name" content="o5102o">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:image" content="https://o5102o.com/og-image.svg">
+  <meta property="og:image" content="https://blog.o5102o.com/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="blog — o5102o">
   <meta name="twitter:description" content="thoughts, notes, and logs">
-  <meta name="twitter:image" content="https://o5102o.com/og-image.svg">
+  <meta name="twitter:image" content="https://blog.o5102o.com/og-image.svg">
   <title>blog — o5102o</title>
   <style>
     :root {
@@ -185,6 +185,8 @@
       .post-link, .post-title { transition: none; }
     }
 
+    body.leaving { opacity: 0; transition: opacity 0.18s ease; }
+
     ::selection { background: var(--select-bg); color: var(--text); }
   </style>
 </head>
@@ -214,5 +216,19 @@
 
     <p class="footer">&copy; 2026 o5102o &middot; Seoul, KR</p>
   </main>
+
+  <script>
+    // Page exit transition
+    document.querySelector('.back').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.body.classList.add('leaving');
+      setTimeout(() => { location.href = e.currentTarget.href; }, 180);
+    });
+
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  </script>
 </body>
 </html>

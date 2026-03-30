@@ -14,14 +14,14 @@
   <link rel="dns-prefetch" href="https://default.o5102o.com">
   <link rel="preconnect" href="https://card.o5102o.com" crossorigin>
   <title>o5102o</title>
-  <meta name="description" content="이주영(Jay) — designer · developer">
+  <meta name="description" content="JOOYOUNG LEE — designer · developer">
   <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
   <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
   <link rel="canonical" href="https://o5102o.com/">
   <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
   <meta property="og:title" content="o5102o">
-  <meta property="og:description" content="이주영(Jay) — designer · developer">
+  <meta property="og:description" content="JOOYOUNG LEE — designer · developer">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://o5102o.com/">
   <meta property="og:site_name" content="o5102o">
@@ -29,7 +29,7 @@
   <meta property="og:image" content="https://o5102o.com/og-image.svg">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="o5102o">
-  <meta name="twitter:description" content="이주영(Jay) — designer · developer">
+  <meta name="twitter:description" content="JOOYOUNG LEE — designer · developer">
   <style>
     :root {
       --bg: #09090b;
@@ -184,14 +184,36 @@
       .nav-item, .nav-arrow, .nav-label, footer a { transition: none; }
     }
 
+    /* Mouse-following gradient */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(
+        600px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+        var(--accent-muted),
+        transparent 60%
+      );
+      pointer-events: none;
+      z-index: -1;
+      transition: opacity 0.3s;
+    }
+
+    /* Page exit transition */
+    body.leaving { opacity: 0; transition: opacity 0.18s ease; }
+
     ::selection { background: var(--accent-muted); color: var(--text); }
+
+    @media (hover: none) {
+      body::before { display: none; }
+    }
   </style>
 </head>
 <body>
   <main class="hub">
     <header class="hero">
       <h1 class="name">o5102o</h1>
-      <p class="role">이주영(Jay) &mdash; designer &middot; developer</p>
+      <p class="role">JOOYOUNG LEE &mdash; designer &middot; developer</p>
     </header>
 
     <nav>
@@ -230,5 +252,28 @@
     <a href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer">github</a>
     <a href="https://www.instagram.com/o5102o" target="_blank" rel="noopener noreferrer">instagram</a>
   </footer>
+
+  <script>
+    // Mouse-following gradient
+    document.addEventListener('mousemove', (e) => {
+      document.body.style.setProperty('--mx', (e.clientX / innerWidth).toFixed(3));
+      document.body.style.setProperty('--my', (e.clientY / innerHeight).toFixed(3));
+    });
+
+    // Page exit transition
+    document.querySelectorAll('a[href^="https://"]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        if (a.target === '_blank') return;
+        e.preventDefault();
+        document.body.classList.add('leaving');
+        setTimeout(() => { location.href = a.href; }, 180);
+      });
+    });
+
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  </script>
 </body>
 </html>
