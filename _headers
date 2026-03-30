@@ -11,10 +11,6 @@
 /
   Cache-Control: public, max-age=0, must-revalidate
 
-# ─── Shared CSS / JS — revalidate on update ──────
-/shared/*
-  Cache-Control: public, max-age=0, must-revalidate
-
 # ─── Hashed JS/CSS — immutable long cache ────────
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
