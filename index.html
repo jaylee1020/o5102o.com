@@ -33,29 +33,30 @@
   <style>
     :root {
       --bg: #09090b;
-      --surface: #18181b;
-      --border: #27272a;
-      --border-hover: #3f3f46;
       --text: #fafafa;
       --text-2: #a1a1aa;
-      --text-3: #71717a;
-      --accent: #4ade80;
-      --accent-muted: rgba(74, 222, 128, 0.08);
-      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --text-3: #52525b;
+      --gold: #c4a35a;
+      --gold-dim: rgba(196, 163, 90, 0.08);
+      --gold-mid: rgba(196, 163, 90, 0.25);
+      --green: #4ade80;
+      --green-dim: rgba(74, 222, 128, 0.06);
+      --border: #1c1c20;
+      --mono: "SF Mono", ui-monospace, SFMono-Regular, "Cascadia Mono", "Segoe UI Mono", Menlo, Monaco, Consolas, monospace;
     }
 
     @media (prefers-color-scheme: light) {
       :root {
         --bg: #fafafa;
-        --surface: #f4f4f5;
-        --border: #e4e4e7;
-        --border-hover: #d4d4d8;
         --text: #09090b;
         --text-2: #52525b;
         --text-3: #a1a1aa;
-        --accent: #16a34a;
-        --accent-muted: rgba(22, 163, 74, 0.06);
+        --gold: #9a7d3a;
+        --gold-dim: rgba(154, 125, 58, 0.06);
+        --gold-mid: rgba(154, 125, 58, 0.2);
+        --green: #16a34a;
+        --green-dim: rgba(22, 163, 74, 0.05);
+        --border: #e4e4e7;
       }
     }
 
@@ -65,212 +66,304 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: var(--sans);
+      font-family: var(--mono);
+      font-weight: 400;
       min-height: 100vh;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
-      padding-top: max(2rem, env(safe-area-inset-top));
+      padding: 3rem 1.5rem;
+      padding-top: max(3rem, env(safe-area-inset-top));
       -webkit-font-smoothing: antialiased;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
+      overflow-x: hidden;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hub {
-      width: 100%;
-      max-width: 380px;
-      animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .name {
-      font-family: var(--mono);
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.6rem;
-    }
-
-    .role {
-      font-size: 0.82rem;
-      color: var(--text-3);
-      letter-spacing: 0.01em;
-    }
-
-    nav { display: flex; flex-direction: column; }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 0;
-      border-top: 1px solid var(--border);
-      text-decoration: none;
-      color: var(--text);
-      transition: padding-left 0.2s ease;
-    }
-
-    .nav-item:last-child {
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-item:hover {
-      padding-left: 6px;
-    }
-
-    .nav-item:hover .nav-label { color: var(--accent); }
-    .nav-item:hover .nav-arrow { opacity: 1; transform: translateX(0); }
-
-    .nav-item:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-      border-radius: 4px;
-    }
-
-    .nav-label {
-      font-size: 0.88rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      transition: color 0.15s;
-    }
-
-    .nav-desc {
-      display: block;
-      font-size: 0.72rem;
-      color: var(--text-3);
-      margin-top: 0.15rem;
-    }
-
-    .nav-arrow {
-      font-size: 0.8rem;
-      color: var(--text-3);
-      opacity: 0;
-      transform: translateX(-4px);
-      transition: opacity 0.2s, transform 0.2s;
-    }
-
-    footer {
-      margin-top: 3rem;
-      text-align: center;
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-    }
-
-    footer a {
-      font-size: 0.7rem;
-      color: var(--text-3);
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: color 0.15s;
-    }
-
-    footer a:hover { color: var(--text-2); }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hub { animation: none; }
-      .nav-item, .nav-arrow, .nav-label, footer a { transition: none; }
-    }
-
-    /* Mouse-following gradient */
+    /* ─── Mouse gradient ─────────────────────────── */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
       background: radial-gradient(
-        600px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
-        var(--accent-muted),
+        500px circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+        var(--gold-dim),
         transparent 60%
       );
       pointer-events: none;
       z-index: -1;
-      transition: opacity 0.3s;
     }
 
-    /* Page exit transition */
-    body.leaving { opacity: 0; transition: opacity 0.18s ease; }
+    @media (hover: none) { body::before { display: none; } }
 
-    ::selection { background: var(--accent-muted); color: var(--text); }
-
-    @media (hover: none) {
-      body::before { display: none; }
+    /* ─── Layout ─────────────────────────────────── */
+    .hub {
+      width: 100%;
+      max-width: 440px;
+      opacity: 0;
+      animation: revealHub 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
     }
+
+    @keyframes revealHub {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Hero ────────────────────────────────────── */
+    .hero {
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+
+    .name {
+      font-size: 1.8rem;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .identity {
+      font-size: 0.62rem;
+      color: var(--gold);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-top: 0.6rem;
+    }
+
+    /* ─── Divider ─────────────────────────────────── */
+    .divider {
+      border: none;
+      height: 1px;
+      background: var(--border);
+      margin: 1.5rem 0;
+    }
+
+    .divider.gold {
+      background: linear-gradient(90deg, var(--gold-mid), transparent 70%);
+    }
+
+    /* ─── Intro (typed) ───────────────────────────── */
+    .intro {
+      min-height: 9.5rem;
+      margin-bottom: 0;
+    }
+
+    .intro-line {
+      font-size: 0.78rem;
+      line-height: 2;
+      color: var(--text-2);
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .intro-line.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .intro-line .cursor {
+      display: inline-block;
+      width: 1px;
+      height: 1em;
+      background: var(--gold);
+      margin-left: 1px;
+      vertical-align: text-bottom;
+      animation: blink 0.8s steps(2) infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* ─── Nav ─────────────────────────────────────── */
+    nav { display: flex; flex-direction: column; }
+
+    .nav-item {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 0.7rem 0;
+      border-top: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--text-3);
+      font-size: 0.72rem;
+      letter-spacing: 0.02em;
+      transition: color 0.2s, padding-left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-item:last-child { border-bottom: 1px solid var(--border); }
+
+    .nav-item:hover {
+      color: var(--gold);
+      padding-left: 8px;
+    }
+
+    .nav-item:focus-visible {
+      outline: 1px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .nav-label { font-size: 0.78rem; color: var(--text); transition: color 0.2s; }
+    .nav-item:hover .nav-label { color: var(--gold); }
+
+    .nav-arrow {
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.25s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      color: var(--gold);
+    }
+
+    .nav-item:hover .nav-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ─── Footer ──────────────────────────────────── */
+    .foot {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1.2rem;
+    }
+
+    .foot a {
+      font-size: 0.62rem;
+      color: var(--text-3);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+
+    .foot a:hover { color: var(--gold); }
+
+    /* ─── Page exit ───────────────────────────────── */
+    body.leaving {
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    /* ─── Reduced motion ──────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .hub { animation: none; opacity: 1; }
+      .intro-line { opacity: 1; transform: none; transition: none; }
+      .nav-item, .nav-arrow, .foot a { transition: none; }
+      .intro-line .cursor { animation: none; }
+    }
+
+    ::selection { background: var(--gold-dim); color: var(--text); }
   </style>
 </head>
 <body>
   <main class="hub">
     <header class="hero">
       <h1 class="name">o5102o</h1>
-      <p class="role">JOOYOUNG LEE &mdash; designer &middot; developer</p>
+      <p class="identity">JOOYOUNG LEE</p>
     </header>
+
+    <hr class="divider gold">
+
+    <section class="intro" id="intro" aria-label="자기소개">
+      <p class="intro-line" data-text="화려한것을 좋아하는 편입니다."></p>
+      <p class="intro-line" data-text="깊게 또는 가볍게 응시하는것을 좋아합니다."></p>
+      <p class="intro-line" data-text="예술을 추구하지만 작가는 아닙니다."></p>
+      <p class="intro-line" data-text="디자이너이고 싶습니다"></p>
+      <p class="intro-line" data-text="개발자이고 싶습니다."></p>
+      <p class="intro-line" data-text="AI의 모든것에 관심이 많고 잘 압니다."></p>
+    </section>
+
+    <hr class="divider">
 
     <nav>
       <a class="nav-item" href="https://card.o5102o.com/">
-        <div>
-          <span class="nav-label">Card</span>
-          <span class="nav-desc">developer card + contact</span>
-        </div>
+        <span class="nav-label">Card</span>
         <span class="nav-arrow">&rarr;</span>
       </a>
       <a class="nav-item" href="https://by.o5102o.com/">
-        <div>
-          <span class="nav-label">Portfolio</span>
-          <span class="nav-desc">by o5102o</span>
-        </div>
+        <span class="nav-label">Portfolio</span>
         <span class="nav-arrow">&rarr;</span>
       </a>
       <a class="nav-item" href="https://blog.o5102o.com/">
-        <div>
-          <span class="nav-label">Blog</span>
-          <span class="nav-desc">thoughts, notes, and logs</span>
-        </div>
+        <span class="nav-label">Blog</span>
         <span class="nav-arrow">&rarr;</span>
       </a>
       <a class="nav-item" href="https://default.o5102o.com/">
-        <div>
-          <span class="nav-label">Default 전시</span>
-          <span class="nav-desc">interactive exhibit</span>
-        </div>
+        <span class="nav-label">Default 전시</span>
         <span class="nav-arrow">&rarr;</span>
       </a>
     </nav>
+
+    <div class="foot">
+      <a href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer">github</a>
+      <a href="https://www.instagram.com/o5102o" target="_blank" rel="noopener noreferrer">instagram</a>
+    </div>
   </main>
 
-  <footer>
-    <a href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer">github</a>
-    <a href="https://www.instagram.com/o5102o" target="_blank" rel="noopener noreferrer">instagram</a>
-  </footer>
-
   <script>
-    // Mouse-following gradient
-    document.addEventListener('mousemove', (e) => {
-      document.body.style.setProperty('--mx', (e.clientX / innerWidth).toFixed(3));
-      document.body.style.setProperty('--my', (e.clientY / innerHeight).toFixed(3));
-    });
+    // ─── Typing animation ───────────────────────────
+    const lines = document.querySelectorAll('.intro-line');
+    const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Page exit transition
+    function typeLine(el, text, speed) {
+      return new Promise((resolve) => {
+        el.classList.add('visible');
+        if (prefersReducedMotion) {
+          el.textContent = text;
+          resolve();
+          return;
+        }
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        el.appendChild(cursor);
+        let i = 0;
+        function tick() {
+          if (i < text.length) {
+            el.insertBefore(document.createTextNode(text[i]), cursor);
+            i++;
+            setTimeout(tick, speed);
+          } else {
+            cursor.remove();
+            resolve();
+          }
+        }
+        tick();
+      });
+    }
+
+    async function typeIntro() {
+      const delay = (ms) => new Promise((r) => setTimeout(r, ms));
+      await delay(800);
+      for (const line of lines) {
+        const text = line.dataset.text;
+        await typeLine(line, text, 35);
+        await delay(200);
+      }
+    }
+
+    typeIntro();
+
+    // ─── Mouse gradient ─────────────────────────────
+    if (matchMedia('(hover: hover)').matches) {
+      document.addEventListener('mousemove', (e) => {
+        document.body.style.setProperty('--mx', (e.clientX / innerWidth).toFixed(3));
+        document.body.style.setProperty('--my', (e.clientY / innerHeight).toFixed(3));
+      });
+    }
+
+    // ─── Page exit ──────────────────────────────────
     document.querySelectorAll('a[href^="https://"]').forEach((a) => {
       a.addEventListener('click', (e) => {
         if (a.target === '_blank') return;
         e.preventDefault();
         document.body.classList.add('leaving');
-        setTimeout(() => { location.href = a.href; }, 180);
+        setTimeout(() => { location.href = a.href; }, 200);
       });
     });
 
-    // Service Worker
+    // ─── Service Worker ─────────────────────────────
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(() => {});
     }
