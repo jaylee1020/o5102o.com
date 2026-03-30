@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="blog — o5102o">
   <link rel="apple-touch-icon" href="/icon-192.png">
   <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
@@ -21,9 +20,6 @@
   <meta property="og:locale" content="ko_KR">
   <meta property="og:image" content="https://blog.o5102o.com/og-image.svg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="blog — o5102o">
-  <meta name="twitter:description" content="thoughts, notes, and logs">
-  <meta name="twitter:image" content="https://blog.o5102o.com/og-image.svg">
   <style>
     :root{--bg:#1a1a1e;--fg:#dcdcdc}
     *{margin:0;padding:0;box-sizing:border-box}
@@ -35,6 +31,7 @@
       -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
       -webkit-user-select:none;user-select:none;touch-action:manipulation;
     }
+    body{line-height:1}
     .outer{
       width:100%;min-height:100vh;min-height:100dvh;
       display:flex;align-items:flex-start;justify-content:flex-start;
@@ -45,71 +42,46 @@
     .inner{width:100%;max-width:480px}
     .row{height:26px;width:100%}
     .row p{display:inline-block;padding-left:3px;border-radius:2px}
-    .section-gap{height:36px}
+    .gap{height:36px}
     .dim{opacity:.45}
     .back{display:inline-block;padding:1px 4px;border-radius:2px;text-decoration:none;color:var(--fg);opacity:.45;margin-bottom:8px}
     .back:hover{opacity:1}
-    .back:focus-visible{opacity:1;color:var(--bg);background:var(--fg);outline:none}
 
-    /* Post list */
-    .post-row a{
-      display:block;padding:10px 4px;text-decoration:none;color:var(--fg);
-      border-top:1px solid rgba(220,220,220,0.1);
-    }
-    .post-row:last-child a{border-bottom:1px solid rgba(220,220,220,0.1)}
-    .post-row a:hover{background:rgba(220,220,220,0.04)}
-    .post-row a:focus-visible{color:var(--bg);background:var(--fg);outline:none}
-    .post-row a:active{color:var(--bg);background:var(--fg)}
-    .post-title{font-size:15px;text-transform:uppercase}
-    .post-excerpt{opacity:.45;font-size:13px;margin-top:2px}
-    .post-date{opacity:.3;font-size:12px;margin-top:4px}
+    .empty{opacity:.2;font-size:14px;padding-left:3px}
+    .footer{margin-top:36px;opacity:.2;font-size:13px;padding-left:3px}
 
-    .empty{
-      padding:36px 12px;text-align:center;opacity:.3;font-size:14px;
-      border:1px dashed rgba(220,220,220,0.15);border-radius:2px;line-height:1.7;
-    }
-    .footer{margin-top:36px;opacity:.3;font-size:13px;padding-left:3px}
+    /* Post rows */
+    .post{display:flex;justify-content:space-between;align-items:baseline;padding:1px 4px;text-decoration:none;color:var(--fg);border-radius:2px;height:26px}
+    .post:hover{color:var(--bg);background:var(--fg)}
+    .post:active{color:var(--bg);background:var(--fg)}
+    .post:focus-visible{color:var(--bg);background:var(--fg);outline:none}
+    .post .date{opacity:.3;font-size:13px}
 
     @media only screen and (max-width:768px){
       body{font-size:16px;line-height:28px}
       .outer{padding:28px 20px;padding-top:max(28px,env(safe-area-inset-top,0px));padding-bottom:max(28px,env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-      .row{height:28px}
-      .section-gap{height:28px}
+      .row{height:28px}.post{height:auto;min-height:44px;padding:6px 4px}.gap{height:28px}
     }
-    @media only screen and (max-width:380px){
-      body{font-size:15px;line-height:26px}
-      .outer{padding:24px 16px}
-    }
+    @media only screen and (max-width:380px){body{font-size:15px;line-height:26px}.outer{padding:24px 16px}}
   </style>
 </head>
 <body>
-  <div class="outer">
-    <div class="inner">
-      <a class="back" href="https://o5102o.com">&larr; o5102o.com</a>
+  <div class="outer"><div class="inner">
+    <a class="back" href="https://o5102o.com">&larr; o5102o.com</a>
 
-      <div class="row"><p>BLOG</p></div>
-      <div class="row"><p class="dim">thoughts, notes, and logs</p></div>
-      <div class="section-gap"></div>
+    <div class="row"><p>BLOG</p></div>
+    <div class="row"><p class="dim">thoughts, notes, and logs</p></div>
+    <div class="gap"></div>
 
-      <section>
-        <!-- 포스트 추가 시:
-        <div class="post-row">
-          <a href="/blog/posts/my-post.html">
-            <div class="post-title">포스트 제목</div>
-            <div class="post-excerpt">포스트 요약 한두 줄</div>
-            <time class="post-date" datetime="2026-03-30">2026.03.30</time>
-          </a>
-        </div>
-        -->
-        <p class="empty">아직 글이 없습니다.<br>곧 첫 번째 글을 올릴게요.</p>
-      </section>
+    <!-- 포스트 추가 시:
+    <a class="post" href="/blog/posts/my-post.html">
+      <span>포스트 제목</span><span class="date">2026.03.30</span>
+    </a>
+    -->
+    <p class="empty">아직 글이 없습니다.</p>
 
-      <p class="footer">&copy; 2026 o5102o &middot; Seoul, KR</p>
-    </div>
-  </div>
-
-  <script>
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(function(){});
-  </script>
+    <p class="footer">&copy; 2026 o5102o</p>
+  </div></div>
+  <script>if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});</script>
 </body>
 </html>

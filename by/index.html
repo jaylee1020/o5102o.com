@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="by o5102o">
   <link rel="apple-touch-icon" href="/icon-192.png">
   <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
@@ -21,14 +20,9 @@
   <meta property="og:locale" content="ko_KR">
   <meta property="og:image" content="https://by.o5102o.com/og-image.svg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="by o5102o">
-  <meta name="twitter:description" content="portfolio">
-  <meta name="twitter:image" content="https://by.o5102o.com/og-image.svg">
   <style>
     :root{--bg:#1a1a1e;--fg:#dcdcdc}
     *{margin:0;padding:0;box-sizing:border-box}
-    body{line-height:1}
-    button{border:none;background:none;font:inherit;color:inherit;cursor:default}
     html,body{
       min-height:100vh;min-height:100dvh;height:100%;
       font-size:17px;line-height:26px;
@@ -37,6 +31,7 @@
       -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
       -webkit-user-select:none;user-select:none;touch-action:manipulation;
     }
+    body{line-height:1}
     .outer{
       width:100%;min-height:100vh;min-height:100dvh;
       display:flex;align-items:flex-start;justify-content:flex-start;
@@ -47,139 +42,79 @@
     .inner{width:100%;max-width:480px}
     .row{height:26px;width:100%}
     .row p{display:inline-block;padding-left:3px;border-radius:2px}
-    .section-gap{height:36px}
+    .gap{height:36px}
     .dim{opacity:.45}
+    .label{padding-left:3px;opacity:.45;font-size:13px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
     .back{display:inline-block;padding:1px 4px;border-radius:2px;text-decoration:none;color:var(--fg);opacity:.45;margin-bottom:8px}
     .back:hover{opacity:1}
-    .back:focus-visible{opacity:1;color:var(--bg);background:var(--fg);outline:none}
 
-    .section-label{height:26px;padding-left:3px;opacity:.45;font-size:13px;text-transform:uppercase;letter-spacing:.1em}
+    /* Project rows — just text, hover fill */
+    .proj{display:flex;justify-content:space-between;align-items:baseline;padding:1px 4px;text-decoration:none;color:var(--fg);border-radius:2px;height:26px}
+    .proj:hover{color:var(--bg);background:var(--fg)}
+    .proj:active{color:var(--bg);background:var(--fg)}
+    .proj:focus-visible{color:var(--bg);background:var(--fg);outline:none}
+    .proj .meta{opacity:.3;font-size:13px}
 
-    .project-row{width:100%}
-    .project-row a{
-      display:block;padding:8px 4px;text-decoration:none;color:var(--fg);border-radius:2px;
-      border:1px solid rgba(220,220,220,0.1);margin-bottom:6px;
-    }
-    .project-row a:hover{border-color:rgba(220,220,220,0.3)}
-    .project-row a:focus-visible{color:var(--bg);background:var(--fg);outline:none}
-    .project-row a:active{color:var(--bg);background:var(--fg)}
-    .project-name{font-size:15px;text-transform:uppercase}
-    .project-desc{opacity:.45;font-size:13px;margin-top:2px}
-    .project-meta{opacity:.3;font-size:12px;margin-top:4px}
-
-    .lang-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:middle}
-
-    .status-text{padding-left:3px;opacity:.45;font-size:14px}
-    .retry-btn{
-      margin-top:8px;padding:1px 4px;border:1px solid rgba(220,220,220,0.2);border-radius:2px;
-      background:transparent;color:var(--fg);font:inherit;font-size:13px;cursor:pointer;text-transform:uppercase;
-    }
-    .retry-btn:hover{border-color:var(--fg)}
-
-    .social{display:inline-block;margin-top:12px;padding:1px 4px;border-radius:2px;text-decoration:none;color:var(--fg);opacity:.45;font-size:14px}
-    .social:hover{opacity:1}
-    .footer{margin-top:36px;opacity:.3;font-size:13px;padding-left:3px}
-
-    @keyframes shimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
-    .skeleton{background:linear-gradient(90deg,rgba(220,220,220,0.05) 25%,rgba(220,220,220,0.1) 50%,rgba(220,220,220,0.05) 75%);background-size:400px 100%;animation:shimmer 1.5s ease-in-out infinite;border-radius:2px}
-    .skeleton-item{border:1px solid rgba(220,220,220,0.05);border-radius:2px;padding:8px 4px;margin-bottom:6px}
-    .skeleton-line{height:13px;margin-bottom:6px}
-    .skeleton-line:last-child{margin-bottom:0}
-    .skeleton-line.short{width:40%}
-    .skeleton-line.medium{width:65%}
-    .skeleton-line.tiny{width:25%;height:10px;margin-top:4px}
+    .status{padding-left:3px;opacity:.3;font-size:14px}
+    .retry{padding:1px 4px;border:none;background:none;font:inherit;color:var(--fg);opacity:.45;font-size:13px;text-transform:uppercase;cursor:pointer}
+    .retry:hover{opacity:1}
+    .footer{margin-top:36px;opacity:.2;font-size:13px;padding-left:3px}
 
     @media only screen and (max-width:768px){
       body{font-size:16px;line-height:28px}
       .outer{padding:28px 20px;padding-top:max(28px,env(safe-area-inset-top,0px));padding-bottom:max(28px,env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-      .row{height:28px}
-      .section-gap{height:28px}
+      .row{height:28px}.proj{height:auto;min-height:44px;padding:6px 4px;flex-wrap:wrap}.gap{height:28px}
     }
-    @media only screen and (max-width:380px){
-      body{font-size:15px;line-height:26px}
-      .outer{padding:24px 16px}
-    }
+    @media only screen and (max-width:380px){body{font-size:15px;line-height:26px}.outer{padding:24px 16px}}
   </style>
 </head>
 <body>
-  <div class="outer">
-    <div class="inner">
-      <a class="back" href="https://o5102o.com">&larr; o5102o.com</a>
+  <div class="outer"><div class="inner">
+    <a class="back" href="https://o5102o.com">&larr; o5102o.com</a>
 
-      <div class="row"><p>PORTFOLIO</p></div>
-      <div class="row"><p class="dim">things i've built</p></div>
-      <div class="section-gap"></div>
+    <div class="row"><p>PORTFOLIO</p></div>
+    <div class="row"><p class="dim">things i've built</p></div>
+    <div class="gap"></div>
 
-      <p class="section-label">FEATURED</p>
-      <div class="project-row">
-        <a href="https://default.o5102o.com/" target="_blank" rel="noopener noreferrer">
-          <div class="project-name">default</div>
-          <div class="project-desc">웹캠 파티클 포스터 — 인터랙티브 전시 웹</div>
-        </a>
-      </div>
-      <div class="section-gap"></div>
+    <p class="label">Featured</p>
+    <a class="proj" href="https://default.o5102o.com/" target="_blank" rel="noopener noreferrer">
+      <span>Default</span><span class="meta">인터랙티브 전시</span>
+    </a>
+    <div class="gap"></div>
 
-      <p class="section-label">RECENT GITHUB PROJECTS</p>
-      <p class="status-text" id="projectStatus">프로젝트 목록을 불러오는 중...</p>
-      <div id="projectsList"></div>
-      <a class="social" href="https://www.instagram.com/by.o5102o" target="_blank" rel="noopener noreferrer">@by.o5102o</a>
+    <p class="label">Github</p>
+    <p class="status" id="status">불러오는 중...</p>
+    <div id="list"></div>
 
-      <p class="footer">&copy; 2026 o5102o &middot; Seoul, KR</p>
-    </div>
-  </div>
+    <p class="footer">&copy; 2026 o5102o</p>
+  </div></div>
 
   <script>
-    var projectsList = document.getElementById('projectsList');
-    var projectStatus = document.getElementById('projectStatus');
-    var LANG_COLORS = {JavaScript:'#f1e05a',TypeScript:'#3178c6',Python:'#3572a5',HTML:'#e34c26',CSS:'#563d7c',Java:'#b07219',Go:'#00add8',Rust:'#dea584',Swift:'#f05138',Shell:'#89e051'};
+    var list=document.getElementById('list'),status=document.getElementById('status');
+    var COLORS={JavaScript:'#f1e05a',TypeScript:'#3178c6',Python:'#3572a5',HTML:'#e34c26',Go:'#00add8',Rust:'#dea584',Swift:'#f05138',Shell:'#89e051'};
+    function rel(s){var d=new Date(s);if(isNaN(d))return'';var m=Math.floor((Date.now()-d)/60000);if(m<60)return m+'m';var h=Math.floor(m/60);if(h<24)return h+'h';var dy=Math.floor(h/24);if(dy<30)return dy+'d';return Math.floor(dy/30)+'mo'}
 
-    function relativeTime(s) {
-      var d = new Date(s); if (isNaN(d.getTime())) return '';
-      var diff = Date.now() - d.getTime(), min = Math.floor(diff/60000);
-      if (min < 1) return '방금 전'; if (min < 60) return min+'분 전';
-      var hr = Math.floor(min/60); if (hr < 24) return hr+'시간 전';
-      var day = Math.floor(hr/24); if (day < 30) return day+'일 전';
-      var mon = Math.floor(day/30); if (mon < 12) return mon+'개월 전';
-      return Math.floor(mon/12)+'년 전';
-    }
-
-    function showSkeleton() {
-      projectStatus.hidden = true;
-      projectsList.innerHTML = Array.from({length:3}, function(){return '<div class="skeleton-item"><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line short"></div><div class="skeleton skeleton-line tiny"></div></div>';}).join('');
-    }
-
-    function showError(msg) {
-      projectsList.innerHTML = '';
-      projectStatus.hidden = false;
-      projectStatus.textContent = msg + ' ';
-      var btn = document.createElement('button'); btn.className = 'retry-btn'; btn.textContent = '다시 시도';
-      btn.addEventListener('click', loadProjects); projectStatus.appendChild(btn);
-    }
-
-    async function loadProjects() {
-      showSkeleton();
-      try {
-        var res = await fetch('https://api.github.com/users/jaylee1020/repos?sort=updated&per_page=4&type=public');
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        var repos = await res.json();
-        if (!Array.isArray(repos) || repos.length === 0) { projectsList.innerHTML = ''; projectStatus.hidden = false; projectStatus.textContent = '아직 공개된 프로젝트가 없습니다.'; return; }
-        projectsList.innerHTML = '';
-        repos.forEach(function(repo) {
-          var row = document.createElement('div'); row.className = 'project-row';
-          var a = document.createElement('a'); a.href = repo.html_url; a.target = '_blank'; a.rel = 'noopener noreferrer';
-          var name = document.createElement('div'); name.className = 'project-name'; name.textContent = repo.name;
-          var desc = document.createElement('div'); desc.className = 'project-desc'; desc.textContent = repo.description || '설명이 아직 등록되지 않았습니다.';
-          var meta = document.createElement('div'); meta.className = 'project-meta';
-          if (repo.language) { var dot = document.createElement('span'); dot.className = 'lang-dot'; dot.style.background = LANG_COLORS[repo.language] || '#888'; meta.appendChild(dot); meta.append(repo.language + ' · '); }
-          if (repo.stargazers_count > 0) meta.append('\u2605 ' + repo.stargazers_count + ' · ');
-          meta.append(relativeTime(repo.updated_at));
-          a.append(name, desc, meta); row.appendChild(a); projectsList.appendChild(row);
+    async function load(){
+      status.textContent='불러오는 중...';status.hidden=false;list.innerHTML='';
+      try{
+        var r=await fetch('https://api.github.com/users/jaylee1020/repos?sort=updated&per_page=5&type=public');
+        if(!r.ok)throw new Error(r.status);var repos=await r.json();
+        if(!repos.length){status.textContent='프로젝트 없음.';return}
+        status.hidden=true;
+        repos.forEach(function(repo){
+          var a=document.createElement('a');a.className='proj';a.href=repo.html_url;a.target='_blank';a.rel='noopener noreferrer';
+          var name=document.createElement('span');name.textContent=repo.name;
+          var meta=document.createElement('span');meta.className='meta';
+          meta.textContent=(repo.language||'')+(repo.language?' · ':'')+rel(repo.updated_at);
+          a.append(name,meta);list.appendChild(a);
         });
-        projectStatus.hidden = true;
-      } catch(e) { showError('프로젝트를 불러오지 못했어요.'); }
+      }catch(e){
+        status.textContent='불러오기 실패. ';
+        var btn=document.createElement('button');btn.className='retry';btn.textContent='[다시 시도]';btn.addEventListener('click',load);status.appendChild(btn);
+      }
     }
-    loadProjects();
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(function(){});
+    load();
+    if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});
   </script>
 </body>
 </html>
