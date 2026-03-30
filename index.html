@@ -32,6 +32,7 @@
     html[data-theme="5"]{--bg:#0a0a0b;--fg:#4ade80}
     html[data-theme="6"]{--bg:#0a0a0b;--fg:#d4d4d8}
     html[data-theme="7"]{--bg:#0a0a0b;--fg:#c4a35a}
+    html[data-theme="8"]{--bg:#2449d1;--fg:#ffffff}
 
     :root{--copy-text:" [+]"}
 
@@ -256,7 +257,7 @@
 
     /* ─── Theme toggle ────────────────────────────── */
     var themeBtn = document.getElementById('theme-btn');
-    var totalThemes = 7;
+    var totalThemes = 8;
     var stored = localStorage.getItem('theme');
     var systemDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
 
