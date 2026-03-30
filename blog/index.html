@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="1">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -21,7 +21,13 @@
   <meta property="og:image" content="https://blog.o5102o.com/og-image.svg">
   <meta name="twitter:card" content="summary_large_image">
   <style>
+    html[data-theme="1"]{--bg:#1a1a1e;--fg:#dcdcdc}
+    html[data-theme="2"]{--bg:#0078bf;--fg:#ff6c2f}
+    html[data-theme="3"]{--bg:#f65058;--fg:#00a95c}
+    html[data-theme="4"]{--bg:#925f52;--fg:#5ec8e5}
+    html[data-theme="5"]{--bg:#ff48b0;--fg:#ffe916}
     :root{--bg:#1a1a1e;--fg:#dcdcdc}
+    <script>var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
     *{margin:0;padding:0;box-sizing:border-box}
     html,body{
       min-height:100vh;min-height:100dvh;height:100%;
