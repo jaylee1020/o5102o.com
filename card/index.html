@@ -8,15 +8,15 @@
   <link rel="apple-touch-icon" href="/icon-192.png">
   <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
-  <title>o5102o / card</title>
-  <meta name="description" content="o5102o — developer card &amp; contact">
-  <meta name="theme-color" content="#dcdcdc">
+  <title>CARD</title>
+  <meta name="description" content="JOOYOUNG LEE — DEVELOPER CARD &amp; CONTACT">
+  <meta name="theme-color" content="#1b00c8">
   <link rel="canonical" href="https://card.o5102o.com/">
-  <meta property="og:title" content="o5102o / card">
-  <meta property="og:description" content="developer card + contact">
+  <meta property="og:title" content="CARD">
+  <meta property="og:description" content="DEVELOPER CARD + CONTACT">
   <meta property="og:type" content="profile">
   <meta property="og:url" content="https://card.o5102o.com/">
-  <meta property="og:site_name" content="o5102o">
+  <meta property="og:site_name" content="JOOYOUNG LEE">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:image" content="https://card.o5102o.com/og-image.svg">
   <meta name="twitter:card" content="summary_large_image">
@@ -27,7 +27,7 @@
     html[data-theme="3"]{--bg:#1b00c8;--fg:#dcdcdc}
     html[data-theme="4"]{--bg:#0a0a0a;--fg:#4ade80}
     html[data-theme="5"]{--bg:#ffe916;--fg:#1b00c8}
-    :root{--bg:#dcdcdc;--fg:#1b00c8;--copy-text:" [+]"}
+    :root{--bg:#1b00c8;--fg:#dcdcdc;--copy-text:" [+]"}
 
     /* Reset */
     *{margin:0;padding:0;box-sizing:border-box}
@@ -67,9 +67,9 @@
 
     /* Form */
     label{display:block;padding-left:3px;opacity:.45;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-top:12px;margin-bottom:4px}
-    input{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(220,220,220,0.15);color:var(--fg);padding:6px 3px;font:inherit;font-size:15px;-webkit-user-select:text;user-select:text;outline:none;border-radius:0}
+    input{width:100%;background:transparent;border:none;border-bottom:1px solid color-mix(in srgb,var(--fg) 15%,transparent);color:var(--fg);padding:6px 3px;font:inherit;font-size:15px;-webkit-user-select:text;user-select:text;outline:none;border-radius:0}
     input:focus{border-bottom-color:var(--fg)}
-    input::placeholder{color:rgba(220,220,220,0.2)}
+    input::placeholder{color:color-mix(in srgb,var(--fg) 25%,transparent)}
     input.invalid{border-bottom-color:#f87171}
     .msg{padding-left:3px;font-size:14px;min-height:1.2em;margin-top:10px}
     .msg.error{color:#f87171}
@@ -113,9 +113,9 @@
     <div class="row"><p>연락처 남기기</p></div>
     <form id="form" aria-busy="false">
       <label for="name">이름 *</label>
-      <input id="name" name="name" placeholder="홍길동" autocomplete="name" required maxlength="40" enterkeyhint="next"/>
+      <input id="name" name="name" placeholder="홍길동" autocomplete="name" required maxlength="40" enterkeyhint="next" aria-describedby="msg"/>
       <label for="phone">전화번호</label>
-      <input id="phone" name="phone" type="tel" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" maxlength="20" enterkeyhint="next"/>
+      <input id="phone" name="phone" type="tel" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" maxlength="20" enterkeyhint="next" aria-describedby="msg"/>
       <label for="place">만난 곳</label>
       <input id="place" name="place" placeholder="해커톤" autocomplete="off" maxlength="60" enterkeyhint="send"/>
       <p id="msg" class="msg" role="status" aria-live="polite"></p>
