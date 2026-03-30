@@ -7,11 +7,11 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="o5102o card">
   <link rel="apple-touch-icon" href="/icon-192.png">
-  <meta name="description" content="o5102o — developer card &amp; contact">
-  <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
-  <meta name="color-scheme" content="dark light">
+  <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
+  <title>o5102o / card</title>
+  <meta name="description" content="o5102o — developer card &amp; contact">
+  <meta name="theme-color" content="#1a1a1e">
   <link rel="canonical" href="https://card.o5102o.com/">
   <meta property="og:title" content="o5102o / card">
   <meta property="og:description" content="developer card + contact">
@@ -20,692 +20,241 @@
   <meta property="og:site_name" content="o5102o">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:image" content="https://card.o5102o.com/og-image.svg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="o5102o / card">
   <meta name="twitter:description" content="developer card + contact">
   <meta name="twitter:image" content="https://card.o5102o.com/og-image.svg">
-  <title>o5102o / card</title>
   <style>
-    :root {
-      --bg: #09090b;
-      --surface: #18181b;
-      --border: #27272a;
-      --border-hover: #3f3f46;
-      --text: #fafafa;
-      --text-2: #a1a1aa;
-      --text-3: #71717a;
-      --accent: #4ade80;
-      --accent-muted: rgba(74, 222, 128, 0.08);
-      --accent-border: rgba(74, 222, 128, 0.3);
-      --select-bg: #27272a;
-      --input-bg: #111113;
-      --btn-bg: #fafafa;
-      --btn-fg: #09090b;
-      --error: #f87171;
-      --error-muted: rgba(248, 113, 113, 0.1);
-      --success: #4ade80;
-      --placeholder: #52525b;
-      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    :root{--bg:#1a1a1e;--fg:#dcdcdc;--dim-fg:rgba(220,220,220,0.45);--copy-text:" [+]"}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{line-height:1}
+    button{border:none;background:none;font:inherit;color:inherit;cursor:default}
+    html,body{
+      min-height:100vh;min-height:100dvh;height:100%;
+      font-size:17px;line-height:26px;
+      font-family:"SF Mono",ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Monaco,Consolas,monospace;
+      font-weight:400;background:var(--bg);color:var(--fg);
+      -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
+      -webkit-user-select:none;user-select:none;touch-action:manipulation;
     }
+    .mobile-only{display:none}
+    .outer{
+      width:100%;min-height:100vh;min-height:100dvh;
+      display:flex;align-items:flex-start;justify-content:flex-start;
+      padding:40px 36px;
+      padding-top:max(40px,env(safe-area-inset-top,0px));
+      padding-bottom:max(40px,env(safe-area-inset-bottom,0px));
+    }
+    .inner{width:100%;max-width:480px}
+    .row{height:26px;width:100%}
+    .row p{display:inline-block;padding-left:3px;border-radius:2px}
+    .section-gap{height:36px}
+    .dim{opacity:.45}
 
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #fafafa;
-        --surface: #f4f4f5;
-        --border: #e4e4e7;
-        --border-hover: #d4d4d8;
-        --text: #09090b;
-        --text-2: #52525b;
-        --text-3: #a1a1aa;
-        --accent: #16a34a;
-        --accent-muted: rgba(22, 163, 74, 0.06);
-        --accent-border: rgba(22, 163, 74, 0.3);
-        --select-bg: #e4e4e7;
-        --input-bg: #ffffff;
-        --btn-bg: #09090b;
-        --btn-fg: #fafafa;
-        --error: #dc2626;
-        --error-muted: rgba(220, 38, 38, 0.06);
-        --success: #15803d;
-        --placeholder: #a1a1aa;
+    /* Profile links */
+    .profile-row{height:26px;width:100%}
+    .profile-row a{
+      display:flex;justify-content:space-between;
+      padding:1px 4px;text-decoration:none;color:var(--fg);
+      border-radius:2px;white-space:nowrap;
+    }
+    .profile-row a span:last-child{opacity:.45}
+    .profile-row a:hover{color:var(--bg);background:var(--fg)}
+    .profile-row a:focus-visible{color:var(--bg);background:var(--fg);outline:none}
+
+    /* Buttons */
+    .link:focus-visible::after,.link:hover::after,.link:active::after{display:inline;content:" [↗]"}
+    .copy:focus-visible::after,.copy:hover::after,.copy:active::after{display:inline;content:var(--copy-text)}
+    button{padding:1px 4px;border-radius:2px;text-transform:uppercase;white-space:nowrap;outline:none}
+    button:focus-visible{color:var(--bg);background:var(--fg)}
+    button:active{color:var(--bg);background:var(--fg)}
+
+    /* Form */
+    .form-section{margin-top:8px}
+    label{display:block;height:26px;padding-left:3px;opacity:.45;font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+    input{
+      width:100%;background:transparent;border:1px solid rgba(220,220,220,0.2);
+      color:var(--fg);padding:8px 10px;border-radius:2px;
+      font:inherit;font-size:15px;margin-bottom:4px;
+      -webkit-user-select:text;user-select:text;
+    }
+    input:focus{outline:none;border-color:var(--fg)}
+    input::placeholder{color:rgba(220,220,220,0.25)}
+    input.invalid{border-color:#f87171}
+    .hint{padding-left:3px;opacity:.3;font-size:12px;margin-top:4px}
+    .msg{padding-left:3px;font-size:14px;min-height:1.2em;margin-top:8px}
+    .msg.error{color:#f87171}
+    .msg.ok{color:#4ade80}
+    .msg a{color:#4ade80;text-decoration:underline}
+    .submit-btn{
+      margin-top:12px;width:100%;padding:10px;
+      border:1px solid var(--fg);border-radius:2px;
+      background:var(--fg);color:var(--bg);
+      font:inherit;font-size:14px;font-weight:400;
+      text-transform:uppercase;letter-spacing:.06em;cursor:pointer;
+    }
+    .submit-btn:hover{opacity:.9}
+    .submit-btn:active{opacity:.8}
+    .submit-btn:disabled{opacity:.3;cursor:not-allowed}
+    .success-prompt{
+      display:none;margin-top:12px;padding:10px;
+      border:1px solid rgba(220,220,220,0.2);border-radius:2px;
+      text-align:center;font-size:14px;
+    }
+    .success-prompt.visible{display:block}
+    .success-prompt button{display:inline;padding:1px 4px;text-transform:uppercase}
+    @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-4px)}40%,80%{transform:translateX(4px)}}
+    .shake{animation:shake .35s ease-out}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .spinner{display:inline-block;width:14px;height:14px;border:2px solid transparent;border-top-color:var(--bg);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:6px}
+
+    /* Back link */
+    .back{display:inline-block;padding:1px 4px;border-radius:2px;text-decoration:none;color:var(--fg);opacity:.45;margin-bottom:8px}
+    .back:hover{opacity:1}
+    .back:focus-visible{opacity:1;color:var(--bg);background:var(--fg);outline:none}
+
+    @media only screen and (max-width:768px){
+      body{font-size:16px;line-height:28px}
+      .mobile-only{display:block}
+      button.mobile-only{display:flex}
+      .outer{
+        padding:28px 20px;
+        padding-top:max(28px,env(safe-area-inset-top,0px));
+        padding-bottom:max(28px,env(safe-area-inset-bottom,0px));
+        padding-left:max(20px,env(safe-area-inset-left,0px));
+        padding-right:max(20px,env(safe-area-inset-right,0px));
       }
+      .row{height:28px}
+      .profile-row{height:28px}
+      .profile-row a{font-size:16px}
+      .section-gap{height:28px}
+      button,.nolink{padding:3px;font-size:16px;line-height:28px;width:100%;display:flex;min-height:44px;align-items:center}
+      .btn-label{flex-grow:1;text-align:left}
+      .link::after,.copy::after{content:""!important}
+      input{font-size:16px}
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { color-scheme: dark light; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      padding: 2.5rem 1.25rem;
-      padding-top: max(2.5rem, env(safe-area-inset-top));
-      display: flex;
-      justify-content: center;
-      -webkit-font-smoothing: antialiased;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
+    @media only screen and (max-width:380px){
+      body{font-size:15px;line-height:26px}
+      .outer{padding:24px 16px}
+      .row{height:26px}
+      button,.nolink{font-size:15px;line-height:26px}
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .wrap {
-      width: 100%;
-      max-width: 460px;
-      display: grid;
-      gap: 1rem;
-    }
-
-    .back {
-      color: var(--text-3);
-      text-decoration: none;
-      font-size: 0.72rem;
-      display: inline-block;
-      margin-bottom: 0.5rem;
-      transition: color 0.15s;
-      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    .back:hover { color: var(--text); }
-    .back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s) both;
-    }
-
-    /* ─── Profile ─────────────────────────────────── */
-    .profile { --delay: 0.05s; }
-
-    .profile-name {
-      font-family: var(--mono);
-      font-size: clamp(1.4rem, 5vw, 1.7rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .profile-bio {
-      color: var(--text-3);
-      font-size: 0.72rem;
-      margin-top: 0.3rem;
-      letter-spacing: 0.04em;
-    }
-
-    .profile-links {
-      list-style: none;
-      margin-top: 0.75rem;
-    }
-
-    .profile-links li a {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.55rem 0.25rem;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 0.76rem;
-      border-radius: 6px;
-      transition: background 0.12s, padding-left 0.15s;
-    }
-
-    .profile-links li a span:last-child {
-      color: var(--text-3);
-      font-family: var(--mono);
-      font-size: 0.7rem;
-    }
-
-    .profile-links li a:hover {
-      background: var(--bg);
-      padding-left: 6px;
-    }
-
-    .profile-links li a:hover span:first-child { color: var(--accent); }
-
-    .profile-links li a:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 1px;
-    }
-
-    /* ─── Save Contact ────────────────────────────── */
-    .save { --delay: 0.1s; text-align: center; }
-
-    .save-title {
-      font-size: 0.84rem;
-      font-weight: 600;
-      margin-bottom: 0.3rem;
-    }
-
-    .save-desc {
-      font-size: 0.7rem;
-      color: var(--text-3);
-      margin-bottom: 1rem;
-    }
-
-    .save-actions { display: grid; gap: 0.5rem; }
-
-    .action-btn {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 0.76rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      transition: border-color 0.15s, background 0.15s, transform 0.1s;
-    }
-
-    .action-btn:hover {
-      border-color: var(--accent-border);
-      background: var(--accent-muted);
-    }
-
-    .action-btn:active { transform: scale(0.98); }
-    .action-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    .action-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
-
-    .wallet-btn { background: #000; color: #fff; border-color: #333; }
-    .wallet-btn:hover { background: #1a1a1a; border-color: #555; }
-
-    @media (prefers-color-scheme: light) {
-      .wallet-btn { background: #000; color: #fff; border-color: #000; }
-      .wallet-btn:hover { background: #222; border-color: #222; }
-    }
-
-    .save-note {
-      margin-top: 0.75rem;
-      font-size: 0.62rem;
-      color: var(--text-3);
-    }
-
-    /* ─── Form ────────────────────────────────────── */
-    .form-card { --delay: 0.15s; content-visibility: auto; contain-intrinsic-size: auto 480px; }
-
-    .form-title {
-      font-size: 0.84rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    label {
-      font-size: 0.66rem;
-      color: var(--text-3);
-      display: block;
-      margin: 0.9rem 0 0.3rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-
-    input {
-      width: 100%;
-      background: var(--input-bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.7rem 0.75rem;
-      border-radius: 8px;
-      font-family: var(--sans);
-      font-size: 0.88rem;
-      transition: border-color 0.15s, box-shadow 0.15s;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-muted);
-    }
-
-    input::placeholder { color: var(--placeholder); }
-    input.invalid { border-color: var(--error); box-shadow: 0 0 0 3px var(--error-muted); }
-
-    .hint {
-      margin-top: 0.4rem;
-      color: var(--text-3);
-      font-size: 0.62rem;
-      letter-spacing: 0.04em;
-    }
-
-    .msg { margin-top: 0.75rem; font-size: 0.72rem; min-height: 1.1em; }
-    .msg.error { color: var(--error); }
-    .msg.ok { color: var(--success); }
-    .msg a { color: var(--success); text-decoration: underline; }
-
-    .submit-btn {
-      margin-top: 1rem;
-      width: 100%;
-      padding: 0.78rem;
-      border: 0;
-      border-radius: 8px;
-      background: var(--btn-bg);
-      color: var(--btn-fg);
-      font-family: var(--sans);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      transition: transform 0.1s, opacity 0.15s;
-    }
-
-    .submit-btn:hover { opacity: 0.9; }
-    .submit-btn:active { transform: scale(0.98); }
-    .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-    .submit-btn:focus-visible { outline: 2px solid var(--text-3); outline-offset: 2px; }
-
-    /* ─── Success State ───────────────────────────── */
-    .success-prompt {
-      display: none;
-      margin-top: 1rem;
-      padding: 1rem;
-      background: var(--accent-muted);
-      border: 1px solid var(--accent-border);
-      border-radius: 8px;
-      text-align: center;
-      animation: fadeIn 0.4s ease-out both;
-    }
-
-    .success-prompt.visible { display: block; }
-    .success-prompt p { font-size: 0.72rem; color: var(--text); margin-bottom: 0.75rem; }
-    .success-prompt .action-btn { font-size: 0.7rem; padding: 0.6rem; }
-
-    /* ─── Animations ──────────────────────────────── */
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-4px); }
-      40%, 80% { transform: translateX(4px); }
-    }
-
-    .shake { animation: shake 0.35s ease-out; }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .submit-btn .spinner {
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      border: 2px solid transparent;
-      border-top-color: var(--btn-fg);
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-      vertical-align: middle;
-      margin-right: 0.4rem;
-    }
-
-    .offline-banner {
-      background: var(--error-muted);
-      border: 1px solid var(--error);
-      border-radius: 8px;
-      padding: 0.6rem 0.75rem;
-      font-size: 0.72rem;
-      color: var(--error);
-      text-align: center;
-      display: none;
-    }
-
-    .offline-banner.visible { display: block; }
-
-    /* ─── Responsive ──────────────────────────────── */
-    @media (max-width: 420px) {
-      body { padding: 1.5rem 1rem; }
-      .card { padding: 1.15rem; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-      }
-    }
-
-    body.leaving { opacity: 0; transition: opacity 0.18s ease; }
-
-    ::selection { background: var(--select-bg); color: var(--text); }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <a class="back" href="https://o5102o.com">&larr; o5102o.com</a>
+  <div class="outer">
+    <div class="inner">
+      <a class="back" href="https://o5102o.com">&larr; o5102o.com</a>
 
-    <div class="offline-banner" id="offlineBanner">오프라인 상태입니다. 연결을 확인해 주세요.</div>
+      <div class="row"><p>CARD</p></div>
+      <div class="row"><p class="dim">JOOYOUNG LEE &middot; 컴퓨터공학부 2학년</p></div>
+      <div class="section-gap"></div>
 
-    <section class="card profile">
-      <h1 class="profile-name">o5102o</h1>
-      <p class="profile-bio">JOOYOUNG LEE &middot; 컴퓨터공학부 2학년</p>
-      <ul class="profile-links">
-        <li><a href="https://o5102o.com"><span>web</span><span>o5102o.com</span></a></li>
-        <li><a href="https://by.o5102o.com" target="_blank" rel="noopener noreferrer"><span>portfolio</span><span>by.o5102o.com</span></a></li>
-        <li><a href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer"><span>github</span><span>@jaylee1020</span></a></li>
-        <li><a href="mailto:jyounglee1020@gmail.com"><span>email</span><span>jyounglee1020@gmail.com</span></a></li>
-        <li><a href="https://www.instagram.com/o5102o" target="_blank" rel="noopener noreferrer"><span>instagram</span><span>@o5102o</span></a></li>
-      </ul>
-    </section>
+      <div class="profile-row"><a href="https://o5102o.com"><span>WEB</span><span>o5102o.com</span></a></div>
+      <div class="profile-row"><a href="https://by.o5102o.com" target="_blank" rel="noopener noreferrer"><span>PORTFOLIO</span><span>by.o5102o.com</span></a></div>
+      <div class="profile-row"><a href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer"><span>GITHUB</span><span>@jaylee1020</span></a></div>
+      <div class="profile-row"><a href="mailto:jyounglee1020@gmail.com"><span>EMAIL</span><span>jyounglee1020@gmail.com</span></a></div>
+      <div class="profile-row"><a href="https://www.instagram.com/o5102o" target="_blank" rel="noopener noreferrer"><span>INSTAGRAM</span><span>@o5102o</span></a></div>
+      <div class="section-gap"></div>
 
-    <section class="card save">
-      <h2 class="save-title">내 연락처 저장</h2>
-      <p class="save-desc">아래 버튼으로 제 연락처를 저장해 가세요.</p>
-      <div class="save-actions">
-        <button type="button" class="action-btn" id="vcardBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-1a5 5 0 0 1 10 0v1"/></svg>
-          연락처에 저장
-        </button>
-        <button type="button" class="action-btn wallet-btn" id="walletBtn" hidden>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h2"/><path d="M12 15h6"/></svg>
-          Apple Wallet에 추가
+      <div class="row"><p>연락처 저장</p></div>
+      <div style="margin-top:8px">
+        <button class="link" id="vcardBtn">
+          <span class="btn-label">연락처에 저장</span>
+          <span class="mobile-only">[+]</span>
         </button>
       </div>
-      <p class="save-note" id="saveNote"></p>
-    </section>
+      <div>
+        <button class="link" id="walletBtn" hidden>
+          <span class="btn-label">Apple Wallet에 추가</span>
+          <span class="mobile-only">[+]</span>
+        </button>
+      </div>
+      <div class="row"><p id="saveNote" class="dim" style="font-size:13px"></p></div>
+      <div class="section-gap"></div>
 
-    <section class="card form-card">
-      <h2 class="form-title">연락처 남기기</h2>
-      <form id="contactForm" aria-busy="false">
+      <div class="row"><p>연락처 남기기</p></div>
+      <form id="contactForm" class="form-section" aria-busy="false">
         <label for="name">이름 *</label>
-        <input id="name" name="name" placeholder="홍길동" autocomplete="name" required aria-describedby="hint" aria-invalid="false" maxlength="40" enterkeyhint="next" />
-
+        <input id="name" name="name" placeholder="홍길동" autocomplete="name" required aria-invalid="false" maxlength="40" enterkeyhint="next" />
         <label for="phone">전화번호 (선택)</label>
-        <input id="phone" name="phone" type="tel" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" aria-describedby="hint" aria-invalid="false" maxlength="20" enterkeyhint="next" />
-
+        <input id="phone" name="phone" type="tel" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" aria-invalid="false" maxlength="20" enterkeyhint="next" />
         <label for="place">만난 곳 (선택)</label>
-        <input id="place" name="place" placeholder="예: 해커톤" autocomplete="off" aria-describedby="hint" maxlength="60" enterkeyhint="send" />
-
-        <p id="hint" class="hint">* 제출 시 자동 저장됩니다. API 미연결 시 이메일로 전환됩니다.</p>
+        <input id="place" name="place" placeholder="예: 해커톤" autocomplete="off" maxlength="60" enterkeyhint="send" />
+        <p class="hint">* API 미연결 시 이메일로 전환됩니다.</p>
         <p id="message" class="msg" role="status" aria-live="polite" aria-atomic="true"></p>
         <button id="submitButton" class="submit-btn" type="submit">보내기</button>
-
         <div class="success-prompt" id="successPrompt">
           <p>감사합니다! 제 연락처도 저장해 가세요.</p>
-          <button type="button" class="action-btn" id="promptVcardBtn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-1a5 5 0 0 1 10 0v1"/></svg>
-            연락처에 저장
-          </button>
+          <button type="button" id="promptVcardBtn">연락처에 저장</button>
         </div>
       </form>
-    </section>
-  </main>
+    </div>
+  </div>
 
   <script>
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    const isAndroid = /Android/.test(navigator.userAgent);
-
-    const walletBtn = document.getElementById('walletBtn');
-    const saveNote = document.getElementById('saveNote');
-
-    function setSaveNote(text) {
-      saveNote.textContent = text || '';
-    }
+    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var isAndroid = /Android/.test(navigator.userAgent);
+    var walletBtn = document.getElementById('walletBtn');
+    var saveNote = document.getElementById('saveNote');
+    function setSaveNote(t) { saveNote.textContent = t || ''; }
 
     function generateVCard() {
-      const vcard = [
-        'BEGIN:VCARD',
-        'VERSION:3.0',
-        'N:LEE;JOOYOUNG;;;',
-        'FN:JOOYOUNG LEE',
-        'NICKNAME:o5102o',
-        'TITLE:Designer & Developer',
-        'EMAIL;TYPE=INTERNET:jyounglee1020@gmail.com',
-        'URL:https://o5102o.com',
-        'X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/o5102o',
-        'X-SOCIALPROFILE;TYPE=github:https://github.com/jaylee1020',
-        'NOTE:o5102o.com - JOOYOUNG LEE - Designer & Developer',
-        'END:VCARD'
-      ].join('\r\n');
-
-      const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'o5102o.vcf';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      var vcard = ['BEGIN:VCARD','VERSION:3.0','N:LEE;JOOYOUNG;;;','FN:JOOYOUNG LEE','NICKNAME:o5102o','TITLE:Designer & Developer','EMAIL;TYPE=INTERNET:jyounglee1020@gmail.com','URL:https://o5102o.com','X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/o5102o','X-SOCIALPROFILE;TYPE=github:https://github.com/jaylee1020','NOTE:o5102o.com - JOOYOUNG LEE - Designer & Developer','END:VCARD'].join('\r\n');
+      var blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a'); a.href = url; a.download = 'o5102o.vcf';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
     }
-
     document.getElementById('vcardBtn').addEventListener('click', generateVCard);
     document.getElementById('promptVcardBtn').addEventListener('click', generateVCard);
 
-    const WALLET_PASS_URL = '/api/wallet';
-
-    async function probeWalletPass() {
-      try {
-        const res = await fetch(WALLET_PASS_URL, { method: 'HEAD' });
-        return res.ok;
-      } catch (err) {
-        console.warn('Wallet probe failed:', err);
-        return false;
-      }
-    }
-
+    var WALLET_PASS_URL = '/api/wallet';
     async function initWalletButton() {
-      if (!isIOS) {
-        if (isAndroid) {
-          setSaveNote('연락처 파일(.vcf)이 다운로드되면 연락처 앱에서 열어 저장할 수 있습니다.');
-        } else {
-          setSaveNote('기기와 관계없이 연락처 저장 버튼으로 바로 저장할 수 있습니다.');
-        }
-        return;
-      }
-
-      setSaveNote('Apple Wallet 지원 여부를 확인 중입니다...');
-      const walletAvailable = await probeWalletPass();
-
-      if (walletAvailable) {
-        walletBtn.hidden = false;
-        setSaveNote('Apple Wallet 또는 연락처 저장 중 편한 방법을 선택하세요.');
-        return;
-      }
-
-      walletBtn.hidden = true;
-      setSaveNote('현재 Wallet 패스는 준비 중입니다. 아래 연락처 저장 버튼은 항상 사용할 수 있습니다.');
+      if (!isIOS) { setSaveNote(isAndroid ? '연락처 파일(.vcf)이 다운로드되면 연락처 앱에서 열어 저장할 수 있습니다.' : ''); return; }
+      try { var res = await fetch(WALLET_PASS_URL, { method: 'HEAD' }); if (res.ok) { walletBtn.hidden = false; setSaveNote('Apple Wallet 또는 연락처 저장 중 편한 방법을 선택하세요.'); } else { setSaveNote('현재 Wallet 패스는 준비 중입니다.'); } } catch(e) { setSaveNote('현재 Wallet 패스는 준비 중입니다.'); }
     }
+    if ('requestIdleCallback' in window) requestIdleCallback(initWalletButton); else setTimeout(initWalletButton, 0);
 
-    if (walletBtn) {
-      walletBtn.addEventListener('click', async () => {
-        try {
-          const res = await fetch(WALLET_PASS_URL);
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    var contactForm = document.getElementById('contactForm');
+    var nameInput = document.getElementById('name');
+    var phoneInput = document.getElementById('phone');
+    var placeInput = document.getElementById('place');
+    var messageEl = document.getElementById('message');
+    var submitButton = document.getElementById('submitButton');
+    var successPrompt = document.getElementById('successPrompt');
+    var isSubmitting = false;
 
-          const blob = await res.blob();
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'o5102o.pkpass';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-          setSaveNote('Wallet 패스를 다운로드했습니다. 파일을 열어 추가해 주세요.');
-        } catch (err) {
-          console.error('Wallet download failed:', err);
-          generateVCard();
-          setSaveNote('Wallet 다운로드에 실패해 연락처 파일(.vcf)로 전환했습니다.');
-        }
-      });
-    }
+    function setMessage(t, type) { messageEl.textContent = t || ''; messageEl.className = 'msg' + (type ? ' ' + type : ''); }
+    function clearFieldError(f) { f.classList.remove('invalid','shake'); f.setAttribute('aria-invalid','false'); }
+    function shakeField(f) { f.classList.add('invalid','shake'); f.setAttribute('aria-invalid','true'); f.addEventListener('animationend', function() { f.classList.remove('shake'); }, { once: true }); }
+    function setSubmitting(v) { isSubmitting = v; submitButton.disabled = v; submitButton.innerHTML = v ? '<span class="spinner"></span>저장 중...' : '보내기'; contactForm.setAttribute('aria-busy', v ? 'true' : 'false'); }
+    function formatPhone(v) { var d = v.replace(/\D/g, ''); if (d.length <= 3) return d; if (d.length <= 7) return d.slice(0,3)+'-'+d.slice(3); return d.slice(0,3)+'-'+d.slice(3,7)+'-'+d.slice(7,11); }
 
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(initWalletButton);
-    } else {
-      setTimeout(initWalletButton, 0);
-    }
+    phoneInput.addEventListener('input', function() { var p = phoneInput.selectionStart, b = phoneInput.value, f = formatPhone(b); if (f !== b) { phoneInput.value = f; phoneInput.setSelectionRange(p + f.length - b.length, p + f.length - b.length); } clearFieldError(phoneInput); setMessage(''); });
+    nameInput.addEventListener('input', function() { clearFieldError(nameInput); setMessage(''); });
+    placeInput.addEventListener('input', function() { setMessage(''); });
 
-    const contactForm = document.getElementById('contactForm');
-    const nameInput = document.getElementById('name');
-    const phoneInput = document.getElementById('phone');
-    const placeInput = document.getElementById('place');
-    const messageEl = document.getElementById('message');
-    const submitButton = document.getElementById('submitButton');
-    const successPrompt = document.getElementById('successPrompt');
-
-    let isSubmitting = false;
-
-    const CONTACT_API_URL = '/api/contact';
-
-    function setMessage(text, type) {
-      messageEl.textContent = text || '';
-      messageEl.className = `msg${type ? ` ${type}` : ''}`;
-    }
-
-    function clearFieldError(field) {
-      field.classList.remove('invalid');
-      field.setAttribute('aria-invalid', 'false');
-    }
-
-    function setSubmitting(next) {
-      isSubmitting = next;
-      submitButton.disabled = next;
-      submitButton.innerHTML = next
-        ? '<span class="spinner"></span>저장 중...'
-        : '보내기';
-      contactForm.setAttribute('aria-busy', next ? 'true' : 'false');
-    }
-
-    function getPayload() {
-      return {
-        name: nameInput.value.trim(),
-        phone: phoneInput.value.trim() || null,
-        place: placeInput.value.trim() || null,
-        source: 'card.o5102o.com',
-        createdAt: new Date().toISOString()
-      };
-    }
-
-    function buildMailtoFallback(payload) {
-      const subject = encodeURIComponent(`[card.o5102o.com] ${payload.name}님의 연락처`);
-      const body = encodeURIComponent(
-        `이름: ${payload.name}\n` +
-        `전화번호: ${payload.phone || '미입력'}\n` +
-        `만난 곳: ${payload.place || '미입력'}\n` +
-        `시간: ${payload.createdAt}`
-      );
-      return `mailto:jyounglee1020@gmail.com?subject=${subject}&body=${body}`;
-    }
-
-    async function saveContact(payload) {
-      const response = await fetch(CONTACT_API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if (!response.ok) {
-        const text = await response.text().catch(() => '');
-        throw new Error(text || `HTTP ${response.status}`);
-      }
-
-      return { ok: true };
-    }
-
-    // ─── Phone Auto-Format ──────────────────────────
-    function formatPhone(value) {
-      const digits = value.replace(/\D/g, '');
-      if (digits.length <= 3) return digits;
-      if (digits.length <= 7) return digits.slice(0, 3) + '-' + digits.slice(3);
-      return digits.slice(0, 3) + '-' + digits.slice(3, 7) + '-' + digits.slice(7, 11);
-    }
-
-    phoneInput.addEventListener('input', () => {
-      const pos = phoneInput.selectionStart;
-      const before = phoneInput.value;
-      const formatted = formatPhone(before);
-      if (formatted !== before) {
-        phoneInput.value = formatted;
-        const diff = formatted.length - before.length;
-        phoneInput.setSelectionRange(pos + diff, pos + diff);
-      }
-      clearFieldError(phoneInput);
-      setMessage('');
-    });
-
-    nameInput.addEventListener('input', () => { clearFieldError(nameInput); setMessage(''); });
-    placeInput.addEventListener('input', () => { setMessage(''); });
-
-    function shakeField(field) {
-      field.classList.add('invalid', 'shake');
-      field.setAttribute('aria-invalid', 'true');
-      field.addEventListener('animationend', () => field.classList.remove('shake'), { once: true });
-    }
-
-    contactForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      if (isSubmitting) return;
-
-      const payload = getPayload();
-
-      if (!payload.name) {
-        shakeField(nameInput);
-        setMessage('이름을 입력해 주세요.', 'error');
-        nameInput.focus();
-        return;
-      }
-
-      if (payload.phone) {
-        const digits = payload.phone.replace(/[\s\-()]/g, '');
-        const isValid = /^(01[016789]\d{7,8}|0[2-6][1-9]\d{6,7}|\+82\d{9,10})$/.test(digits);
-        if (!isValid) {
-          shakeField(phoneInput);
-          setMessage('전화번호 형식이 맞지 않습니다. 예: 010-1234-5678', 'error');
-          phoneInput.focus();
-          return;
-        }
-      }
-
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault(); if (isSubmitting) return;
+      var payload = { name: nameInput.value.trim(), phone: phoneInput.value.trim() || null, place: placeInput.value.trim() || null, source: 'card.o5102o.com', createdAt: new Date().toISOString() };
+      if (!payload.name) { shakeField(nameInput); setMessage('이름을 입력해 주세요.','error'); nameInput.focus(); return; }
+      if (payload.phone) { var digits = payload.phone.replace(/[\s\-()]/g,''); if (!/^(01[016789]\d{7,8}|0[2-6][1-9]\d{6,7}|\+82\d{9,10})$/.test(digits)) { shakeField(phoneInput); setMessage('전화번호 형식이 맞지 않습니다.','error'); phoneInput.focus(); return; } }
       try {
-        setSubmitting(true);
-        setMessage('연락처를 저장하고 있어요...', 'ok');
-        await saveContact(payload);
-        setMessage('저장이 완료되었습니다. 남겨주셔서 감사합니다!', 'ok');
-        contactForm.reset();
-        successPrompt.classList.add('visible');
-      } catch (err) {
-        console.error('Contact save failed:', err);
-        const mailtoLink = buildMailtoFallback(payload);
-        messageEl.textContent = '';
-        messageEl.append('서버 저장이 어려워 이메일 전송으로 전환합니다. ');
-        const fallbackLink = document.createElement('a');
-        fallbackLink.href = mailtoLink;
-        fallbackLink.textContent = '이메일 앱에서 보내기';
-        messageEl.appendChild(fallbackLink);
-        messageEl.className = 'msg error';
-      } finally {
-        setSubmitting(false);
-      }
+        setSubmitting(true); setMessage('연락처를 저장하고 있어요...','ok');
+        var res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        setMessage('저장이 완료되었습니다.','ok'); contactForm.reset(); successPrompt.classList.add('visible');
+      } catch(err) {
+        var subj = encodeURIComponent('[card.o5102o.com] ' + payload.name + '님의 연락처');
+        var body = encodeURIComponent('이름: '+payload.name+'\n전화번호: '+(payload.phone||'미입력')+'\n만난 곳: '+(payload.place||'미입력'));
+        messageEl.innerHTML = ''; messageEl.append('서버 저장이 어려워 이메일로 전환합니다. ');
+        var link = document.createElement('a'); link.href = 'mailto:jyounglee1020@gmail.com?subject='+subj+'&body='+body; link.textContent = '이메일 앱에서 보내기';
+        messageEl.appendChild(link); messageEl.className = 'msg error';
+      } finally { setSubmitting(false); }
     });
 
-    // ─── Offline Detection ────────────────────────────
-    const offlineBanner = document.getElementById('offlineBanner');
-    function updateOnlineStatus() {
-      offlineBanner.classList.toggle('visible', !navigator.onLine);
-    }
-    window.addEventListener('online', updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
-    updateOnlineStatus();
-
-    // Page exit transition
-    document.querySelector('.back').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.body.classList.add('leaving');
-      setTimeout(() => { location.href = e.currentTarget.href; }, 180);
-    });
-
-    // Service Worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(() => {});
-    }
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(function(){});
   </script>
 </body>
 </html>

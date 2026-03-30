@@ -7,11 +7,11 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="by o5102o">
   <link rel="apple-touch-icon" href="/icon-192.png">
-  <meta name="description" content="by o5102o — portfolio">
-  <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
-  <meta name="color-scheme" content="dark light">
+  <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
+  <title>by o5102o</title>
+  <meta name="description" content="by o5102o — portfolio">
+  <meta name="theme-color" content="#1a1a1e">
   <link rel="canonical" href="https://by.o5102o.com/">
   <meta property="og:title" content="by o5102o">
   <meta property="og:description" content="portfolio">
@@ -20,418 +20,166 @@
   <meta property="og:site_name" content="o5102o">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:image" content="https://by.o5102o.com/og-image.svg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="by o5102o">
   <meta name="twitter:description" content="portfolio">
   <meta name="twitter:image" content="https://by.o5102o.com/og-image.svg">
-  <title>by o5102o</title>
   <style>
-    :root {
-      --bg: #09090b;
-      --surface: #18181b;
-      --border: #27272a;
-      --border-hover: #3f3f46;
-      --text: #fafafa;
-      --text-2: #a1a1aa;
-      --text-3: #71717a;
-      --accent: #4ade80;
-      --accent-muted: rgba(74, 222, 128, 0.08);
-      --select-bg: #27272a;
-      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    :root{--bg:#1a1a1e;--fg:#dcdcdc}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{line-height:1}
+    button{border:none;background:none;font:inherit;color:inherit;cursor:default}
+    html,body{
+      min-height:100vh;min-height:100dvh;height:100%;
+      font-size:17px;line-height:26px;
+      font-family:"SF Mono",ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Monaco,Consolas,monospace;
+      font-weight:400;background:var(--bg);color:var(--fg);
+      -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
+      -webkit-user-select:none;user-select:none;touch-action:manipulation;
     }
-
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #fafafa;
-        --surface: #f4f4f5;
-        --border: #e4e4e7;
-        --border-hover: #d4d4d8;
-        --text: #09090b;
-        --text-2: #52525b;
-        --text-3: #a1a1aa;
-        --accent: #16a34a;
-        --accent-muted: rgba(22, 163, 74, 0.06);
-        --select-bg: #e4e4e7;
-      }
+    .outer{
+      width:100%;min-height:100vh;min-height:100dvh;
+      display:flex;align-items:flex-start;justify-content:flex-start;
+      padding:40px 36px;
+      padding-top:max(40px,env(safe-area-inset-top,0px));
+      padding-bottom:max(40px,env(safe-area-inset-bottom,0px));
     }
+    .inner{width:100%;max-width:480px}
+    .row{height:26px;width:100%}
+    .row p{display:inline-block;padding-left:3px;border-radius:2px}
+    .section-gap{height:36px}
+    .dim{opacity:.45}
+    .back{display:inline-block;padding:1px 4px;border-radius:2px;text-decoration:none;color:var(--fg);opacity:.45;margin-bottom:8px}
+    .back:hover{opacity:1}
+    .back:focus-visible{opacity:1;color:var(--bg);background:var(--fg);outline:none}
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { color-scheme: dark light; }
+    .section-label{height:26px;padding-left:3px;opacity:.45;font-size:13px;text-transform:uppercase;letter-spacing:.1em}
 
-    body {
-      background: var(--bg);
-      color: var(--text-2);
-      font-family: var(--sans);
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 2.5rem 1.25rem;
-      padding-top: max(2.5rem, env(safe-area-inset-top));
-      -webkit-font-smoothing: antialiased;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
+    .project-row{width:100%}
+    .project-row a{
+      display:block;padding:8px 4px;text-decoration:none;color:var(--fg);border-radius:2px;
+      border:1px solid rgba(220,220,220,0.1);margin-bottom:6px;
     }
+    .project-row a:hover{border-color:rgba(220,220,220,0.3)}
+    .project-row a:focus-visible{color:var(--bg);background:var(--fg);outline:none}
+    .project-row a:active{color:var(--bg);background:var(--fg)}
+    .project-name{font-size:15px;text-transform:uppercase}
+    .project-desc{opacity:.45;font-size:13px;margin-top:2px}
+    .project-meta{opacity:.3;font-size:12px;margin-top:4px}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
+    .lang-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:middle}
+
+    .status-text{padding-left:3px;opacity:.45;font-size:14px}
+    .retry-btn{
+      margin-top:8px;padding:1px 4px;border:1px solid rgba(220,220,220,0.2);border-radius:2px;
+      background:transparent;color:var(--fg);font:inherit;font-size:13px;cursor:pointer;text-transform:uppercase;
     }
+    .retry-btn:hover{border-color:var(--fg)}
 
-    .page {
-      width: 100%;
-      max-width: 500px;
-      animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    .social{display:inline-block;margin-top:12px;padding:1px 4px;border-radius:2px;text-decoration:none;color:var(--fg);opacity:.45;font-size:14px}
+    .social:hover{opacity:1}
+    .footer{margin-top:36px;opacity:.3;font-size:13px;padding-left:3px}
+
+    @keyframes shimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
+    .skeleton{background:linear-gradient(90deg,rgba(220,220,220,0.05) 25%,rgba(220,220,220,0.1) 50%,rgba(220,220,220,0.05) 75%);background-size:400px 100%;animation:shimmer 1.5s ease-in-out infinite;border-radius:2px}
+    .skeleton-item{border:1px solid rgba(220,220,220,0.05);border-radius:2px;padding:8px 4px;margin-bottom:6px}
+    .skeleton-line{height:13px;margin-bottom:6px}
+    .skeleton-line:last-child{margin-bottom:0}
+    .skeleton-line.short{width:40%}
+    .skeleton-line.medium{width:65%}
+    .skeleton-line.tiny{width:25%;height:10px;margin-top:4px}
+
+    @media only screen and (max-width:768px){
+      body{font-size:16px;line-height:28px}
+      .outer{padding:28px 20px;padding-top:max(28px,env(safe-area-inset-top,0px));padding-bottom:max(28px,env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+      .row{height:28px}
+      .section-gap{height:28px}
     }
-
-    .back {
-      color: var(--text-3);
-      text-decoration: none;
-      font-size: 0.72rem;
-      display: inline-block;
-      margin-bottom: 2.5rem;
-      transition: color 0.15s;
+    @media only screen and (max-width:380px){
+      body{font-size:15px;line-height:26px}
+      .outer{padding:24px 16px}
     }
-
-    .back:hover { color: var(--text); }
-    .back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-    .header { margin-bottom: 2.5rem; }
-
-    .title {
-      color: var(--text);
-      font-size: clamp(1.6rem, 5vw, 2rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.35rem;
-    }
-
-    .subtitle {
-      font-size: 0.74rem;
-      color: var(--text-3);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .section { margin-bottom: 2rem; }
-
-    .section-label {
-      font-size: 0.68rem;
-      color: var(--text-3);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 500;
-      margin-bottom: 0.75rem;
-    }
-
-    .project-list {
-      list-style: none;
-      display: grid;
-      gap: 0.5rem;
-    }
-
-    .project-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1rem 1.15rem;
-      transition: border-color 0.2s, transform 0.15s;
-    }
-
-    .project-item:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-1px);
-    }
-
-    .project-link {
-      color: var(--text);
-      text-decoration: none;
-      font-size: 0.84rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      transition: color 0.15s;
-    }
-
-    .project-link:hover { color: var(--accent); }
-
-    .project-desc {
-      color: var(--text-2);
-      font-size: 0.76rem;
-      margin-top: 0.25rem;
-      line-height: 1.5;
-    }
-
-    .project-meta {
-      color: var(--text-3);
-      font-size: 0.66rem;
-      margin-top: 0.3rem;
-      font-family: var(--mono);
-    }
-
-    .status-text {
-      font-size: 0.76rem;
-      color: var(--text-3);
-      padding: 0.5rem 0;
-    }
-
-    .social {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      margin-top: 1.25rem;
-      padding: 0.4rem 0.75rem;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      color: var(--text-2);
-      text-decoration: none;
-      font-size: 0.72rem;
-      transition: border-color 0.15s, color 0.15s, background 0.15s;
-    }
-
-    .social:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-muted);
-    }
-
-    .footer {
-      margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      color: var(--text-3);
-      font-size: 0.66rem;
-      letter-spacing: 0.06em;
-    }
-
-    .github-section { content-visibility: auto; contain-intrinsic-size: auto 300px; }
-
-    /* Skeleton loading */
-    @keyframes shimmer {
-      0% { background-position: -200px 0; }
-      100% { background-position: 200px 0; }
-    }
-
-    .skeleton {
-      background: linear-gradient(90deg, var(--surface) 25%, var(--border) 50%, var(--surface) 75%);
-      background-size: 400px 100%;
-      animation: shimmer 1.5s ease-in-out infinite;
-      border-radius: 4px;
-    }
-
-    .skeleton-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1rem 1.15rem;
-    }
-
-    .skeleton-line {
-      height: 0.8rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .skeleton-line:last-child { margin-bottom: 0; }
-    .skeleton-line.short { width: 40%; }
-    .skeleton-line.medium { width: 65%; }
-    .skeleton-line.tiny { width: 25%; height: 0.6rem; margin-top: 0.3rem; }
-
-    .lang-dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-right: 0.3rem;
-      vertical-align: middle;
-    }
-
-    .retry-btn {
-      margin-top: 0.75rem;
-      padding: 0.45rem 0.85rem;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--surface);
-      color: var(--text-2);
-      font-family: var(--sans);
-      font-size: 0.72rem;
-      cursor: pointer;
-      transition: border-color 0.15s, color 0.15s;
-    }
-
-    .retry-btn:hover { border-color: var(--border-hover); color: var(--text); }
-
-    @media (max-width: 600px) {
-      .project-item { padding: 0.85rem 1rem; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .page { animation: none; }
-      .project-item, .project-link, .social { transition: none; }
-    }
-
-    body.leaving { opacity: 0; transition: opacity 0.18s ease; }
-
-    ::selection { background: var(--select-bg); color: var(--text); }
   </style>
 </head>
 <body>
-  <main class="page">
-    <a class="back" href="https://o5102o.com">&larr; o5102o.com</a>
+  <div class="outer">
+    <div class="inner">
+      <a class="back" href="https://o5102o.com">&larr; o5102o.com</a>
 
-    <div class="header">
-      <h1 class="title">by o5102o</h1>
-      <p class="subtitle">things i've built</p>
-    </div>
+      <div class="row"><p>PORTFOLIO</p></div>
+      <div class="row"><p class="dim">things i've built</p></div>
+      <div class="section-gap"></div>
 
-    <section class="section">
-      <h2 class="section-label">Featured</h2>
-      <ul class="project-list">
-        <li class="project-item">
-          <a class="project-link" href="https://default.o5102o.com/" target="_blank" rel="noopener noreferrer">default</a>
-          <p class="project-desc">웹캠 파티클 포스터 &mdash; 인터랙티브 전시 웹</p>
-        </li>
-      </ul>
-    </section>
+      <p class="section-label">FEATURED</p>
+      <div class="project-row">
+        <a href="https://default.o5102o.com/" target="_blank" rel="noopener noreferrer">
+          <div class="project-name">default</div>
+          <div class="project-desc">웹캠 파티클 포스터 — 인터랙티브 전시 웹</div>
+        </a>
+      </div>
+      <div class="section-gap"></div>
 
-    <section class="section github-section" aria-live="polite">
-      <h2 class="section-label">Recent GitHub Projects</h2>
+      <p class="section-label">RECENT GITHUB PROJECTS</p>
       <p class="status-text" id="projectStatus">프로젝트 목록을 불러오는 중...</p>
-      <ul class="project-list" id="projectsList" hidden></ul>
+      <div id="projectsList"></div>
       <a class="social" href="https://www.instagram.com/by.o5102o" target="_blank" rel="noopener noreferrer">@by.o5102o</a>
-    </section>
 
-    <p class="footer">&copy; 2026 o5102o &middot; Seoul, KR</p>
-  </main>
+      <p class="footer">&copy; 2026 o5102o &middot; Seoul, KR</p>
+    </div>
+  </div>
 
   <script>
-    const projectsList = document.getElementById('projectsList');
-    const projectStatus = document.getElementById('projectStatus');
+    var projectsList = document.getElementById('projectsList');
+    var projectStatus = document.getElementById('projectStatus');
+    var LANG_COLORS = {JavaScript:'#f1e05a',TypeScript:'#3178c6',Python:'#3572a5',HTML:'#e34c26',CSS:'#563d7c',Java:'#b07219',Go:'#00add8',Rust:'#dea584',Swift:'#f05138',Shell:'#89e051'};
 
-    const LANG_COLORS = {
-      JavaScript: '#f1e05a', TypeScript: '#3178c6', Python: '#3572a5',
-      HTML: '#e34c26', CSS: '#563d7c', Java: '#b07219', Go: '#00add8',
-      Rust: '#dea584', Swift: '#f05138', Kotlin: '#a97bff', C: '#555555',
-      'C++': '#f34b7d', 'C#': '#178600', Ruby: '#701516', PHP: '#4f5d95',
-      Shell: '#89e051', Dart: '#00b4ab', Vue: '#41b883', Svelte: '#ff3e00'
-    };
-
-    function relativeTime(dateStr) {
-      const d = new Date(dateStr);
-      if (isNaN(d.getTime())) return '';
-      const diff = Date.now() - d.getTime();
-      const min = Math.floor(diff / 60000);
-      if (min < 1) return '방금 전';
-      if (min < 60) return `${min}분 전`;
-      const hr = Math.floor(min / 60);
-      if (hr < 24) return `${hr}시간 전`;
-      const day = Math.floor(hr / 24);
-      if (day < 30) return `${day}일 전`;
-      const mon = Math.floor(day / 30);
-      if (mon < 12) return `${mon}개월 전`;
-      return `${Math.floor(mon / 12)}년 전`;
+    function relativeTime(s) {
+      var d = new Date(s); if (isNaN(d.getTime())) return '';
+      var diff = Date.now() - d.getTime(), min = Math.floor(diff/60000);
+      if (min < 1) return '방금 전'; if (min < 60) return min+'분 전';
+      var hr = Math.floor(min/60); if (hr < 24) return hr+'시간 전';
+      var day = Math.floor(hr/24); if (day < 30) return day+'일 전';
+      var mon = Math.floor(day/30); if (mon < 12) return mon+'개월 전';
+      return Math.floor(mon/12)+'년 전';
     }
 
     function showSkeleton() {
       projectStatus.hidden = true;
-      projectsList.hidden = false;
-      projectsList.innerHTML = Array.from({ length: 3 }, () => `
-        <li class="skeleton-item">
-          <div class="skeleton skeleton-line medium"></div>
-          <div class="skeleton skeleton-line short"></div>
-          <div class="skeleton skeleton-line tiny"></div>
-        </li>
-      `).join('');
+      projectsList.innerHTML = Array.from({length:3}, function(){return '<div class="skeleton-item"><div class="skeleton skeleton-line medium"></div><div class="skeleton skeleton-line short"></div><div class="skeleton skeleton-line tiny"></div></div>';}).join('');
     }
 
     function showError(msg) {
-      projectsList.hidden = true;
+      projectsList.innerHTML = '';
       projectStatus.hidden = false;
-      projectStatus.innerHTML = '';
       projectStatus.textContent = msg + ' ';
-      const retry = document.createElement('button');
-      retry.className = 'retry-btn';
-      retry.textContent = '다시 시도';
-      retry.addEventListener('click', loadProjects);
-      projectStatus.appendChild(retry);
+      var btn = document.createElement('button'); btn.className = 'retry-btn'; btn.textContent = '다시 시도';
+      btn.addEventListener('click', loadProjects); projectStatus.appendChild(btn);
     }
 
     async function loadProjects() {
       showSkeleton();
-
       try {
-        const response = await fetch('https://api.github.com/users/jaylee1020/repos?sort=updated&per_page=4&type=public');
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-        const repos = await response.json();
-        if (!Array.isArray(repos) || repos.length === 0) {
-          projectsList.hidden = true;
-          projectStatus.hidden = false;
-          projectStatus.textContent = '아직 공개된 프로젝트가 없습니다.';
-          return;
-        }
-
-        projectsList.textContent = '';
-        repos.forEach((repo) => {
-          const item = document.createElement('li');
-          item.className = 'project-item';
-
-          const link = document.createElement('a');
-          link.className = 'project-link';
-          link.href = repo.html_url;
-          link.target = '_blank';
-          link.rel = 'noopener noreferrer';
-          link.textContent = repo.name;
-
-          const desc = document.createElement('p');
-          desc.className = 'project-desc';
-          desc.textContent = repo.description || '설명이 아직 등록되지 않았습니다.';
-
-          const meta = document.createElement('p');
-          meta.className = 'project-meta';
-
-          if (repo.language) {
-            const dot = document.createElement('span');
-            dot.className = 'lang-dot';
-            dot.style.background = LANG_COLORS[repo.language] || '#888';
-            meta.appendChild(dot);
-            meta.append(repo.language + ' · ');
-          }
-
-          if (repo.stargazers_count > 0) {
-            meta.append('\u2605 ' + repo.stargazers_count + ' · ');
-          }
-
+        var res = await fetch('https://api.github.com/users/jaylee1020/repos?sort=updated&per_page=4&type=public');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        var repos = await res.json();
+        if (!Array.isArray(repos) || repos.length === 0) { projectsList.innerHTML = ''; projectStatus.hidden = false; projectStatus.textContent = '아직 공개된 프로젝트가 없습니다.'; return; }
+        projectsList.innerHTML = '';
+        repos.forEach(function(repo) {
+          var row = document.createElement('div'); row.className = 'project-row';
+          var a = document.createElement('a'); a.href = repo.html_url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+          var name = document.createElement('div'); name.className = 'project-name'; name.textContent = repo.name;
+          var desc = document.createElement('div'); desc.className = 'project-desc'; desc.textContent = repo.description || '설명이 아직 등록되지 않았습니다.';
+          var meta = document.createElement('div'); meta.className = 'project-meta';
+          if (repo.language) { var dot = document.createElement('span'); dot.className = 'lang-dot'; dot.style.background = LANG_COLORS[repo.language] || '#888'; meta.appendChild(dot); meta.append(repo.language + ' · '); }
+          if (repo.stargazers_count > 0) meta.append('\u2605 ' + repo.stargazers_count + ' · ');
           meta.append(relativeTime(repo.updated_at));
-
-          item.append(link, desc, meta);
-          projectsList.appendChild(item);
+          a.append(name, desc, meta); row.appendChild(a); projectsList.appendChild(row);
         });
-
         projectStatus.hidden = true;
-        projectsList.hidden = false;
-      } catch (err) {
-        console.error('Failed to load projects:', err);
-        showError('프로젝트를 불러오지 못했어요.');
-      }
+      } catch(e) { showError('프로젝트를 불러오지 못했어요.'); }
     }
-
     loadProjects();
-
-    // Page exit transition
-    document.querySelector('.back').addEventListener('click', (e) => {
-      e.preventDefault();
-      document.body.classList.add('leaving');
-      setTimeout(() => { location.href = e.currentTarget.href; }, 180);
-    });
-
-    // Service Worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(() => {});
-    }
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(function(){});
   </script>
 </body>
 </html>
