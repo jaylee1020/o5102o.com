@@ -1,32 +1,34 @@
-/**
- * Cloudflare Pages Function: Apple Wallet Pass
- *
- * Endpoint: GET /api/wallet
- *
- * Requires Apple Developer certificates stored as Cloudflare secrets:
- *   PASS_CERTIFICATE, PASS_PRIVATE_KEY, PASS_TYPE_ID, TEAM_ID
- *
- * Alternative: pre-generate a static .pkpass with passkit-generator (npm)
- * and serve from R2 or static assets.
- */
+const JSON_HEADERS = Object.freeze({
+  "Content-Type": "application/json",
+});
 
-export async function onRequestGet(context) {
-  const { env } = context;
+function jsonResponse(body, status) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: JSON_HEADERS,
+  });
+}
 
-  if (!env.PASS_CERTIFICATE || !env.PASS_PRIVATE_KEY) {
-    return new Response(
-      JSON.stringify({
-        error: 'Apple Wallet pass not configured',
-        fallback: 'vcard',
-      }),
-      { status: 501, headers: { 'Content-Type': 'application/json' } }
+function hasPassConfiguration(env) {
+  return Boolean(env.PASS_CERTIFICATE && env.PASS_PRIVATE_KEY);
+}
+
+export async function onRequestGet({ env }) {
+  if (!hasPassConfiguration(env)) {
+    return jsonResponse(
+      {
+        error: "Apple Wallet pass not configured",
+        fallback: "vcard",
+      },
+      501
     );
   }
 
-  // TODO: Implement pass signing with PKCS7/CMS.
-  // For now, client-side falls back to vCard download.
-  return new Response(
-    JSON.stringify({ error: 'Pass generation not yet implemented' }),
-    { status: 501, headers: { 'Content-Type': 'application/json' } }
+  return jsonResponse(
+    {
+      error: "Pass generation not yet implemented",
+      fallback: "vcard",
+    },
+    501
   );
 }
