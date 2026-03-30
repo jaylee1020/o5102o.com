@@ -10,12 +10,13 @@
   <link rel="apple-touch-icon" href="/icon-192.png">
   <link rel="dns-prefetch" href="https://card.o5102o.com">
   <link rel="dns-prefetch" href="https://by.o5102o.com">
+  <link rel="dns-prefetch" href="https://blog.o5102o.com">
   <link rel="dns-prefetch" href="https://default.o5102o.com">
   <link rel="preconnect" href="https://card.o5102o.com" crossorigin>
   <title>o5102o</title>
   <meta name="description" content="이주영(Jay) — designer · developer">
-  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#f7f7f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
   <link rel="canonical" href="https://o5102o.com/">
   <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
@@ -31,37 +32,41 @@
   <meta name="twitter:description" content="이주영(Jay) — designer · developer">
   <style>
     :root {
-      --bg: #0a0a0a;
-      --fg: #e8e8e8;
-      --dim: rgba(255, 255, 255, 0.12);
-      --dim-hover: rgba(255, 255, 255, 0.4);
-      --sub: rgba(255, 255, 255, 0.5);
-      --muted: rgba(255, 255, 255, 0.25);
-      --subtle: rgba(255, 255, 255, 0.35);
-      --hover-bg: rgba(255, 255, 255, 0.04);
+      --bg: #09090b;
+      --surface: #18181b;
+      --border: #27272a;
+      --border-hover: #3f3f46;
+      --text: #fafafa;
+      --text-2: #a1a1aa;
+      --text-3: #71717a;
+      --accent: #4ade80;
+      --accent-muted: rgba(74, 222, 128, 0.08);
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     }
 
     @media (prefers-color-scheme: light) {
       :root {
-        --bg: #f7f7f7;
-        --fg: #111;
-        --dim: rgba(0, 0, 0, 0.1);
-        --dim-hover: rgba(0, 0, 0, 0.3);
-        --sub: rgba(0, 0, 0, 0.45);
-        --muted: rgba(0, 0, 0, 0.25);
-        --subtle: rgba(0, 0, 0, 0.35);
-        --hover-bg: rgba(0, 0, 0, 0.03);
+        --bg: #fafafa;
+        --surface: #f4f4f5;
+        --border: #e4e4e7;
+        --border-hover: #d4d4d8;
+        --text: #09090b;
+        --text-2: #52525b;
+        --text-3: #a1a1aa;
+        --accent: #16a34a;
+        --accent-muted: rgba(22, 163, 74, 0.06);
       }
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
       height: 100vh;
       height: 100dvh;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: "D2Coding", "Nanum Gothic Coding", "Noto Sans Mono CJK KR", monospace;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -70,114 +75,158 @@
       padding-top: max(2rem, env(safe-area-inset-top));
       -webkit-font-smoothing: antialiased;
       -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .hub {
       width: 100%;
-      max-width: 360px;
+      max-width: 380px;
+      animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero {
       text-align: center;
+      margin-bottom: 3rem;
     }
 
-    h1 {
-      font-size: 1.25rem;
+    .name {
+      font-family: var(--mono);
+      font-size: 1.6rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
-      margin-bottom: 0.35rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
     }
 
-    .desc {
-      font-size: 0.8rem;
-      color: var(--sub);
-      margin-bottom: 2.5rem;
+    .role {
+      font-size: 0.82rem;
+      color: var(--text-3);
+      letter-spacing: 0.01em;
     }
 
-    .links {
+    nav { display: flex; flex-direction: column; }
+
+    .nav-item {
       display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      list-style: none;
-    }
-
-    .links a {
-      display: block;
-      padding: 0.9rem 1rem;
-      border: 1px solid var(--dim);
-      color: var(--fg);
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
       text-decoration: none;
-      font-size: 0.85rem;
-      letter-spacing: 0.02em;
-      transition: border-color 0.2s, background 0.2s;
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
+      color: var(--text);
+      transition: padding-left 0.2s ease;
     }
 
-    .links a:hover,
-    .links a:focus-visible {
-      border-color: var(--dim-hover);
-      background: var(--hover-bg);
-      outline: none;
+    .nav-item:last-child {
+      border-bottom: 1px solid var(--border);
     }
 
-    .links .label {
-      display: block;
+    .nav-item:hover {
+      padding-left: 6px;
+    }
+
+    .nav-item:hover .nav-label { color: var(--accent); }
+    .nav-item:hover .nav-arrow { opacity: 1; transform: translateX(0); }
+
+    .nav-item:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    .nav-label {
+      font-size: 0.88rem;
       font-weight: 600;
+      letter-spacing: -0.01em;
+      transition: color 0.15s;
     }
 
-    .links .sub {
+    .nav-desc {
       display: block;
-      margin-top: 0.2rem;
       font-size: 0.72rem;
-      color: var(--sub);
+      color: var(--text-3);
+      margin-top: 0.15rem;
+    }
+
+    .nav-arrow {
+      font-size: 0.8rem;
+      color: var(--text-3);
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.2s, transform 0.2s;
     }
 
     footer {
       margin-top: 3rem;
-      font-size: 0.7rem;
-      color: var(--muted);
+      text-align: center;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
     }
 
     footer a {
-      color: var(--subtle);
+      font-size: 0.7rem;
+      color: var(--text-3);
       text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.15s;
     }
 
-    footer a:hover { color: var(--sub); }
+    footer a:hover { color: var(--text-2); }
 
     @media (prefers-reduced-motion: reduce) {
-      .links a { transition: none; }
+      .hub { animation: none; }
+      .nav-item, .nav-arrow, .nav-label, footer a { transition: none; }
     }
+
+    ::selection { background: var(--accent-muted); color: var(--text); }
   </style>
 </head>
 <body>
   <main class="hub">
-    <h1>o5102o</h1>
-    <p class="desc">이주영(Jay) — designer · developer</p>
+    <header class="hero">
+      <h1 class="name">o5102o</h1>
+      <p class="role">이주영(Jay) &mdash; designer &middot; developer</p>
+    </header>
+
     <nav>
-      <ul class="links">
-        <li>
-          <a href="https://card.o5102o.com/">
-            <span class="label">Card</span>
-            <span class="sub">developer card + contact</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://by.o5102o.com/">
-            <span class="label">Portfolio</span>
-            <span class="sub">by o5102o</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://default.o5102o.com/">
-            <span class="label">Default 전시</span>
-            <span class="sub">Opt-out</span>
-          </a>
-        </li>
-      </ul>
+      <a class="nav-item" href="https://card.o5102o.com/">
+        <div>
+          <span class="nav-label">Card</span>
+          <span class="nav-desc">developer card + contact</span>
+        </div>
+        <span class="nav-arrow">&rarr;</span>
+      </a>
+      <a class="nav-item" href="https://by.o5102o.com/">
+        <div>
+          <span class="nav-label">Portfolio</span>
+          <span class="nav-desc">by o5102o</span>
+        </div>
+        <span class="nav-arrow">&rarr;</span>
+      </a>
+      <a class="nav-item" href="https://blog.o5102o.com/">
+        <div>
+          <span class="nav-label">Blog</span>
+          <span class="nav-desc">thoughts, notes, and logs</span>
+        </div>
+        <span class="nav-arrow">&rarr;</span>
+      </a>
+      <a class="nav-item" href="https://default.o5102o.com/">
+        <div>
+          <span class="nav-label">Default 전시</span>
+          <span class="nav-desc">interactive exhibit</span>
+        </div>
+        <span class="nav-arrow">&rarr;</span>
+      </a>
     </nav>
   </main>
+
   <footer>
     <a href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer">github</a>
+    <a href="https://www.instagram.com/o5102o" target="_blank" rel="noopener noreferrer">instagram</a>
   </footer>
 </body>
 </html>

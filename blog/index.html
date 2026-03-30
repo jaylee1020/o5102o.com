@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="blog — o5102o">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  <meta name="description" content="blog — o5102o">
+  <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+  <meta name="color-scheme" content="dark light">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="canonical" href="https://blog.o5102o.com/">
+  <meta property="og:title" content="blog — o5102o">
+  <meta property="og:description" content="thoughts, notes, and logs">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blog.o5102o.com/">
+  <meta property="og:site_name" content="o5102o">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://o5102o.com/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="blog — o5102o">
+  <meta name="twitter:description" content="thoughts, notes, and logs">
+  <meta name="twitter:image" content="https://o5102o.com/og-image.svg">
+  <title>blog — o5102o</title>
+  <style>
+    :root {
+      --bg: #09090b;
+      --surface: #18181b;
+      --border: #27272a;
+      --border-hover: #3f3f46;
+      --text: #fafafa;
+      --text-2: #a1a1aa;
+      --text-3: #71717a;
+      --accent: #4ade80;
+      --accent-muted: rgba(74, 222, 128, 0.08);
+      --select-bg: #27272a;
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #fafafa;
+        --surface: #f4f4f5;
+        --border: #e4e4e7;
+        --border-hover: #d4d4d8;
+        --text: #09090b;
+        --text-2: #52525b;
+        --text-3: #a1a1aa;
+        --accent: #16a34a;
+        --accent-muted: rgba(22, 163, 74, 0.06);
+        --select-bg: #e4e4e7;
+      }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { color-scheme: dark light; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-2);
+      font-family: var(--sans);
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2.5rem 1.25rem;
+      padding-top: max(2.5rem, env(safe-area-inset-top));
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page {
+      width: 100%;
+      max-width: 500px;
+      animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .back {
+      color: var(--text-3);
+      text-decoration: none;
+      font-size: 0.72rem;
+      display: inline-block;
+      margin-bottom: 2.5rem;
+      transition: color 0.15s;
+    }
+
+    .back:hover { color: var(--text); }
+    .back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .header { margin-bottom: 2.5rem; }
+
+    .title {
+      color: var(--text);
+      font-size: clamp(1.6rem, 5vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.35rem;
+    }
+
+    .subtitle {
+      font-size: 0.74rem;
+      color: var(--text-3);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .posts { list-style: none; }
+
+    .post-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .post-item:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .post-link {
+      display: block;
+      padding: 1.25rem 0;
+      text-decoration: none;
+      color: inherit;
+      transition: padding-left 0.2s ease;
+    }
+
+    .post-link:hover { padding-left: 6px; }
+    .post-link:hover .post-title { color: var(--accent); }
+    .post-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+    .post-title {
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.4;
+      transition: color 0.15s;
+    }
+
+    .post-excerpt {
+      color: var(--text-2);
+      font-size: 0.78rem;
+      line-height: 1.55;
+      margin-top: 0.25rem;
+    }
+
+    .post-date {
+      display: block;
+      color: var(--text-3);
+      font-size: 0.66rem;
+      font-family: var(--mono);
+      margin-top: 0.35rem;
+    }
+
+    .empty {
+      padding: 3rem 1.5rem;
+      text-align: center;
+      color: var(--text-3);
+      font-size: 0.82rem;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      line-height: 1.7;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-3);
+      font-size: 0.66rem;
+      letter-spacing: 0.06em;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .page { animation: none; }
+      .post-link, .post-title { transition: none; }
+    }
+
+    ::selection { background: var(--select-bg); color: var(--text); }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <a class="back" href="https://o5102o.com">&larr; o5102o.com</a>
+
+    <div class="header">
+      <h1 class="title">blog</h1>
+      <p class="subtitle">thoughts, notes, and logs</p>
+    </div>
+
+    <section>
+      <!-- 포스트 추가 시:
+      <ul class="posts">
+        <li class="post-item">
+          <a class="post-link" href="/blog/posts/my-post.html">
+            <h2 class="post-title">포스트 제목</h2>
+            <p class="post-excerpt">포스트 요약 한두 줄</p>
+            <time class="post-date" datetime="2026-03-30">2026.03.30</time>
+          </a>
+        </li>
+      </ul>
+      -->
+      <p class="empty">아직 글이 없습니다.<br>곧 첫 번째 글을 올릴게요.</p>
+    </section>
+
+    <p class="footer">&copy; 2026 o5102o &middot; Seoul, KR</p>
+  </main>
+</body>
+</html>

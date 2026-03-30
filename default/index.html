@@ -19,10 +19,14 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
 
-    <!-- Preload critical assets -->
+    <!-- Critical: preload JS + CSS + smallest model first -->
     <link rel="preload" href="/assets/index-01d9ff2a.js" as="script" crossorigin />
     <link rel="preload" href="/assets/index-df34ad08.css" as="style" crossorigin />
     <link rel="preload" href="/models/selfie_segmenter.tflite" as="fetch" crossorigin />
+
+    <!-- Non-critical: prefetch large resources in background -->
+    <link rel="prefetch" href="/models/gesture_recognizer.task" />
+    <link rel="prefetch" href="/vendor/mediapipe/wasm/vision_wasm_internal.wasm" />
 
     <!-- OG / Twitter -->
     <meta property="og:type" content="website" />
@@ -40,43 +44,90 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Splash screen with loading stages -->
     <div id="splash" style="position:fixed;inset:0;z-index:9998;background:#000;color:#fff;font-family:system-ui,sans-serif;display:grid;place-items:center">
       <div style="text-align:center">
-        <div style="width:32px;height:32px;border:2px solid rgba(255,255,255,.15);border-top-color:#fff;border-radius:50%;margin:0 auto 16px;animation:spin .8s linear infinite"></div>
-        <p style="font-size:14px;opacity:.6;margin:0">잠시만 기다려주세요</p>
+        <div style="width:28px;height:28px;border:2px solid rgba(255,255,255,.1);border-top-color:rgba(255,255,255,.8);border-radius:50%;margin:0 auto 14px;animation:spin .7s linear infinite"></div>
+        <p id="splash-status" style="font-size:13px;opacity:.5;margin:0;transition:opacity .3s">로딩 중...</p>
       </div>
     </div>
+
     <style>
       @keyframes spin{to{transform:rotate(360deg)}}
       #root:not(:empty) ~ #splash{display:none!important}
     </style>
+
+    <!-- Camera error overlay -->
     <div id="camera-error" style="display:none;position:fixed;inset:0;z-index:9999;background:#000;color:#fff;font-family:system-ui,sans-serif;place-items:center">
       <div style="text-align:center;padding:24px;max-width:360px">
-        <div style="font-size:48px;margin-bottom:16px">📷</div>
-        <h2 id="error-title" style="margin:0 0 8px;font-size:18px;font-weight:700"></h2>
-        <p id="error-msg" style="margin:0 0 20px;font-size:14px;opacity:.7;line-height:1.5"></p>
-        <button onclick="location.reload()" style="padding:10px 24px;border:1px solid rgba(255,255,255,.3);border-radius:8px;background:transparent;color:#fff;font-size:14px;cursor:pointer">다시 시도</button>
+        <div style="font-size:40px;margin-bottom:14px;opacity:.7">&#x1F4F7;</div>
+        <h2 id="error-title" style="margin:0 0 8px;font-size:17px;font-weight:700"></h2>
+        <p id="error-msg" style="margin:0 0 18px;font-size:13px;opacity:.6;line-height:1.5"></p>
+        <button onclick="location.reload()" style="padding:9px 22px;border:1px solid rgba(255,255,255,.2);border-radius:8px;background:transparent;color:#fff;font-size:13px;cursor:pointer;transition:border-color .15s">다시 시도</button>
       </div>
     </div>
+
     <script>
       (function() {
         var el = document.getElementById('camera-error');
         var title = document.getElementById('error-title');
         var msg = document.getElementById('error-msg');
+        var splash = document.getElementById('splash-status');
+
         function show(t, m) {
           title.textContent = t;
           msg.textContent = m;
           el.style.display = 'grid';
         }
+
+        // Offline detection
+        if (!navigator.onLine) {
+          splash.textContent = '오프라인 — 캐시된 리소스로 시도 중...';
+        }
+
+        // Loading stage hints
+        var stages = ['모델 준비 중...', '카메라 연결 중...', '거의 다 됐어요...'];
+        var i = 0;
+        var stageTimer = setInterval(function() {
+          if (i < stages.length) {
+            splash.textContent = stages[i++];
+          } else {
+            clearInterval(stageTimer);
+          }
+        }, 2000);
+
+        // Clean up timer when app loads
+        var observer = new MutationObserver(function() {
+          var root = document.getElementById('root');
+          if (root && root.children.length > 0) {
+            clearInterval(stageTimer);
+            observer.disconnect();
+          }
+        });
+        observer.observe(document.getElementById('root'), { childList: true });
+
+        // Camera capability check
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          clearInterval(stageTimer);
           show('카메라를 사용할 수 없습니다', '이 브라우저는 카메라 기능을 지원하지 않습니다. Safari 또는 Chrome으로 열어주세요.');
           return;
         }
-        navigator.permissions && navigator.permissions.query({ name: 'camera' }).then(function(result) {
-          if (result.state === 'denied') {
-            show('카메라 접근이 차단되었습니다', '설정 > Safari > 카메라 에서 권한을 허용한 후 새로고침 해주세요.');
-          }
-        }).catch(function() {});
+
+        // Camera permission check
+        if (navigator.permissions) {
+          navigator.permissions.query({ name: 'camera' }).then(function(result) {
+            if (result.state === 'denied') {
+              clearInterval(stageTimer);
+              show('카메라 접근이 차단되었습니다', '설정 > Safari > 카메라 에서 권한을 허용한 후 새로고침 해주세요.');
+            }
+          }).catch(function() {});
+        }
+
+        // Memory pressure warning (Safari)
+        if (navigator.deviceMemory && navigator.deviceMemory < 4) {
+          console.warn('[default] Low memory device detected:', navigator.deviceMemory + 'GB');
+        }
       })();
     </script>
     <noscript>JavaScript is required to run this app.</noscript>

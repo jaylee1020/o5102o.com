@@ -8,8 +8,8 @@
   <meta name="apple-mobile-web-app-title" content="o5102o card">
   <link rel="apple-touch-icon" href="/icon-192.png">
   <meta name="description" content="o5102o — developer card &amp; contact">
-  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#f7f7f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
   <meta name="color-scheme" content="dark light">
   <link rel="manifest" href="/manifest.json">
   <link rel="canonical" href="https://card.o5102o.com/">
@@ -28,242 +28,196 @@
   <meta name="twitter:image" content="https://o5102o.com/og-image.svg">
   <title>o5102o / card</title>
   <style>
-    /* ─── DESIGN TOKENS ──────────────────────────────── */
     :root {
-      --bg: #0a0a0a;
-      --fg: #e8e8e8;
-      --dim: #3a3a3a;
-      --mid: #5a5a5a;
-      --sub: #8f8f8f;
-      --line: #141414;
-      --panel: #0f0f0f;
-      --accent: #3f8a57;
-      --accent-dim: rgba(63, 138, 87, 0.15);
-      --input-bg: #111;
-      --btn-bg: #d9d9d9;
-      --btn-fg: #111;
-      --select-bg: #1e1e1e;
-      --placeholder: #6f6f6f;
-
-      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-
-      --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
-      --space-5: 1.5rem; --space-6: 2rem;
-      --radius-sm: 8px;
-      --radius-md: 12px;
+      --bg: #09090b;
+      --surface: #18181b;
+      --border: #27272a;
+      --border-hover: #3f3f46;
+      --text: #fafafa;
+      --text-2: #a1a1aa;
+      --text-3: #71717a;
+      --accent: #4ade80;
+      --accent-muted: rgba(74, 222, 128, 0.08);
+      --accent-border: rgba(74, 222, 128, 0.3);
+      --select-bg: #27272a;
+      --input-bg: #111113;
+      --btn-bg: #fafafa;
+      --btn-fg: #09090b;
+      --error: #f87171;
+      --error-muted: rgba(248, 113, 113, 0.1);
+      --success: #4ade80;
+      --placeholder: #52525b;
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     }
 
     @media (prefers-color-scheme: light) {
       :root {
-        --bg: #f7f7f7;
-        --fg: #111111;
-        --dim: #8a8a8a;
-        --mid: #636363;
-        --sub: #464646;
-        --line: #e7e7e7;
-        --panel: #efefef;
-        --accent: #2f7a4f;
-        --accent-dim: rgba(47, 122, 79, 0.12);
+        --bg: #fafafa;
+        --surface: #f4f4f5;
+        --border: #e4e4e7;
+        --border-hover: #d4d4d8;
+        --text: #09090b;
+        --text-2: #52525b;
+        --text-3: #a1a1aa;
+        --accent: #16a34a;
+        --accent-muted: rgba(22, 163, 74, 0.06);
+        --accent-border: rgba(22, 163, 74, 0.3);
+        --select-bg: #e4e4e7;
         --input-bg: #ffffff;
-        --btn-bg: #111111;
-        --btn-fg: #f7f7f7;
-        --select-bg: #dcdcdc;
-        --placeholder: #8f8f8f;
+        --btn-bg: #09090b;
+        --btn-fg: #fafafa;
+        --error: #dc2626;
+        --error-muted: rgba(220, 38, 38, 0.06);
+        --placeholder: #a1a1aa;
       }
     }
 
-    /* ─── RESET ──────────────────────────────────────── */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { color-scheme: dark light; }
 
     body {
       background: var(--bg);
-      color: var(--fg);
-      font-family: var(--font-sans);
-      padding: var(--space-6);
-      padding-top: max(var(--space-6), env(safe-area-inset-top));
+      color: var(--text);
+      font-family: var(--sans);
+      padding: 2.5rem 1.25rem;
+      padding-top: max(2.5rem, env(safe-area-inset-top));
       display: flex;
       justify-content: center;
       -webkit-font-smoothing: antialiased;
       -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
     }
 
-    /* ─── ANIMATIONS ─────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translate3d(0, 16px, 0); }
-      to { opacity: 1; transform: translate3d(0, 0, 0); }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .wrap {
       width: 100%;
       max-width: 460px;
       display: grid;
-      gap: var(--space-4);
+      gap: 1rem;
     }
 
     .back {
-      color: var(--mid);
+      color: var(--text-3);
       text-decoration: none;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       display: inline-block;
-      margin-bottom: var(--space-2);
-      border-radius: var(--radius-sm);
+      margin-bottom: 0.5rem;
       transition: color 0.15s;
-      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
-    .back:hover { color: var(--fg); }
-    .back:focus-visible { outline: 1px solid var(--sub); outline-offset: 2px; color: var(--fg); }
+    .back:hover { color: var(--text); }
+    .back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-    .box {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      padding: var(--space-5);
-      animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s) both;
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s) both;
     }
 
-    h1 {
-      font-size: clamp(1.8rem, 6vw, 2.2rem);
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-    }
+    /* ─── Profile ─────────────────────────────────── */
+    .profile { --delay: 0.05s; }
 
-    .sub {
-      color: var(--sub);
-      font-size: 0.75rem;
-      margin-top: var(--space-2);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    /* ─── PROFILE BOX ────────────────────────────────── */
-    .profile-box {
-      padding: calc(var(--space-4) + 0.1rem) var(--space-4);
-      --delay: 0.05s;
-    }
-
-    .profile-box h1 {
-      font-size: clamp(1.45rem, 5.8vw, 1.75rem);
+    .profile-name {
+      font-family: var(--mono);
+      font-size: clamp(1.4rem, 5vw, 1.7rem);
+      font-weight: 700;
       letter-spacing: -0.02em;
     }
 
-    .profile-box .sub {
-      margin-top: 0.35rem;
-      font-size: 0.68rem;
-      letter-spacing: 0.05em;
+    .profile-bio {
+      color: var(--text-3);
+      font-size: 0.72rem;
+      margin-top: 0.3rem;
+      letter-spacing: 0.04em;
     }
 
-    .profile-box ul {
+    .profile-links {
       list-style: none;
-      margin-top: var(--space-2);
-      display: grid;
-      gap: 0.15rem;
+      margin-top: 0.75rem;
     }
 
-    .profile-box li a {
-      padding: 0.5rem 0.28rem;
-      font-size: 0.74rem;
-    }
-
-    li a {
+    .profile-links li a {
       display: flex;
       justify-content: space-between;
-      padding: var(--space-3) 0;
+      padding: 0.55rem 0.25rem;
       text-decoration: none;
-      color: var(--fg);
-      font-size: 0.78rem;
-      border-radius: var(--radius-sm);
-      transition: background 0.15s, padding-left 0.15s;
+      color: var(--text);
+      font-size: 0.76rem;
+      border-radius: 6px;
+      transition: background 0.12s, padding-left 0.15s;
     }
 
-    li a:hover {
+    .profile-links li a span:last-child {
+      color: var(--text-3);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+    }
+
+    .profile-links li a:hover {
       background: var(--bg);
-      padding-left: 4px;
+      padding-left: 6px;
     }
 
-    li a:hover span:first-child { color: var(--accent); }
+    .profile-links li a:hover span:first-child { color: var(--accent); }
 
-    li a:focus-visible {
-      outline: 1px solid var(--accent);
-      outline-offset: 2px;
-      background: var(--bg);
+    .profile-links li a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
     }
 
-    /* ─── SAVE CONTACT SECTION ───────────────────────── */
-    .save-box {
-      --delay: 0.1s;
-      text-align: center;
-    }
+    /* ─── Save Contact ────────────────────────────── */
+    .save { --delay: 0.1s; text-align: center; }
 
     .save-title {
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      margin-bottom: var(--space-2);
+      margin-bottom: 0.3rem;
     }
 
     .save-desc {
       font-size: 0.7rem;
-      color: var(--sub);
-      margin-bottom: var(--space-4);
-      letter-spacing: 0.03em;
+      color: var(--text-3);
+      margin-bottom: 1rem;
     }
 
-    .save-actions {
-      display: grid;
-      gap: var(--space-3);
-    }
+    .save-actions { display: grid; gap: 0.5rem; }
 
     .action-btn {
       width: 100%;
-      padding: 0.78rem;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
       background: var(--bg);
-      color: var(--fg);
-      font-family: var(--font-sans);
-      font-size: 0.75rem;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 0.76rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
       cursor: pointer;
-      transition: border-color 0.15s, background 0.15s, transform 0.1s;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: var(--space-2);
+      gap: 0.4rem;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
     }
 
     .action-btn:hover {
-      border-color: var(--accent);
-      background: var(--accent-dim);
+      border-color: var(--accent-border);
+      background: var(--accent-muted);
     }
 
-    .action-btn:active { transform: translate3d(0, 1px, 0); }
+    .action-btn:active { transform: scale(0.98); }
+    .action-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .action-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
 
-    .action-btn:focus-visible {
-      outline: 1px solid var(--accent);
-      outline-offset: 2px;
-    }
-
-    .action-btn svg {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-    }
-
-    .wallet-btn {
-      background: #000;
-      color: #fff;
-      border-color: #333;
-    }
-
-    .wallet-btn:hover {
-      background: #1a1a1a;
-      border-color: #555;
-    }
+    .wallet-btn { background: #000; color: #fff; border-color: #333; }
+    .wallet-btn:hover { background: #1a1a1a; border-color: #555; }
 
     @media (prefers-color-scheme: light) {
       .wallet-btn { background: #000; color: #fff; border-color: #000; }
@@ -271,113 +225,140 @@
     }
 
     .save-note {
-      margin-top: var(--space-3);
-      font-size: 0.6rem;
-      color: var(--mid);
-      letter-spacing: 0.04em;
+      margin-top: 0.75rem;
+      font-size: 0.62rem;
+      color: var(--text-3);
     }
 
-    /* ─── FORM SECTION ───────────────────────────────── */
-    .form-box { --delay: 0.15s; content-visibility: auto; contain-intrinsic-size: auto 480px; }
+    /* ─── Form ────────────────────────────────────── */
+    .form-card { --delay: 0.15s; content-visibility: auto; contain-intrinsic-size: auto 480px; }
 
     .form-title {
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
     }
 
     label {
-      font-size: 0.68rem;
-      color: var(--sub);
+      font-size: 0.66rem;
+      color: var(--text-3);
       display: block;
-      margin: var(--space-3) 0 0.35rem;
+      margin: 0.9rem 0 0.3rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      font-weight: 500;
     }
 
     input {
       width: 100%;
       background: var(--input-bg);
-      border: 1px solid var(--line);
-      color: var(--fg);
-      padding: 0.72rem;
-      border-radius: var(--radius-sm);
-      font-family: var(--font-sans);
-      font-size: 0.92rem;
-      transition: border-color 0.15s;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.7rem 0.75rem;
+      border-radius: 8px;
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
 
-    input:focus { outline: none; border-color: var(--accent); }
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-muted);
+    }
+
     input::placeholder { color: var(--placeholder); }
-    input.invalid { border-color: #8b3a3a; }
+    input.invalid { border-color: var(--error); box-shadow: 0 0 0 3px var(--error-muted); }
 
     .hint {
-      margin-top: 0.35rem;
-      color: var(--mid);
-      font-size: 0.64rem;
-      letter-spacing: 0.05em;
+      margin-top: 0.4rem;
+      color: var(--text-3);
+      font-size: 0.62rem;
+      letter-spacing: 0.04em;
     }
 
-    .msg { margin-top: var(--space-3); font-size: 0.72rem; min-height: 1.1em; }
-    .msg.error { color: #d08a8a; }
-    .msg.ok { color: #7bc47b; }
-    .msg a { color: #7bc47b; text-decoration: underline; }
+    .msg { margin-top: 0.75rem; font-size: 0.72rem; min-height: 1.1em; }
+    .msg.error { color: var(--error); }
+    .msg.ok { color: var(--success); }
+    .msg a { color: var(--success); text-decoration: underline; }
 
     .submit-btn {
-      margin-top: var(--space-4);
+      margin-top: 1rem;
       width: 100%;
       padding: 0.78rem;
       border: 0;
-      border-radius: var(--radius-sm);
+      border-radius: 8px;
       background: var(--btn-bg);
       color: var(--btn-fg);
-      font-family: var(--font-sans);
-      font-size: 0.75rem;
+      font-family: var(--sans);
+      font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      letter-spacing: 0.04em;
       cursor: pointer;
       transition: transform 0.1s, opacity 0.15s;
     }
 
-    .submit-btn:active { transform: translate3d(0, 1px, 0); }
-    .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
-    .submit-btn:focus-visible { outline: 1px solid var(--dim); outline-offset: 2px; }
+    .submit-btn:hover { opacity: 0.9; }
+    .submit-btn:active { transform: scale(0.98); }
+    .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .submit-btn:focus-visible { outline: 2px solid var(--text-3); outline-offset: 2px; }
 
-    /* ─── SUCCESS STATE ──────────────────────────────── */
+    /* ─── Success State ───────────────────────────── */
     .success-prompt {
       display: none;
-      margin-top: var(--space-4);
-      padding: var(--space-4);
-      background: var(--accent-dim);
-      border: 1px solid var(--accent);
-      border-radius: var(--radius-sm);
+      margin-top: 1rem;
+      padding: 1rem;
+      background: var(--accent-muted);
+      border: 1px solid var(--accent-border);
+      border-radius: 8px;
       text-align: center;
-      animation: fadeUp 0.4s ease-out both;
+      animation: fadeIn 0.4s ease-out both;
     }
 
     .success-prompt.visible { display: block; }
+    .success-prompt p { font-size: 0.72rem; color: var(--text); margin-bottom: 0.75rem; }
+    .success-prompt .action-btn { font-size: 0.7rem; padding: 0.6rem; }
 
-    .success-prompt p {
+    /* ─── Animations ──────────────────────────────── */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-4px); }
+      40%, 80% { transform: translateX(4px); }
+    }
+
+    .shake { animation: shake 0.35s ease-out; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .submit-btn .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid transparent;
+      border-top-color: var(--btn-fg);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.4rem;
+    }
+
+    .offline-banner {
+      background: var(--error-muted);
+      border: 1px solid var(--error);
+      border-radius: 8px;
+      padding: 0.6rem 0.75rem;
       font-size: 0.72rem;
-      color: var(--fg);
-      margin-bottom: var(--space-3);
+      color: var(--error);
+      text-align: center;
+      display: none;
     }
 
-    .success-prompt .action-btn {
-      font-size: 0.7rem;
-      padding: 0.6rem;
-    }
+    .offline-banner.visible { display: block; }
 
-    /* ─── RESPONSIVE ─────────────────────────────────── */
+    /* ─── Responsive ──────────────────────────────── */
     @media (max-width: 420px) {
-      body { padding: var(--space-4); }
-      .box { padding: var(--space-4); }
-      .profile-box { padding: 0.9rem; }
-      .profile-box .sub { font-size: 0.64rem; }
-      .profile-box li a { padding: 0.52rem 0; font-size: 0.72rem; }
-      h1 { font-size: 1.75rem; }
-      li a { font-size: 0.74rem; }
+      body { padding: 1.5rem 1rem; }
+      .card { padding: 1.15rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -387,18 +368,19 @@
       }
     }
 
-    ::selection { background: var(--select-bg); color: var(--fg); }
+    ::selection { background: var(--select-bg); color: var(--text); }
   </style>
 </head>
 <body>
   <main class="wrap">
-    <a class="back" href="https://o5102o.com">← o5102o.com</a>
+    <a class="back" href="https://o5102o.com">&larr; o5102o.com</a>
 
-    <!-- Profile Card -->
-    <section class="box profile-box">
-      <h1>o5102o</h1>
-      <p class="sub">이주영 (Jay) · 컴퓨터공학부 2학년</p>
-      <ul>
+    <div class="offline-banner" id="offlineBanner">오프라인 상태입니다. 연결을 확인해 주세요.</div>
+
+    <section class="card profile">
+      <h1 class="profile-name">o5102o</h1>
+      <p class="profile-bio">이주영 (Jay) &middot; 컴퓨터공학부 2학년</p>
+      <ul class="profile-links">
         <li><a href="https://o5102o.com"><span>web</span><span>o5102o.com</span></a></li>
         <li><a href="https://by.o5102o.com" target="_blank" rel="noopener noreferrer"><span>portfolio</span><span>by.o5102o.com</span></a></li>
         <li><a href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer"><span>github</span><span>@jaylee1020</span></a></li>
@@ -407,8 +389,7 @@
       </ul>
     </section>
 
-    <!-- Save Contact Section -->
-    <section class="box save-box">
+    <section class="card save">
       <h2 class="save-title">내 연락처 저장</h2>
       <p class="save-desc">아래 버튼으로 제 연락처를 저장해 가세요.</p>
       <div class="save-actions">
@@ -424,8 +405,7 @@
       <p class="save-note" id="saveNote"></p>
     </section>
 
-    <!-- Contact Form -->
-    <section class="box form-box">
+    <section class="card form-card">
       <h2 class="form-title">연락처 남기기</h2>
       <form id="contactForm" aria-busy="false">
         <label for="name">이름 *</label>
@@ -464,7 +444,6 @@
       saveNote.textContent = text || '';
     }
 
-    // ─── vCard Generation ─────────────────────────────
     function generateVCard() {
       const vcard = [
         'BEGIN:VCARD',
@@ -495,7 +474,6 @@
     document.getElementById('vcardBtn').addEventListener('click', generateVCard);
     document.getElementById('promptVcardBtn').addEventListener('click', generateVCard);
 
-    // ─── Apple Wallet ─────────────────────────────────
     const WALLET_PASS_URL = '/api/wallet';
 
     async function probeWalletPass() {
@@ -555,14 +533,12 @@
       });
     }
 
-    // Defer wallet probe to avoid blocking main thread
     if ('requestIdleCallback' in window) {
       requestIdleCallback(initWalletButton);
     } else {
       setTimeout(initWalletButton, 0);
     }
 
-    // ─── Contact Form ─────────────────────────────────
     const contactForm = document.getElementById('contactForm');
     const nameInput = document.getElementById('name');
     const phoneInput = document.getElementById('phone');
@@ -588,7 +564,9 @@
     function setSubmitting(next) {
       isSubmitting = next;
       submitButton.disabled = next;
-      submitButton.textContent = next ? '저장 중...' : '보내기';
+      submitButton.innerHTML = next
+        ? '<span class="spinner"></span>저장 중...'
+        : '보내기';
       contactForm.setAttribute('aria-busy', next ? 'true' : 'false');
     }
 
@@ -628,8 +606,28 @@
       return { ok: true };
     }
 
+    // ─── Phone Auto-Format ──────────────────────────
+    function formatPhone(value) {
+      const digits = value.replace(/\D/g, '');
+      if (digits.length <= 3) return digits;
+      if (digits.length <= 7) return digits.slice(0, 3) + '-' + digits.slice(3);
+      return digits.slice(0, 3) + '-' + digits.slice(3, 7) + '-' + digits.slice(7, 11);
+    }
+
+    phoneInput.addEventListener('input', () => {
+      const pos = phoneInput.selectionStart;
+      const before = phoneInput.value;
+      const formatted = formatPhone(before);
+      if (formatted !== before) {
+        phoneInput.value = formatted;
+        const diff = formatted.length - before.length;
+        phoneInput.setSelectionRange(pos + diff, pos + diff);
+      }
+      clearFieldError(phoneInput);
+      setMessage('');
+    });
+
     nameInput.addEventListener('input', () => { clearFieldError(nameInput); setMessage(''); });
-    phoneInput.addEventListener('input', () => { clearFieldError(phoneInput); setMessage(''); });
     placeInput.addEventListener('input', () => { setMessage(''); });
 
     contactForm.addEventListener('submit', async (event) => {
@@ -638,9 +636,14 @@
 
       const payload = getPayload();
 
+      function shakeField(field) {
+        field.classList.add('invalid', 'shake');
+        field.setAttribute('aria-invalid', 'true');
+        field.addEventListener('animationend', () => field.classList.remove('shake'), { once: true });
+      }
+
       if (!payload.name) {
-        nameInput.classList.add('invalid');
-        nameInput.setAttribute('aria-invalid', 'true');
+        shakeField(nameInput);
         setMessage('이름을 입력해 주세요.', 'error');
         nameInput.focus();
         return;
@@ -650,8 +653,7 @@
         const digits = payload.phone.replace(/[\s\-()]/g, '');
         const isValid = /^(01[016789]\d{7,8}|0[2-6][1-9]\d{6,7}|\+82\d{9,10})$/.test(digits);
         if (!isValid) {
-          phoneInput.classList.add('invalid');
-          phoneInput.setAttribute('aria-invalid', 'true');
+          shakeField(phoneInput);
           setMessage('전화번호 형식이 맞지 않습니다. 예: 010-1234-5678', 'error');
           phoneInput.focus();
           return;
@@ -679,6 +681,16 @@
         setSubmitting(false);
       }
     });
+
+    // ─── Offline Detection ────────────────────────────
+    const offlineBanner = document.getElementById('offlineBanner');
+    function updateOnlineStatus() {
+      offlineBanner.classList.toggle('visible', !navigator.onLine);
+      submitButton.disabled = !navigator.onLine && !isSubmitting;
+    }
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
   </script>
 </body>
 </html>
