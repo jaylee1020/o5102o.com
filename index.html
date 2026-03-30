@@ -23,292 +23,134 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="o5102o">
   <meta name="twitter:description" content="JOOYOUNG LEE — designer · developer">
+  <link rel="stylesheet" href="/shared/base.css">
   <style>
-    /* ─── Themes ──────────────────────────────────── */
-    html[data-theme="1"]{--bg:#1a1a1e;--fg:#dcdcdc}
-    html[data-theme="2"]{--bg:#0078bf;--fg:#ff6c2f}
-    html[data-theme="3"]{--bg:#f65058;--fg:#00a95c}
-    html[data-theme="4"]{--bg:#925f52;--fg:#5ec8e5}
-    html[data-theme="5"]{--bg:#ff48b0;--fg:#ffe916}
-    :root{--bg:#1a1a1e;--fg:#dcdcdc;--copy-text:" [+]"}
+    html[data-theme="1"] { --bg: #1a1a1e; --fg: #dcdcdc; }
+    html[data-theme="2"] { --bg: #0078bf; --fg: #ff6c2f; }
+    html[data-theme="3"] { --bg: #f65058; --fg: #00a95c; }
+    html[data-theme="4"] { --bg: #925f52; --fg: #5ec8e5; }
+    html[data-theme="5"] { --bg: #ff48b0; --fg: #ffe916; }
 
-    /* ─── Reset ───────────────────────────────────── */
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{line-height:1}
-    button{border:none;background:none;font:inherit;color:inherit;cursor:default}
-
-    /* ─── Base ────────────────────────────────────── */
-    html,body{
-      min-height:100vh;min-height:100dvh;height:100%;
-      font-size:17px;line-height:26px;
-      font-family:"SF Mono",ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Monaco,Consolas,monospace;
-      font-weight:400;
-      background:var(--bg);color:var(--fg);
-      -webkit-font-smoothing:antialiased;
-      -webkit-tap-highlight-color:transparent;
-      -webkit-user-select:none;user-select:none;
-      touch-action:manipulation;
+    .theme-row {
+      margin-top: 32px;
     }
 
-    .mobile-only{display:none}
-
-    /* ─── Layout ──────────────────────────────────── */
-    .outer{
-      width:100%;min-height:100vh;min-height:100dvh;
-      display:flex;align-items:flex-start;justify-content:flex-start;
-      padding:40px 36px;
-      padding-top:max(40px,env(safe-area-inset-top,0px));
-      padding-bottom:max(40px,env(safe-area-inset-bottom,0px));
+    .intro-line {
+      opacity: 0;
+      transform: translateX(-2px);
+      transition: opacity 0.3s, transform 0.3s ease;
     }
 
-    .inner{
-      width:100%;max-width:480px;
+    .intro-line.visible {
+      opacity: 1;
+      transform: translateX(0);
     }
 
-    /* ─── Rows ────────────────────────────────────── */
-    .row{height:26px;width:100%}
-    .row p{display:inline-block;padding-left:3px;border-radius:2px}
-    .row-empty{height:26px}
-    .section-gap{height:36px}
-    .dim{opacity:.45}
-
-    /* ─── Hover indicators (p.cv pattern) ─────────── */
-    .link:focus-visible::after,.link:hover::after,.link:active::after{
-      display:inline;content:" [↗]"
-    }
-    .nolink:focus-visible::after,.nolink:hover::after{
-      display:inline;content:" [-]"
-    }
-    .copy:focus-visible::after,.copy:hover::after,.copy:active::after{
-      display:inline;content:var(--copy-text)
+    .cursor {
+      display: inline-block;
+      width: 1px;
+      height: 1em;
+      margin-left: 1px;
+      background: var(--fg);
+      vertical-align: text-bottom;
+      animation: blink 0.7s steps(2) infinite;
     }
 
-    button{padding:1px 4px;border-radius:2px;text-transform:uppercase;white-space:nowrap;-webkit-user-select:none;user-select:none;outline:none}
-    button:focus-visible{color:var(--bg);background:var(--fg)}
-    button:active{color:var(--bg);background:var(--fg)}
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
 
-    .theme-row{margin-top:32px}
-
-    /* ─── Mobile ──────────────────────────────────── */
-    @media only screen and (max-width:768px){
-      body{font-size:16px;line-height:28px}
-      .mobile-only{display:block}
-      button.mobile-only{display:flex}
-      .outer{
-        padding:28px 20px;
-        padding-top:max(28px,env(safe-area-inset-top,0px));
-        padding-bottom:max(28px,env(safe-area-inset-bottom,0px));
-        padding-left:max(20px,env(safe-area-inset-left,0px));
-        padding-right:max(20px,env(safe-area-inset-right,0px));
-        align-items:flex-start;
+    @media only screen and (max-height:500px) {
+      .outer {
+        padding-top: 20px;
+        padding-bottom: 20px;
       }
-      .row{height:28px}
-      .row-empty{height:20px}
-      .section-gap{height:28px}
-      button,.nolink{
-        padding:3px;font-size:16px;line-height:28px;
-        width:100%;display:flex;min-height:44px;align-items:center;
+
+      .row-empty {
+        height: 12px;
       }
-      .btn-label{flex-grow:1;text-align:left}
-      .link::after,.copy::after,.switch::after{content:""!important}
-      .theme-row{margin-top:26px}
+
+      .section-gap {
+        height: 16px;
+      }
+
+      .theme-row {
+        margin-top: 16px;
+      }
     }
 
-    /* Small phones */
-    @media only screen and (max-width:380px){
-      body{font-size:15px;line-height:26px}
-      .outer{padding:24px 16px}
-      .row{height:26px}
-      button,.nolink{font-size:15px;line-height:26px}
+    @media only screen and (max-width:768px) {
+      .theme-row {
+        margin-top: 26px;
+      }
     }
 
-    /* Landscape mobile */
-    @media only screen and (max-height:500px){
-      .outer{align-items:flex-start;padding-top:20px;padding-bottom:20px}
-      .row-empty{height:12px}
-      .section-gap{height:16px}
-      .theme-row{margin-top:16px}
-    }
+    @media (prefers-reduced-motion: reduce) {
+      .intro-line {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
 
-    @media(prefers-reduced-motion:reduce){
-      .intro-line{opacity:1!important;transform:none!important;transition:none!important}
-      .cursor{animation:none!important}
+      .cursor {
+        animation: none !important;
+      }
     }
-
-    /* ─── Typing ──────────────────────────────────── */
-    .intro-line{
-      opacity:0;transform:translateX(-2px);
-      transition:opacity .3s,transform .3s ease;
-    }
-    .intro-line.visible{opacity:1;transform:translateX(0)}
-    .cursor{
-      display:inline-block;width:1px;height:1em;
-      background:var(--fg);margin-left:1px;vertical-align:text-bottom;
-      animation:blink .7s steps(2) infinite;
-    }
-    @keyframes blink{50%{opacity:0}}
   </style>
 </head>
 <body>
-  <div class="outer">
-    <div class="inner">
+  <main class="outer">
+    <section class="inner">
+      <div class="row"><p>JOOYOUNG LEE</p></div>
+      <div class="row"><p class="dim">DESIGNER &amp; DEVELOPER</p></div>
+      <div class="section-gap"></div>
 
-      <div class="content">
-        <div class="row"><p>JOOYOUNG LEE</p></div>
-        <div class="row"><p class="dim">DESIGNER &amp; DEVELOPER</p></div>
-        <div class="section-gap"></div>
+      <div class="row"><p class="intro-line dim" data-text="화려한 것을 좋아하는 편입니다."></p></div>
+      <div class="row"><p class="intro-line dim" data-text="깊게 또는 가볍게 응시하는 것을 좋아합니다."></p></div>
+      <div class="row"><p class="intro-line dim" data-text="예술을 추구하지만 작가는 아닙니다."></p></div>
+      <div class="row"><p class="intro-line dim" data-text="디자이너이고 싶습니다."></p></div>
+      <div class="row"><p class="intro-line dim" data-text="개발자이고 싶습니다."></p></div>
+      <div class="row"><p class="intro-line dim" data-text="AI에 관한 모든 것에 관심이 많고 잘 압니다."></p></div>
+      <div class="section-gap"></div>
 
-        <div class="row"><p class="intro-line dim" data-text="화려한 것을 좋아하는 편입니다."></p></div>
-        <div class="row"><p class="intro-line dim" data-text="깊게 또는 가볍게 응시하는 것을 좋아합니다."></p></div>
-        <div class="row"><p class="intro-line dim" data-text="예술을 추구하지만 작가는 아닙니다."></p></div>
-        <div class="row"><p class="intro-line dim" data-text="디자이너이고 싶습니다."></p></div>
-        <div class="row"><p class="intro-line dim" data-text="개발자이고 싶습니다."></p></div>
-        <div class="row"><p class="intro-line dim" data-text="AI에 관한 모든 것에 관심이 많고 잘 압니다."></p></div>
-        <div class="section-gap"></div>
+      <a class="menu-row has-external-indicator" href="https://card.o5102o.com/" target="_blank" rel="noopener noreferrer">
+        <span class="btn-label">Card</span>
+        <span class="mobile-only">[↗]</span>
+      </a>
+      <a class="menu-row has-external-indicator" href="https://by.o5102o.com/" target="_blank" rel="noopener noreferrer">
+        <span class="btn-label">Portfolio</span>
+        <span class="mobile-only">[↗]</span>
+      </a>
+      <a class="menu-row has-external-indicator" href="https://blog.o5102o.com/" target="_blank" rel="noopener noreferrer">
+        <span class="btn-label">Blog</span>
+        <span class="mobile-only">[↗]</span>
+      </a>
+      <a class="menu-row has-external-indicator" href="https://default.o5102o.com/" target="_blank" rel="noopener noreferrer">
+        <span class="btn-label">Default 전시</span>
+        <span class="mobile-only">[↗]</span>
+      </a>
+      <div class="section-gap"></div>
 
-        <div class="row">
-          <button class="link" id="l-card">
-            <span class="btn-label">Card</span>
-            <span class="mobile-only">[↗]</span>
-          </button>
-        </div>
-        <div class="row">
-          <button class="link" id="l-portfolio">
-            <span class="btn-label">Portfolio</span>
-            <span class="mobile-only">[↗]</span>
-          </button>
-        </div>
-        <div class="row">
-          <button class="link" id="l-blog">
-            <span class="btn-label">Blog</span>
-            <span class="mobile-only">[↗]</span>
-          </button>
-        </div>
-        <div class="row">
-          <button class="link" id="l-exhibit">
-            <span class="btn-label">Default 전시</span>
-            <span class="mobile-only">[↗]</span>
-          </button>
-        </div>
-        <div class="section-gap"></div>
+      <a class="menu-row has-external-indicator" href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer">
+        <span class="btn-label">Github</span>
+        <span class="mobile-only">[↗]</span>
+      </a>
+      <a class="menu-row has-external-indicator" href="https://www.instagram.com/o5102o" target="_blank" rel="noopener noreferrer">
+        <span class="btn-label">Instagram</span>
+        <span class="mobile-only">[↗]</span>
+      </a>
+      <button class="menu-row has-copy-indicator" id="email-btn" type="button">
+        <span class="btn-label">Email</span>
+        <span class="mobile-only">[+]</span>
+      </button>
 
-        <div class="row">
-          <button class="link" id="l-github">
-            <span class="btn-label">Github</span>
-            <span class="mobile-only">[↗]</span>
-          </button>
-        </div>
-        <div class="row">
-          <button class="link" id="l-instagram">
-            <span class="btn-label">Instagram</span>
-            <span class="mobile-only">[↗]</span>
-          </button>
-        </div>
-        <div class="row">
-          <button class="copy" id="email-btn">
-            <span class="btn-label">Email</span>
-            <span class="mobile-only">[+]</span>
-          </button>
-        </div>
-
-        <div class="row theme-row">
-          <button class="switch" id="theme-btn">
-            <span class="btn-label">Theme</span>
-          </button>
-        </div>
+      <div class="row theme-row">
+        <button class="menu-row" id="theme-btn" type="button">
+          <span class="btn-label">Theme</span>
+        </button>
       </div>
-
-
-    </div>
-  </div>
-
-  <script>
-    /* ─── Links ───────────────────────────────────── */
-    var urls = {
-      'l-card':      'https://card.o5102o.com/',
-      'l-portfolio': 'https://by.o5102o.com/',
-      'l-blog':      'https://blog.o5102o.com/',
-      'l-exhibit':   'https://default.o5102o.com/',
-      'l-github':    'https://github.com/jaylee1020',
-      'l-instagram': 'https://www.instagram.com/o5102o'
-    };
-
-    Object.keys(urls).forEach(function(id) {
-      document.getElementById(id).addEventListener('click', function() {
-        window.open(urls[id], '_blank');
-      });
-    });
-
-    /* ─── Email copy ──────────────────────────────── */
-    var emailBtn = document.getElementById('email-btn');
-    var emailMobile = emailBtn.querySelector('.mobile-only');
-
-    emailBtn.addEventListener('click', function() {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText('jyounglee1020@gmail.com').then(function() {
-          document.documentElement.style.setProperty('--copy-text', '" [COPIED]"');
-          if (emailMobile) emailMobile.textContent = '[COPIED]';
-          setTimeout(function() {
-            document.documentElement.style.setProperty('--copy-text', '" [+]"');
-            if (emailMobile) emailMobile.textContent = '[+]';
-          }, 2000);
-        });
-      } else {
-        window.location.href = 'mailto:jyounglee1020@gmail.com';
-      }
-    });
-
-    /* ─── Theme toggle ────────────────────────────── */
-    var themeBtn = document.getElementById('theme-btn');
-    var totalThemes = 5;
-    var stored = localStorage.getItem('theme');
-    if (stored) document.documentElement.setAttribute('data-theme', stored);
-
-    themeBtn.addEventListener('click', function() {
-      var current = parseInt(document.documentElement.getAttribute('data-theme')) || 1;
-      var next = (current % totalThemes) + 1;
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-    });
-
-    /* ─── Typing animation ────────────────────────── */
-    var lines = document.querySelectorAll('.intro-line');
-    var noMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-
-    function typeLine(el, text, speed) {
-      return new Promise(function(done) {
-        el.classList.add('visible');
-        if (noMotion) { el.textContent = text; done(); return; }
-        var c = document.createElement('span');
-        c.className = 'cursor';
-        el.appendChild(c);
-        var i = 0;
-        (function tick() {
-          if (i < text.length) {
-            el.insertBefore(document.createTextNode(text[i++]), c);
-            setTimeout(tick, speed);
-          } else { c.remove(); done(); }
-        })();
-      });
-    }
-
-    (function runTyping() {
-      var idx = 0;
-      function next() {
-        if (idx >= lines.length) return;
-        typeLine(lines[idx], lines[idx].dataset.text, 25).then(function() {
-          idx++;
-          setTimeout(next, 120);
-        });
-      }
-      setTimeout(next, 600);
-    })();
-
-
-    /* ─── SW ──────────────────────────────────────── */
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(function() {});
-    }
-  </script>
+    </section>
+  </main>
+  <script type="module" src="/shared/home.js"></script>
 </body>
 </html>
