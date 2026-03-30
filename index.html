@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="1">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -24,10 +24,13 @@
   <meta name="twitter:title" content="o5102o">
   <meta name="twitter:description" content="JOOYOUNG LEE — designer · developer">
   <style>
-    /* ─── Theme ───────────────────────────────────── */
-    :root{--bg:#1a1a1e;--fg:#dcdcdc}
-
-    :root{--copy-text:" [+]"}
+    /* ─── Themes ──────────────────────────────────── */
+    html[data-theme="1"]{--bg:#1a1a1e;--fg:#dcdcdc}
+    html[data-theme="2"]{--bg:#0078bf;--fg:#ff6c2f}
+    html[data-theme="3"]{--bg:#f65058;--fg:#00a95c}
+    html[data-theme="4"]{--bg:#925f52;--fg:#5ec8e5}
+    html[data-theme="5"]{--bg:#ff48b0;--fg:#ffe916}
+    :root{--bg:#1a1a1e;--fg:#dcdcdc;--copy-text:" [+]"}
 
     /* ─── Reset ───────────────────────────────────── */
     *{margin:0;padding:0;box-sizing:border-box}
@@ -155,12 +158,12 @@
         <div class="row"><p class="dim">DESIGNER &amp; DEVELOPER</p></div>
         <div class="section-gap"></div>
 
-        <div class="row"><p class="intro-line dim" data-text="화려한것을 좋아하는 편입니다."></p></div>
-        <div class="row"><p class="intro-line dim" data-text="깊게 또는 가볍게 응시하는것을 좋아합니다."></p></div>
+        <div class="row"><p class="intro-line dim" data-text="화려한 것을 좋아하는 편입니다."></p></div>
+        <div class="row"><p class="intro-line dim" data-text="깊게 또는 가볍게 응시하는 것을 좋아합니다."></p></div>
         <div class="row"><p class="intro-line dim" data-text="예술을 추구하지만 작가는 아닙니다."></p></div>
         <div class="row"><p class="intro-line dim" data-text="디자이너이고 싶습니다."></p></div>
         <div class="row"><p class="intro-line dim" data-text="개발자이고 싶습니다."></p></div>
-        <div class="row"><p class="intro-line dim" data-text="AI의 모든것에 관심이 많고 잘 압니다."></p></div>
+        <div class="row"><p class="intro-line dim" data-text="AI에 관한 모든 것에 관심이 많고 잘 압니다."></p></div>
         <div class="section-gap"></div>
 
         <div class="row">
@@ -255,9 +258,18 @@
       }
     });
 
-    /* ─── Theme toggle (reserved) ────────────────── */
+    /* ─── Theme toggle ────────────────────────────── */
     var themeBtn = document.getElementById('theme-btn');
-    themeBtn.addEventListener('click', function() {});
+    var totalThemes = 5;
+    var stored = localStorage.getItem('theme');
+    if (stored) document.documentElement.setAttribute('data-theme', stored);
+
+    themeBtn.addEventListener('click', function() {
+      var current = parseInt(document.documentElement.getAttribute('data-theme')) || 1;
+      var next = (current % totalThemes) + 1;
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
 
     /* ─── Typing animation ────────────────────────── */
     var lines = document.querySelectorAll('.intro-line');
