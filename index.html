@@ -124,34 +124,108 @@
     <div class="row theme-row"><button id="theme-btn"><span class="btn-label">Theme</span></button></div>
   </div></div></div>
 
+  <script src="/site.js"></script>
   <script>
-    /* Links */
-    function getTheme(){return document.documentElement.getAttribute('data-theme')||'1'}
-    var urls={'l-card':'https://card.o5102o.com/','l-portfolio':'https://by.o5102o.com/','l-blog':'https://blog.o5102o.com/','l-exhibit':'https://default.o5102o.com/','l-github':'https://github.com/jaylee1020','l-instagram':'https://www.instagram.com/o5102o'};
-    Object.keys(urls).forEach(function(id){document.getElementById(id).addEventListener('click',function(){var u=urls[id];if(u.includes('o5102o.com'))u+='?t='+getTheme();window.open(u,'_blank')})});
+    const site = window.o5102oSite;
+    const externalLinks = {
+      'l-card': 'https://card.o5102o.com/',
+      'l-portfolio': 'https://by.o5102o.com/',
+      'l-blog': 'https://blog.o5102o.com/',
+      'l-exhibit': 'https://default.o5102o.com/',
+      'l-github': 'https://github.com/jaylee1020',
+      'l-instagram': 'https://www.instagram.com/o5102o',
+    };
 
-    /* Email copy */
-    var emailBtn=document.getElementById('email-btn'),emailMob=emailBtn.querySelector('.mobile-only');
-    emailBtn.addEventListener('click',function(){
-      if(navigator.clipboard){navigator.clipboard.writeText('jyounglee1020@gmail.com').then(function(){
-        document.documentElement.style.setProperty('--copy-text','" [COPIED]"');if(emailMob)emailMob.textContent='[COPIED]';
-        setTimeout(function(){document.documentElement.style.setProperty('--copy-text','" [+]"');if(emailMob)emailMob.textContent='[+]'},2000);
-      })}else{location.href='mailto:jyounglee1020@gmail.com'}
+    Object.entries(externalLinks).forEach(function ([id, url]) {
+      const button = document.getElementById(id);
+      button.addEventListener('click', function () {
+        site.openExternal(url, { themeAware: url.includes('o5102o.com') });
+      });
     });
 
-    /* Theme toggle */
-    document.getElementById('theme-btn').addEventListener('click',function(){
-      var c=parseInt(document.documentElement.getAttribute('data-theme'))||1;
-      var n=c>=5?2:c<2?2:c+1;document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);
+    const emailButton = document.getElementById('email-btn');
+    const emailMobileLabel = emailButton.querySelector('.mobile-only');
+    let copyResetTimer = null;
+
+    function setCopyIndicator(label) {
+      document.documentElement.style.setProperty('--copy-text', '"' + label + '"');
+      if (emailMobileLabel) {
+        emailMobileLabel.textContent = label.trim();
+      }
+    }
+
+    emailButton.addEventListener('click', async function () {
+      const copied = await site.copyText('jyounglee1020@gmail.com').catch(function () {
+        return false;
+      });
+
+      if (!copied) {
+        window.location.href = 'mailto:jyounglee1020@gmail.com';
+        return;
+      }
+
+      setCopyIndicator(' [COPIED]');
+      window.clearTimeout(copyResetTimer);
+      copyResetTimer = window.setTimeout(function () {
+        setCopyIndicator(' [+]');
+      }, 2000);
     });
 
-    /* Typing */
-    var lines=document.querySelectorAll('.intro-line'),noMotion=matchMedia('(prefers-reduced-motion:reduce)').matches;
-    function typeLine(el,text,speed){return new Promise(function(done){el.classList.add('visible');if(noMotion){el.textContent=text;done();return}var c=document.createElement('span');c.className='cursor';el.appendChild(c);var i=0;(function tick(){if(i<text.length){el.insertBefore(document.createTextNode(text[i++]),c);setTimeout(tick,speed)}else{c.remove();done()}}())})}
-    (function(){var idx=0;function next(){if(idx>=lines.length)return;typeLine(lines[idx],lines[idx].dataset.text,25).then(function(){idx++;setTimeout(next,120)})}setTimeout(next,600)})();
+    document.getElementById('theme-btn').addEventListener('click', function () {
+      site.cycleTheme(2, 5);
+    });
 
-    /* SW */
-    if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});
+    const introLines = Array.from(document.querySelectorAll('.intro-line'));
+    const prefersReducedMotion = matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    function typeLine(line, text, speed) {
+      return new Promise(function (resolve) {
+        line.classList.add('visible');
+
+        if (prefersReducedMotion) {
+          line.textContent = text;
+          resolve();
+          return;
+        }
+
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        line.appendChild(cursor);
+
+        let index = 0;
+
+        (function tick() {
+          if (index < text.length) {
+            line.insertBefore(document.createTextNode(text[index]), cursor);
+            index += 1;
+            window.setTimeout(tick, speed);
+            return;
+          }
+
+          cursor.remove();
+          resolve();
+        })();
+      });
+    }
+
+    (function playIntro() {
+      let currentIndex = 0;
+
+      function renderNextLine() {
+        if (currentIndex >= introLines.length) {
+          return;
+        }
+
+        typeLine(introLines[currentIndex], introLines[currentIndex].dataset.text, 25).then(function () {
+          currentIndex += 1;
+          window.setTimeout(renderNextLine, 120);
+        });
+      }
+
+      window.setTimeout(renderNextLine, 600);
+    })();
+
+    site.registerServiceWorker('/sw.js');
   </script>
 </body>
 </html>
