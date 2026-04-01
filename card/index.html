@@ -124,35 +124,182 @@
     </form>
   </div></div>
 
+  <script src="/site.js"></script>
   <script>
-    /* vCard */
-    function vcard(){var v=['BEGIN:VCARD','VERSION:3.0','N:이;주영;;;','FN:이주영 (JOOYOUNG LEE)','NICKNAME:o5102o','TITLE:Designer & Developer','TEL;TYPE=CELL:010-8520-7201','EMAIL;TYPE=INTERNET:jyounglee1020@gmail.com','URL:https://o5102o.com','X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/o5102o','X-SOCIALPROFILE;TYPE=github:https://github.com/jaylee1020','NOTE:o5102o.com','END:VCARD'].join('\r\n');var b=new Blob([v],{type:'text/vcard;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='o5102o.vcf';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)}
-    document.getElementById('vcardBtn').addEventListener('click',vcard);
-    document.getElementById('vcardBtn2').addEventListener('click',vcard);
+    const site = window.o5102oSite;
+    const VCARD_LINES = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'N:이;주영;;;',
+      'FN:이주영 (JOOYOUNG LEE)',
+      'NICKNAME:o5102o',
+      'TITLE:Designer & Developer',
+      'TEL;TYPE=CELL:010-8520-7201',
+      'EMAIL;TYPE=INTERNET:jyounglee1020@gmail.com',
+      'URL:https://o5102o.com',
+      'X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/o5102o',
+      'X-SOCIALPROFILE;TYPE=github:https://github.com/jaylee1020',
+      'NOTE:o5102o.com',
+      'END:VCARD',
+    ];
+    const PHONE_PATTERN = /^(01[016789]\d{7,8}|0[2-6][1-9]\d{6,7}|\+82\d{9,10})$/;
+    const CONTACT_ENDPOINT = '/api/contact';
 
-    /* Form */
-    var form=document.getElementById('form'),nameI=document.getElementById('name'),phoneI=document.getElementById('phone'),placeI=document.getElementById('place'),msgEl=document.getElementById('msg'),sub=document.getElementById('sub'),doneEl=document.getElementById('done'),sending=false;
-    function setMsg(t,c){msgEl.textContent=t||'';msgEl.className='msg'+(c?' '+c:'')}
-    function fmt(v){var d=v.replace(/\D/g,'');if(d.length<=3)return d;if(d.length<=7)return d.slice(0,3)+'-'+d.slice(3);return d.slice(0,3)+'-'+d.slice(3,7)+'-'+d.slice(7,11)}
-    function shake(el){el.classList.add('invalid','shake');el.addEventListener('animationend',function(){el.classList.remove('shake')},{once:true})}
-    phoneI.addEventListener('input',function(){var p=phoneI.selectionStart,b=phoneI.value,f=fmt(b);if(f!==b){phoneI.value=f;phoneI.setSelectionRange(p+f.length-b.length,p+f.length-b.length)}phoneI.classList.remove('invalid');setMsg('')});
-    nameI.addEventListener('input',function(){nameI.classList.remove('invalid');setMsg('')});
-    form.addEventListener('submit',async function(e){
-      e.preventDefault();if(sending)return;
-      var p={name:nameI.value.trim(),phone:phoneI.value.trim(),place:placeI.value.trim()||null,source:'card.o5102o.com',createdAt:new Date().toISOString()};
-      if(!p.name){shake(nameI);setMsg('이름을 입력해 주세요.','error');nameI.focus();return}
-      if(!p.phone){shake(phoneI);setMsg('전화번호를 입력해 주세요.','error');phoneI.focus();return}
-      var d=p.phone.replace(/[\s\-()]/g,'');if(!/^(01[016789]\d{7,8}|0[2-6][1-9]\d{6,7}|\+82\d{9,10})$/.test(d)){shake(phoneI);setMsg('전화번호 형식이 맞지 않습니다.','error');phoneI.focus();return}
-      try{sending=true;sub.disabled=true;sub.textContent='저장 중...';setMsg('','ok');
-        var r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});if(!r.ok)throw new Error(r.status);
-        setMsg('저장 완료.','ok');form.reset();doneEl.classList.add('visible');
-      }catch(err){var s=encodeURIComponent('[card] '+p.name),bd=encodeURIComponent('이름: '+p.name+'\n전화번호: '+(p.phone||'-')+'\n만난 곳: '+(p.place||'-'));msgEl.innerHTML='';msgEl.append('서버 오류. ');var a=document.createElement('a');a.href='mailto:jyounglee1020@gmail.com?subject='+s+'&body='+bd;a.textContent='이메일로 보내기';msgEl.appendChild(a);msgEl.className='msg error'
-      }finally{sending=false;sub.disabled=false;sub.textContent='보내기'}
+    function downloadVCard() {
+      const blob = new Blob([VCARD_LINES.join('\r\n')], { type: 'text/vcard;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = 'o5102o.vcf';
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('vcardBtn').addEventListener('click', downloadVCard);
+    document.getElementById('vcardBtn2').addEventListener('click', downloadVCard);
+
+    const form = document.getElementById('form');
+    const nameInput = document.getElementById('name');
+    const phoneInput = document.getElementById('phone');
+    const placeInput = document.getElementById('place');
+    const message = document.getElementById('msg');
+    const submitButton = document.getElementById('sub');
+    const doneMessage = document.getElementById('done');
+    let isSubmitting = false;
+
+    function setMessage(text, tone) {
+      message.textContent = text || '';
+      message.className = 'msg' + (tone ? ' ' + tone : '');
+    }
+
+    function formatPhoneNumber(value) {
+      const digits = value.replace(/\D/g, '');
+      if (digits.length <= 3) return digits;
+      if (digits.length <= 7) return digits.slice(0, 3) + '-' + digits.slice(3);
+      return digits.slice(0, 3) + '-' + digits.slice(3, 7) + '-' + digits.slice(7, 11);
+    }
+
+    function shakeField(field) {
+      field.classList.add('invalid', 'shake');
+      field.addEventListener('animationend', function () {
+        field.classList.remove('shake');
+      }, { once: true });
+    }
+
+    function clearValidation(field) {
+      field.classList.remove('invalid');
+      setMessage('');
+    }
+
+    function createPayload() {
+      return {
+        name: nameInput.value.trim(),
+        phone: phoneInput.value.trim(),
+        place: placeInput.value.trim() || null,
+        source: 'card.o5102o.com',
+        createdAt: new Date().toISOString(),
+      };
+    }
+
+    function getPhoneDigits(value) {
+      return value.replace(/[\s\-()]/g, '');
+    }
+
+    function renderFallbackMailLink(payload) {
+      const subject = encodeURIComponent('[card] ' + payload.name);
+      const body = encodeURIComponent(
+        '이름: ' + payload.name + '\n전화번호: ' + (payload.phone || '-') + '\n만난 곳: ' + (payload.place || '-')
+      );
+
+      message.innerHTML = '';
+      message.append('서버 오류. ');
+
+      const link = document.createElement('a');
+      link.href = 'mailto:jyounglee1020@gmail.com?subject=' + subject + '&body=' + body;
+      link.textContent = '이메일로 보내기';
+      message.appendChild(link);
+      message.className = 'msg error';
+    }
+
+    phoneInput.addEventListener('input', function () {
+      const cursor = phoneInput.selectionStart;
+      const before = phoneInput.value;
+      const formatted = formatPhoneNumber(before);
+
+      if (formatted !== before) {
+        const delta = formatted.length - before.length;
+        phoneInput.value = formatted;
+        phoneInput.setSelectionRange(cursor + delta, cursor + delta);
+      }
+
+      clearValidation(phoneInput);
     });
-    /* Pass theme to back link */
-    var bt=new URLSearchParams(location.search).get('t');
-    if(bt){var bk=document.querySelector('.back');if(bk)bk.href+='?t='+bt}
-    if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});
+
+    nameInput.addEventListener('input', function () {
+      clearValidation(nameInput);
+    });
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      if (isSubmitting) {
+        return;
+      }
+
+      const payload = createPayload();
+
+      if (!payload.name) {
+        shakeField(nameInput);
+        setMessage('이름을 입력해 주세요.', 'error');
+        nameInput.focus();
+        return;
+      }
+
+      if (!payload.phone) {
+        shakeField(phoneInput);
+        setMessage('전화번호를 입력해 주세요.', 'error');
+        phoneInput.focus();
+        return;
+      }
+
+      if (!PHONE_PATTERN.test(getPhoneDigits(payload.phone))) {
+        shakeField(phoneInput);
+        setMessage('전화번호 형식이 맞지 않습니다.', 'error');
+        phoneInput.focus();
+        return;
+      }
+
+      try {
+        isSubmitting = true;
+        submitButton.disabled = true;
+        submitButton.textContent = '저장 중...';
+        setMessage('', 'ok');
+
+        const response = await fetch(CONTACT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          throw new Error(String(response.status));
+        }
+
+        setMessage('저장 완료.', 'ok');
+        form.reset();
+        doneMessage.classList.add('visible');
+      } catch (_error) {
+        renderFallbackMailLink(payload);
+      } finally {
+        isSubmitting = false;
+        submitButton.disabled = false;
+        submitButton.textContent = '보내기';
+      }
+    });
+
+    site.updateBackLink('.back');
+    site.registerServiceWorker('/sw.js');
   </script>
 </body>
 </html>

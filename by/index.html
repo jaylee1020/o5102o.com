@@ -90,29 +90,122 @@
     <p class="footer">&copy; 2026 JOOYOUNG LEE</p>
   </div></div>
 
+  <script src="/site.js"></script>
   <script>
-    var list=document.getElementById('list'),status=document.getElementById('status');
-    function rel(s){var d=new Date(s);if(isNaN(d))return'';var m=Math.floor((Date.now()-d)/60000);if(m<60)return m+'m';var h=Math.floor(m/60);if(h<24)return h+'h';var dy=Math.floor(h/24);if(dy<30)return dy+'d';return Math.floor(dy/30)+'mo'}
-    async function load(){
-      status.textContent='불러오는 중...';status.hidden=false;list.innerHTML='';
-      try{
-        var r=await fetch('https://api.github.com/users/jaylee1020/repos?sort=updated&per_page=5&type=public');
-        if(!r.ok)throw new Error(r.status);var repos=await r.json();
-        if(!repos.length){status.hidden=true;return}
-        status.hidden=true;
-        repos.forEach(function(repo){
-          var a=document.createElement('a');a.className='proj';a.href=repo.html_url;a.target='_blank';a.rel='noopener noreferrer';
-          var name=document.createElement('span');name.textContent=repo.name;
-          var meta=document.createElement('span');meta.className='meta';
-          meta.textContent=(repo.language||'')+(repo.language?' · ':'')+rel(repo.updated_at);
-          a.append(name,meta);list.appendChild(a);
-        });
-      }catch(e){status.textContent='불러오기 실패. ';var btn=document.createElement('button');btn.className='retry';btn.textContent='[다시 시도]';btn.addEventListener('click',load);status.appendChild(btn)}
+    const site = window.o5102oSite;
+    const list = document.getElementById('list');
+    const status = document.getElementById('status');
+    const REPO_CACHE_KEY = 'o5102o-github-repos-v1';
+    const GITHUB_REPOS_URL = 'https://api.github.com/users/jaylee1020/repos?sort=updated&per_page=5&type=public';
+
+    function formatRelativeTime(timestamp) {
+      const date = new Date(timestamp);
+      if (Number.isNaN(date.getTime())) {
+        return '';
+      }
+
+      const minutes = Math.floor((Date.now() - date.getTime()) / 60000);
+      if (minutes < 60) return minutes + 'm';
+
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return hours + 'h';
+
+      const days = Math.floor(hours / 24);
+      if (days < 30) return days + 'd';
+
+      return Math.floor(days / 30) + 'mo';
     }
-    load();
-    var bt=new URLSearchParams(location.search).get('t');
-    if(bt){var bk=document.querySelector('.back');if(bk)bk.href+='?t='+bt}
-    if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});
+
+    function writeRepoCache(repos) {
+      try {
+        localStorage.setItem(REPO_CACHE_KEY, JSON.stringify(repos));
+      } catch (_error) {
+        // Ignore storage quota failures.
+      }
+    }
+
+    function readRepoCache() {
+      try {
+        const raw = localStorage.getItem(REPO_CACHE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (_error) {
+        return [];
+      }
+    }
+
+    function createRepoItem(repo) {
+      const link = document.createElement('a');
+      link.className = 'proj';
+      link.href = repo.html_url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+
+      const name = document.createElement('span');
+      name.textContent = repo.name;
+
+      const meta = document.createElement('span');
+      meta.className = 'meta';
+      meta.textContent = (repo.language || '') + (repo.language ? ' · ' : '') + formatRelativeTime(repo.updated_at);
+
+      link.append(name, meta);
+      return link;
+    }
+
+    function renderRepos(repos) {
+      list.innerHTML = '';
+      repos.forEach(function (repo) {
+        list.appendChild(createRepoItem(repo));
+      });
+      status.hidden = true;
+    }
+
+    async function fetchRepos() {
+      const response = await fetch(GITHUB_REPOS_URL, {
+        headers: { Accept: 'application/vnd.github+json' },
+      });
+
+      if (!response.ok) {
+        throw new Error(String(response.status));
+      }
+
+      const repos = await response.json();
+      writeRepoCache(repos);
+      return repos;
+    }
+
+    async function loadRepos() {
+      status.textContent = '불러오는 중...';
+      status.hidden = false;
+      list.innerHTML = '';
+
+      try {
+        const repos = await fetchRepos();
+        if (!repos.length) {
+          status.hidden = true;
+          return;
+        }
+
+        renderRepos(repos);
+        return;
+      } catch (_error) {
+        const cachedRepos = readRepoCache();
+        if (cachedRepos.length) {
+          renderRepos(cachedRepos);
+          return;
+        }
+      }
+
+      status.textContent = '불러오기 실패. ';
+      const retryButton = document.createElement('button');
+      retryButton.className = 'retry';
+      retryButton.textContent = '[다시 시도]';
+      retryButton.addEventListener('click', loadRepos);
+      status.appendChild(retryButton);
+    }
+
+    loadRepos();
+    site.updateBackLink('.back');
+    site.registerServiceWorker('/sw.js');
   </script>
 </body>
 </html>
