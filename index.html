@@ -30,6 +30,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="JOOYOUNG LEE">
   <meta name="twitter:description" content="JOOYOUNG LEE — designer · developer">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Jooyoung Lee","alternateName":"이주영","url":"https://o5102o.com/","email":"mailto:jyounglee1020@gmail.com","jobTitle":"Designer & Developer","sameAs":["https://github.com/jaylee1020","https://www.instagram.com/o5102o","https://by.o5102o.com/","https://card.o5102o.com/"]}</script>
   <script>var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
   <style>
     /* Themes */
@@ -75,26 +76,27 @@
     .link:hover::after,.link:active::after,.link:focus-visible::after{display:inline;content:" [↗]"}
     .copy:hover::after,.copy:active::after,.copy:focus-visible::after{display:inline;content:var(--copy-text)}
 
-    /* Buttons */
-    button{padding:1px 4px;border-radius:2px;text-transform:uppercase;white-space:nowrap;outline:none}
-    button:focus-visible{color:var(--bg);background:var(--fg)}
-    button:active{color:var(--bg);background:var(--fg)}
+    /* Buttons & link rows (anchors styled like buttons) */
+    .btn{display:inline-block;padding:1px 4px;border-radius:2px;text-transform:uppercase;white-space:nowrap;outline:none;text-decoration:none;color:var(--fg)}
+    .btn:focus-visible,.btn:active{color:var(--bg);background:var(--fg)}
     .theme-row{margin-top:32px}
+    .kbd-hint{display:none;margin-top:24px}
+    .kbd-hint p{opacity:.25;font-size:13px}
+    @media(hover:hover) and (pointer:fine){.kbd-hint{display:block}}
 
     /* Mobile */
     @media(max-width:768px){
       body{font-size:16px;line-height:28px}
       .mobile-only{display:block}
-      button.mobile-only{display:flex}
       .outer{padding:28px 20px;padding-top:max(28px,env(safe-area-inset-top,0px));padding-bottom:max(28px,env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
       .row{height:28px}
       .gap{height:28px}
-      button{padding:3px;font-size:16px;line-height:28px;width:100%;display:flex;min-height:44px;align-items:center}
+      .btn{padding:3px;font-size:16px;line-height:28px;width:100%;display:flex;min-height:44px;align-items:center}
       .btn-label{flex-grow:1;text-align:left}
       .link::after,.copy::after{content:""!important}
       .theme-row{margin-top:26px}
     }
-    @media(max-width:380px){body{font-size:15px;line-height:26px}.outer{padding:24px 16px}.row{height:26px}button{font-size:15px;line-height:26px}}
+    @media(max-width:380px){body{font-size:15px;line-height:26px}.outer{padding:24px 16px}.row{height:26px}.btn{font-size:15px;line-height:26px}}
     @media(max-height:500px){.outer{padding-top:20px;padding-bottom:20px}.gap{height:16px}.theme-row{margin-top:16px}}
     @media(prefers-reduced-motion:reduce){.intro-line{opacity:1!important;transform:none!important;transition:none!important}.cursor{animation:none!important}}
 
@@ -119,36 +121,30 @@
     <div class="row"><p class="intro-line dim" data-text="AI에 관한 모든 것에 관심이 많고 잘 압니다."></p></div>
     <div class="gap"></div>
 
-    <div class="row"><button class="link" id="l-card"><span class="btn-label">Card</span><span class="mobile-only">[↗]</span></button></div>
-    <div class="row"><button class="link" id="l-portfolio"><span class="btn-label">Portfolio</span><span class="mobile-only">[↗]</span></button></div>
-    <div class="row"><button class="link" id="l-blog"><span class="btn-label">Blog</span><span class="mobile-only">[↗]</span></button></div>
-    <div class="row"><button class="link" id="l-exhibit"><span class="btn-label">Default 전시</span><span class="mobile-only">[↗]</span></button></div>
+    <div class="row"><a class="btn link" id="l-card" href="https://card.o5102o.com/" target="_blank" rel="noopener" data-themed><span class="btn-label">Card</span><span class="mobile-only">[↗]</span></a></div>
+    <div class="row"><a class="btn link" id="l-portfolio" href="https://by.o5102o.com/" target="_blank" rel="noopener" data-themed><span class="btn-label">Portfolio</span><span class="mobile-only">[↗]</span></a></div>
+    <div class="row"><a class="btn link" id="l-blog" href="https://blog.o5102o.com/" target="_blank" rel="noopener" data-themed><span class="btn-label">Blog</span><span class="mobile-only">[↗]</span></a></div>
+    <div class="row"><a class="btn link" id="l-exhibit" href="https://default.o5102o.com/" target="_blank" rel="noopener" data-themed><span class="btn-label">Default 전시</span><span class="mobile-only">[↗]</span></a></div>
     <div class="gap"></div>
 
-    <div class="row"><button class="link" id="l-github"><span class="btn-label">Github</span><span class="mobile-only">[↗]</span></button></div>
-    <div class="row"><button class="link" id="l-instagram"><span class="btn-label">Instagram</span><span class="mobile-only">[↗]</span></button></div>
-    <div class="row"><button class="copy" id="email-btn"><span class="btn-label">Email</span><span class="mobile-only">[+]</span></button></div>
-    <div class="row theme-row"><button id="theme-btn"><span class="btn-label">Theme</span></button></div>
+    <div class="row"><a class="btn link" id="l-github" href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer"><span class="btn-label">Github</span><span class="mobile-only">[↗]</span></a></div>
+    <div class="row"><a class="btn link" id="l-instagram" href="https://www.instagram.com/o5102o" target="_blank" rel="noopener noreferrer"><span class="btn-label">Instagram</span><span class="mobile-only">[↗]</span></a></div>
+    <div class="row"><button class="btn copy" id="email-btn"><span class="btn-label">Email</span><span class="mobile-only">[+]</span></button></div>
+    <div class="row theme-row"><button class="btn" id="theme-btn"><span class="btn-label">Theme</span></button></div>
+    <div class="row kbd-hint" aria-hidden="true"><p>C P B D 이동 · E 메일 복사 · T 테마</p></div>
   </div></div></div>
 
   <script src="/site.js"></script>
   <script>
     const site = window.o5102oSite;
-    const externalLinks = {
-      'l-card': 'https://card.o5102o.com/',
-      'l-portfolio': 'https://by.o5102o.com/',
-      'l-blog': 'https://blog.o5102o.com/',
-      'l-exhibit': 'https://default.o5102o.com/',
-      'l-github': 'https://github.com/jaylee1020',
-      'l-instagram': 'https://www.instagram.com/o5102o',
-    };
 
-    Object.entries(externalLinks).forEach(function ([id, url]) {
-      const button = document.getElementById(id);
-      button.addEventListener('click', function () {
-        site.openExternal(url, { themeAware: url.includes('o5102o.com') });
+    // Keep ?t= on internal links so the current theme follows across subdomains.
+    function syncThemedLinks() {
+      document.querySelectorAll('a[data-themed]').forEach(function (anchor) {
+        anchor.href = site.buildThemedUrl(anchor.href);
       });
-    });
+    }
+    syncThemedLinks();
 
     const emailButton = document.getElementById('email-btn');
     const emailMobileLabel = emailButton.querySelector('.mobile-only');
@@ -161,7 +157,7 @@
       }
     }
 
-    emailButton.addEventListener('click', async function () {
+    async function copyEmail() {
       const copied = await site.copyText('jyounglee1020@gmail.com').catch(function () {
         return false;
       });
@@ -176,11 +172,42 @@
       copyResetTimer = window.setTimeout(function () {
         setCopyIndicator(' [+]');
       }, 2000);
+    }
+
+    function nextTheme() {
+      site.cycleTheme(2, 5);
+      syncThemedLinks();
+    }
+
+    emailButton.addEventListener('click', copyEmail);
+    document.getElementById('theme-btn').addEventListener('click', nextTheme);
+
+    // Keyboard shortcuts (desktop): jump rows without the mouse.
+    const keyTargets = {
+      c: 'l-card',
+      p: 'l-portfolio',
+      b: 'l-blog',
+      d: 'l-exhibit',
+      g: 'l-github',
+      i: 'l-instagram',
+    };
+
+    document.addEventListener('keydown', function (event) {
+      if (event.metaKey || event.ctrlKey || event.altKey || event.repeat) return;
+      const tag = document.activeElement && document.activeElement.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+
+      const key = event.key.toLowerCase();
+      if (keyTargets[key]) {
+        document.getElementById(keyTargets[key]).click();
+      } else if (key === 'e') {
+        copyEmail();
+      } else if (key === 't') {
+        nextTheme();
+      }
     });
 
-    document.getElementById('theme-btn').addEventListener('click', function () {
-      site.cycleTheme(2, 5);
-    });
+    console.log('%c o5102o ', 'font-family:monospace;font-size:20px;color:#dcdcdc;background:#1b00c8;border-radius:3px', '\nhttps://github.com/jaylee1020/o5102o.com');
 
     const introLines = Array.from(document.querySelectorAll('.intro-line'));
     const prefersReducedMotion = matchMedia('(prefers-reduced-motion:reduce)').matches;
