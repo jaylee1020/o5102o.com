@@ -8,6 +8,8 @@
   <link rel="apple-touch-icon" href="/icon-192.png">
   <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
+  <link rel="preload" href="/site.js" as="script">
+  <link rel="preconnect" href="https://api.github.com" crossorigin>
   <title>PORTFOLIO</title>
   <meta name="description" content="PORTFOLIO — JOOYOUNG LEE">
   <meta name="theme-color" content="#1b00c8">
@@ -18,8 +20,10 @@
   <meta property="og:url" content="https://by.o5102o.com/">
   <meta property="og:site_name" content="JOOYOUNG LEE">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:image" content="https://by.o5102o.com/og-image.svg">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://by.o5102o.com/icon-512.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta name="twitter:card" content="summary">
   <script>var t=new URLSearchParams(location.search).get('t')||localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
   <style>
     /* Themes */
@@ -174,9 +178,15 @@
     }
 
     async function loadRepos() {
-      status.textContent = '불러오는 중...';
-      status.hidden = false;
-      list.innerHTML = '';
+      // Render cached repos immediately, then refresh from the network.
+      const cachedRepos = readRepoCache();
+      if (cachedRepos.length) {
+        renderRepos(cachedRepos);
+      } else {
+        status.textContent = '불러오는 중...';
+        status.hidden = false;
+        list.innerHTML = '';
+      }
 
       try {
         const repos = await fetchRepos();
@@ -188,9 +198,7 @@
         renderRepos(repos);
         return;
       } catch (_error) {
-        const cachedRepos = readRepoCache();
         if (cachedRepos.length) {
-          renderRepos(cachedRepos);
           return;
         }
       }

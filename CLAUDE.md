@@ -7,13 +7,16 @@
 ```
 /                          → o5102o.com (메인 허브, 한국어)
 ├── by/                    → by.o5102o.com (포트폴리오)
+├── blog/                  → blog.o5102o.com (블로그)
+│   └── posts/             → 글 1개 = HTML 파일 1개 (no-build.html 복사해서 작성)
 ├── card/                  → card.o5102o.com (개발자 카드 + 연락처 폼)
 ├── default/               → default.o5102o.com (인터랙티브 전시)
 │   ├── assets/            → 번들 JS/CSS (Vite 빌드 결과물, 소스 없음)
 │   ├── models/            → MediaPipe 모델 (hand_landmarker.task 등)
 │   └── vendor/mediapipe/  → MediaPipe WASM 런타임 (오프라인용)
-├── functions/api/         → Netlify 서버리스 함수 (contact.js, wallet.js)
-├── _headers               → Netlify 캐시/보안 헤더
+├── functions/api/         → Cloudflare Pages Functions (contact.js, wallet.js)
+├── tools/                 → 일회성 개발 스크립트 (배포와 무관)
+├── _headers               → 캐시/보안 헤더 (Cloudflare Pages 포맷)
 └── manifest.json          → PWA 매니페스트
 ```
 
@@ -75,8 +78,8 @@ mv default/assets/index-OLD.js "default/assets/index-${NEW_HASH}.js"
 
 ## 배포
 
-- **호스팅**: Netlify (정적 + Functions)
-- **도메인**: o5102o.com, by.o5102o.com, card.o5102o.com, default.o5102o.com
+- **호스팅**: Cloudflare Pages (정적 + Pages Functions)
+- **도메인**: o5102o.com, by.o5102o.com, card.o5102o.com, blog.o5102o.com, default.o5102o.com
 - **HTML 캐시**: `max-age=0, must-revalidate` (항상 최신)
 - **Assets 캐시**: `immutable` (파일명 해시로 버전 관리)
 
