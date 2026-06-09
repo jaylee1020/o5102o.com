@@ -19,9 +19,8 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
 
-    <!-- Critical: preload JS + CSS + smallest model first -->
-    <link rel="preload" href="/assets/index-01d9ff2a.js" as="script" crossorigin />
-    <link rel="preload" href="/assets/index-df34ad08.css" as="style" crossorigin />
+    <!-- Critical: preload JS module + smallest model first -->
+    <link rel="modulepreload" href="/assets/index-01d9ff2a.js" crossorigin />
     <link rel="preload" href="/models/selfie_segmenter.tflite" as="fetch" crossorigin />
 
     <!-- Non-critical: prefetch large resources in background -->
