@@ -51,7 +51,7 @@ python3 -m http.server 8082 --directory default
 
 ## 배포 메모
 
-- 정적 파일과 함수는 Netlify 기준으로 운영합니다.
-- 주의: `functions/api/*.js` 는 Cloudflare Pages Functions 규약(`onRequestPost` 등)으로 작성되어 있습니다. Netlify Functions 와 규약이 다르므로, 실제 호스팅이 Netlify 라면 `/api/contact` 가 동작하지 않고 카드 폼은 메일 폴백으로 동작합니다. 호스팅 플랫폼 확인 필요.
+- 호스팅은 Cloudflare Pages 입니다. 정적 파일 + `functions/` 의 Pages Functions(`onRequestPost` 등 규약)로 운영합니다.
+- `_headers` 파일로 캐시/보안 헤더를 관리합니다 (Cloudflare Pages가 직접 지원).
 - HTML은 즉시 재검증, 해시된 에셋은 immutable 캐시를 사용합니다.
 - 서비스 워커를 사용하므로 캐시 정책 변경 시 `sw.js`의 캐시 이름도 함께 갱신해야 합니다.
