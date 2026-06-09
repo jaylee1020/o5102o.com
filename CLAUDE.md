@@ -58,6 +58,14 @@
   - **default**: 비-Apple (간격 1.5-3, 반발 130px)
 - 전역 변수: `window.__APPLE_SILICON`, `window.__PERF_TIER`
 
+### 프레임 게이팅 최적화 (현재 적용됨)
+- **비디오 프레임 게이팅**: `requestVideoFrameCallback`(폴백: rAF 타임스탬프 31ms 스로틀)으로 새 카메라 프레임이 있을 때만 세그멘테이션·모자이크 렌더·제스처 인식 실행. 120Hz 디스플레이에서 MediaPipe/모자이크 중복 작업 제거 (`_nfF`, `_rvfc`, `_vfc` 변수)
+- **적응형 모자이크 스킵**: FPS 거버너의 파티클 스킵 레벨(`_fpS`)이 3 이상이면 모자이크를 비디오 프레임 2개당 1회만 렌더
+- **모자이크 렌더 상태 호이스팅**: `font`/`textAlign`/`textBaseline`을 셀 루프 밖에서 1회만 설정
+- **버퍼 재사용**: 모자이크의 휘도 버퍼(`_lb`)·마스크 리샘플 버퍼(`_mb`)를 프레임 간 재사용 (per-frame Float32Array 할당 제거)
+- **파티클 루프**: `forEach` 클로저 → 인덱스 for 루프, 반발 강도 상수 호이스팅
+- **백그라운드 탭**: `document.hidden`이면 12초 변형 재생성 스킵
+
 ### 중요 주의사항
 
 **⚠️ 캐시 버스팅 필수**: `_headers`에서 `/assets/*`가 `max-age=31536000, immutable`로 설정됨. 번들 수정 시 **반드시 파일명을 변경**해야 CDN 캐시가 갱신됨.
