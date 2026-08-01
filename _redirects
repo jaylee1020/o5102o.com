@@ -1,0 +1,2 @@
+/info https://card.o5102o.com 301
+/info/* https://card.o5102o.com/:splat 301

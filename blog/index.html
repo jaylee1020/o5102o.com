@@ -5,100 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="color-scheme" content="dark light">
   <link rel="apple-touch-icon" href="/icon-192.png">
   <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
-  <link rel="preload" href="/site.js" as="script">
-  <title>BLOG</title>
-  <meta name="description" content="BLOG — JOOYOUNG LEE">
+  <link rel="preload" href="/site.css?v=5" as="style">
+  <link rel="stylesheet" href="/site.css?v=5">
+  <link rel="preload" href="/site.js?v=5" as="script">
+  <title>BLOG — JOOYOUNG LEE</title>
+  <meta name="description" content="디자인, 개발, AI, 그리고 만들고 있는 것들에 대한 이주영의 기록.">
   <meta name="theme-color" content="#1b00c8">
   <link rel="canonical" href="https://blog.o5102o.com/">
+  <link rel="alternate" type="application/atom+xml" title="JOOYOUNG LEE — Blog" href="https://blog.o5102o.com/feed.xml">
   <meta property="og:title" content="BLOG — JOOYOUNG LEE">
-  <meta property="og:description" content="THOUGHTS, NOTES, AND LOGS">
+  <meta property="og:description" content="Thoughts, notes, and logs.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://blog.o5102o.com/">
   <meta property="og:site_name" content="JOOYOUNG LEE">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:image" content="https://blog.o5102o.com/icon-512.png">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
-  <meta name="twitter:card" content="summary">
-  <script>var t=new URLSearchParams(location.search).get('t')||localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
-  <style>
-    /* Themes */
-    html[data-theme="2"]{--bg:#1a1a1e;--fg:#dcdcdc}
-    html[data-theme="3"]{--bg:#1b00c8;--fg:#dcdcdc}
-    html[data-theme="4"]{--bg:#0a0a0a;--fg:#4ade80}
-    html[data-theme="5"]{--bg:#ffe916;--fg:#1b00c8}
-    :root{--bg:#1b00c8;--fg:#dcdcdc}
-
-    /* Reset */
-    *{margin:0;padding:0;box-sizing:border-box}
-
-    /* Base */
-    html,body{
-      min-height:100vh;min-height:100dvh;height:100%;
-      font-size:17px;line-height:26px;
-      font-family:"SF Mono",ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Monaco,Consolas,monospace;
-      font-weight:400;background:var(--bg);color:var(--fg);
-      -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
-      -webkit-user-select:none;user-select:none;touch-action:manipulation;
-    }
-
-    .outer{width:100%;min-height:100vh;min-height:100dvh;display:flex;align-items:flex-start;justify-content:flex-start;padding:40px 36px;padding-top:max(40px,env(safe-area-inset-top,0px));padding-bottom:max(40px,env(safe-area-inset-bottom,0px))}
-    .inner{width:100%;max-width:480px}
-    .row{height:26px;width:100%}
-    .row p{display:inline-block;padding-left:3px;border-radius:2px}
-    .gap{height:36px}
-    .dim{opacity:.45}
-    .back{display:inline-block;padding:1px 4px;border-radius:2px;text-decoration:none;color:var(--fg);opacity:.45;margin-bottom:8px}
-    .back:hover{opacity:1}
-
-    /* Post rows */
-    .post{display:flex;justify-content:space-between;align-items:baseline;padding:1px 4px;text-decoration:none;color:var(--fg);border-radius:2px;height:26px}
-    .post:hover,.post:active,.post:focus-visible{color:var(--bg);background:var(--fg);outline:none}
-    .post .date{opacity:.3;font-size:13px}
-
-    .empty{opacity:.2;font-size:14px;padding-left:3px}
-    .footer{margin-top:36px;opacity:.2;font-size:13px;padding-left:3px}
-
-    /* Mobile */
-    @media(max-width:768px){
-      body{font-size:16px;line-height:28px}
-      .outer{padding:28px 20px;padding-top:max(28px,env(safe-area-inset-top,0px));padding-bottom:max(28px,env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-      .row{height:28px}.post{height:auto;min-height:44px;padding:6px 4px}.gap{height:28px}
-    }
-    @media(max-width:380px){body{font-size:15px;line-height:26px}.outer{padding:24px 16px}}
-  </style>
+  <meta property="og:image" content="https://blog.o5102o.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="BLOG — JOOYOUNG LEE">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BLOG — JOOYOUNG LEE">
+  <meta name="twitter:description" content="Thoughts, notes, and logs.">
+  <meta name="twitter:image" content="https://blog.o5102o.com/og-image.png">
+  <script>document.documentElement.classList.add('js');try{var t=new URLSearchParams(location.search).get('t')||localStorage.getItem('theme');if(/^[2-5]$/.test(t||''))document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
-<body>
-  <div class="outer"><div class="inner">
-    <a class="back" href="https://o5102o.com">&larr; o5102o.com</a>
+<body class="blog-index">
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <div class="site-frame">
+    <header class="topbar topbar-nav">
+      <a class="brand" href="https://o5102o.com/" data-themed>o5102o.com</a>
+      <div class="topbar-end">
+        <span class="topbar-meta">NOTES / <span class="js-year">2026</span></span>
+        <nav class="topnav" aria-label="주요 메뉴">
+          <a href="https://card.o5102o.com/" data-themed>Card</a>
+          <a href="https://by.o5102o.com/" data-themed>Portfolio</a>
+          <a href="https://blog.o5102o.com/" aria-current="page" data-themed>Blog</a>
+          <a href="https://default.o5102o.com/" data-themed>Default 전시</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="테마 변경. 현재 COBALT">
+          <span class="theme-label">Theme</span><span class="theme-name">Cobalt</span><span class="theme-dot" aria-hidden="true"></span>
+        </button>
+      </div>
+    </header>
 
-    <div class="row"><p>BLOG</p></div>
-    <div class="row"><p class="dim">THOUGHTS, NOTES, AND LOGS</p></div>
-    <div class="gap"></div>
+    <main id="main">
+      <section class="page-hero" aria-labelledby="page-title">
+        <div class="page-hero-rail">
+          <a class="breadcrumb" href="https://o5102o.com/" data-themed data-back-link>← Index</a>
+          <span class="page-count">02 / 04</span>
+        </div>
+        <div class="page-hero-main">
+          <p class="eyebrow" data-reveal>Thoughts, notes, and logs</p>
+          <h1 class="page-title" id="page-title" data-reveal>Blog</h1>
+          <p class="page-lede" data-reveal>만들고 있는 것들, AI에 대한 생각, 디자인과 개발 사이에서 발견한 것을 느리게 기록합니다.</p>
+        </div>
+      </section>
 
-    <!-- 새 글 추가: blog/posts/no-build.html 을 복사해 수정한 뒤 아래에 한 줄 추가 (최신 글이 위로)
-    <a class="post" href="posts/my-post.html"><span>포스트 제목</span><span class="date">2026.03.30</span></a>
-    -->
-    <a class="post" href="posts/no-build.html"><span>빌드 없이 굴러가는 블로그</span><span class="date">2026.06.09</span></a>
+      <section class="content-section" aria-labelledby="posts-title">
+        <div class="section-heading">
+          <span class="section-index">001 Note</span>
+          <h2 id="posts-title">All Notes</h2>
+        </div>
+        <div class="section-body">
+          <!-- 새 글 추가: blog/posts/no-build.html을 복사한 뒤 최신 글을 위에 추가합니다. -->
+          <div class="post-list">
+            <a class="post-row" href="posts/no-build.html" data-themed>
+              <span class="directory-number">01</span>
+              <span class="post-row-title">빌드 없이 굴러가는 블로그</span>
+              <span class="post-row-meta"><time datetime="2026-06-09">2026.06.09</time> / 3 MIN</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
 
-    <p class="footer">&copy; 2026 JOOYOUNG LEE</p>
-  </div></div>
-  <script src="/site.js"></script>
-  <script>
-    const site = window.o5102oSite;
-    site.updateBackLink('.back');
+    <footer class="footer">
+      <span>© <span class="js-year">2026</span> JOOYOUNG LEE</span>
+      <span>WORDS / DESIGN / CODE</span>
+    </footer>
+  </div>
 
-    // ?t= 로 넘어온 테마를 포스트 링크에도 이어준다.
-    if (site.getQueryTheme()) {
-      document.querySelectorAll('.post').forEach(function (anchor) {
-        anchor.href = site.buildThemedUrl(anchor.href);
-      });
-    }
-
-    site.registerServiceWorker('/sw.js');
-  </script>
+  <script src="/site.js?v=5"></script>
+  <script>window.o5102oSite.registerServiceWorker('/sw.js');</script>
 </body>
 </html>

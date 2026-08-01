@@ -5,29 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="color-scheme" content="dark light">
   <meta name="theme-color" content="#1b00c8">
-  <meta name="robots" content="noindex,follow">
+  <meta name="robots" content="noindex,nofollow">
   <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="stylesheet" href="/site.css?v=5">
-  <title>페이지를 찾을 수 없습니다 — JOOYOUNG LEE</title>
-  <script>document.documentElement.classList.add('js');try{var t=new URLSearchParams(location.search).get('t')||localStorage.getItem('theme');if(/^[2-5]$/.test(t||''))document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+  <title>오프라인 — JOOYOUNG LEE</title>
+  <script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(/^[2-5]$/.test(t||''))document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
   <div class="site-frame">
     <header class="topbar">
-      <a class="brand" href="https://o5102o.com/" data-themed>o5102o.com</a>
+      <a class="brand" href="/">o5102o.com</a>
       <div class="topbar-end">
-        <span class="topbar-meta">ERROR / NOT FOUND</span>
+        <span class="topbar-meta">SYSTEM / OFFLINE</span>
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="테마 변경. 현재 COBALT">
           <span class="theme-label">Theme</span><span class="theme-name">Cobalt</span><span class="theme-dot" aria-hidden="true"></span>
         </button>
       </div>
     </header>
     <main class="error-hero" id="main">
-      <h1 class="error-code"><span aria-hidden="true">404</span><span class="sr-only">오류 404</span></h1>
+      <h1 class="error-code"><span aria-hidden="true">OFF</span><span class="sr-only">오프라인</span></h1>
       <div class="error-footer">
-        <p class="error-message">요청한 페이지를 찾을 수 없습니다. 주소가 바뀌었거나 페이지가 이동되었을 수 있습니다.</p>
-        <a class="primary-link" href="https://o5102o.com/" data-themed>Back to index</a>
+        <p class="error-message">네트워크에 연결되지 않았고 이 페이지의 저장된 사본도 없습니다. 연결을 확인한 뒤 다시 시도해 주세요.</p>
+        <a class="primary-link" href="">다시 시도</a>
       </div>
     </main>
   </div>

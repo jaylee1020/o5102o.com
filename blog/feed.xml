@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko">
+  <title>JOOYOUNG LEE — Blog</title>
+  <subtitle>디자인, 개발, AI, 그리고 만들고 있는 것들에 대한 기록.</subtitle>
+  <link href="https://blog.o5102o.com/" />
+  <link href="https://blog.o5102o.com/feed.xml" rel="self" type="application/atom+xml" />
+  <id>https://blog.o5102o.com/</id>
+  <updated>2026-06-09T00:00:00+09:00</updated>
+  <author>
+    <name>Jooyoung Lee</name>
+    <uri>https://o5102o.com/</uri>
+  </author>
+  <entry>
+    <title>빌드 없이 굴러가는 블로그</title>
+    <link href="https://blog.o5102o.com/posts/no-build.html" />
+    <id>https://blog.o5102o.com/posts/no-build.html</id>
+    <published>2026-06-09T00:00:00+09:00</published>
+    <updated>2026-06-09T00:00:00+09:00</updated>
+    <summary>이 사이트가 빌드 시스템 없이 어떻게 동작하는지에 대한 짧은 기록.</summary>
+  </entry>
+</feed>
