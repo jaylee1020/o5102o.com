@@ -6,260 +6,179 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="JOOYOUNG LEE">
+  <meta name="color-scheme" content="dark light">
   <link rel="apple-touch-icon" href="/icon-192.png">
   <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
-  <link rel="preload" href="/site.js" as="script">
+  <link rel="preload" href="/site.css?v=5" as="style">
+  <link rel="stylesheet" href="/site.css?v=5">
+  <link rel="preload" href="/site.js?v=5" as="script">
   <link rel="dns-prefetch" href="https://card.o5102o.com">
   <link rel="dns-prefetch" href="https://by.o5102o.com">
   <link rel="dns-prefetch" href="https://blog.o5102o.com">
   <link rel="dns-prefetch" href="https://default.o5102o.com">
-  <title>JOOYOUNG LEE</title>
-  <meta name="description" content="JOOYOUNG LEE — designer · developer">
+  <title>JOOYOUNG LEE — Designer &amp; Developer</title>
+  <meta name="description" content="이주영(Jay)의 디자인, 개발, AI 프로젝트와 기록.">
   <meta name="theme-color" content="#1b00c8">
   <link rel="canonical" href="https://o5102o.com/">
+  <link rel="alternate" type="application/atom+xml" title="JOOYOUNG LEE — Blog" href="https://blog.o5102o.com/feed.xml">
   <meta property="og:title" content="JOOYOUNG LEE">
-  <meta property="og:description" content="JOOYOUNG LEE — designer · developer">
+  <meta property="og:description" content="Designer · Developer · AI">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://o5102o.com/">
   <meta property="og:site_name" content="JOOYOUNG LEE">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:image" content="https://o5102o.com/icon-512.png">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://o5102o.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="JOOYOUNG LEE — Designer &amp; Developer">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="JOOYOUNG LEE">
-  <meta name="twitter:description" content="JOOYOUNG LEE — designer · developer">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Jooyoung Lee","alternateName":"이주영","url":"https://o5102o.com/","email":"mailto:jyounglee1020@gmail.com","jobTitle":"Designer & Developer","sameAs":["https://github.com/jaylee1020","https://www.instagram.com/eeooyoung","https://by.o5102o.com/","https://card.o5102o.com/"]}</script>
-  <script>var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
-  <style>
-    /* Themes */
-    html[data-theme="2"]{--bg:#1a1a1e;--fg:#dcdcdc}
-    html[data-theme="3"]{--bg:#1b00c8;--fg:#dcdcdc}
-    html[data-theme="4"]{--bg:#0a0a0a;--fg:#4ade80}
-    html[data-theme="5"]{--bg:#ffe916;--fg:#1b00c8}
-    :root{--bg:#1b00c8;--fg:#dcdcdc;--copy-text:" [+]"}
-
-    /* Reset */
-    *{margin:0;padding:0;box-sizing:border-box}
-    button{border:none;background:none;font:inherit;color:inherit;cursor:default}
-
-    /* Base */
-    html,body{
-      min-height:100vh;min-height:100dvh;height:100%;
-      font-size:17px;line-height:26px;
-      font-family:"SF Mono",ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Monaco,Consolas,monospace;
-      font-weight:400;background:var(--bg);color:var(--fg);
-      -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
-      -webkit-user-select:none;user-select:none;touch-action:manipulation;
-    }
-
-    .mobile-only{display:none}
-
-    /* Layout */
-    .outer{
-      width:100%;min-height:100vh;min-height:100dvh;
-      display:flex;align-items:flex-start;justify-content:flex-start;
-      padding:40px 36px;
-      padding-top:max(40px,env(safe-area-inset-top,0px));
-      padding-bottom:max(40px,env(safe-area-inset-bottom,0px));
-    }
-    .inner{width:100%;max-width:480px}
-
-    /* Rows */
-    .row{height:26px;width:100%}
-    .row p{display:inline-block;padding-left:3px;border-radius:2px}
-    .gap{height:36px}
-    .dim{opacity:.45}
-
-    /* Hover indicators */
-    .link:hover::after,.link:active::after,.link:focus-visible::after{display:inline;content:" [↗]"}
-    .copy:hover::after,.copy:active::after,.copy:focus-visible::after{display:inline;content:var(--copy-text)}
-
-    /* Buttons & link rows (anchors styled like buttons) */
-    .btn{display:inline-block;padding:1px 4px;border-radius:2px;text-transform:uppercase;white-space:nowrap;outline:none;text-decoration:none;color:var(--fg)}
-    .btn:focus-visible,.btn:active{color:var(--bg);background:var(--fg)}
-    .theme-row{margin-top:32px}
-    .kbd-hint{display:none;margin-top:24px}
-    .kbd-hint p{opacity:.25;font-size:13px}
-    @media(hover:hover) and (pointer:fine){.kbd-hint{display:block}}
-
-    /* Mobile */
-    @media(max-width:768px){
-      body{font-size:16px;line-height:28px}
-      .mobile-only{display:block}
-      .outer{padding:28px 20px;padding-top:max(28px,env(safe-area-inset-top,0px));padding-bottom:max(28px,env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-      .row{height:28px}
-      .gap{height:28px}
-      .btn{padding:3px;font-size:16px;line-height:28px;width:100%;display:flex;min-height:44px;align-items:center}
-      .btn-label{flex-grow:1;text-align:left}
-      .link::after,.copy::after{content:""!important}
-      .theme-row{margin-top:26px}
-    }
-    @media(max-width:380px){body{font-size:15px;line-height:26px}.outer{padding:24px 16px}.row{height:26px}.btn{font-size:15px;line-height:26px}}
-    @media(max-height:500px){.outer{padding-top:20px;padding-bottom:20px}.gap{height:16px}.theme-row{margin-top:16px}}
-    @media(prefers-reduced-motion:reduce){.intro-line{opacity:1!important;transform:none!important;transition:none!important}.cursor{animation:none!important}}
-
-    /* Typing */
-    .intro-line{opacity:0;transform:translateX(-2px);transition:opacity .3s,transform .3s ease}
-    .intro-line.visible{opacity:1;transform:translateX(0)}
-    .cursor{display:inline-block;width:1px;height:1em;background:var(--fg);margin-left:1px;vertical-align:text-bottom;animation:blink .7s steps(2) infinite}
-    @keyframes blink{50%{opacity:0}}
-  </style>
+  <meta name="twitter:description" content="Designer · Developer · AI">
+  <meta name="twitter:image" content="https://o5102o.com/og-image.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Jooyoung Lee","alternateName":["이주영","Jay"],"url":"https://o5102o.com/","email":"mailto:jyounglee1020@gmail.com","jobTitle":"Designer & Developer","sameAs":["https://github.com/jaylee1020","https://www.instagram.com/eeooyoung","https://by.o5102o.com/","https://card.o5102o.com/"]}</script>
+  <script>document.documentElement.classList.add('js');try{var t=new URLSearchParams(location.search).get('t')||localStorage.getItem('theme');if(/^[2-5]$/.test(t||''))document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
-  <div class="outer"><div class="inner"><div class="content">
-    <div class="row"><p>JOOYOUNG LEE</p></div>
-    <div class="row"><p class="dim">DESIGNER &amp; DEVELOPER</p></div>
-    <div class="gap"></div>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <div class="site-frame">
+    <header class="topbar topbar-nav">
+      <a class="brand" href="/" aria-label="o5102o.com 홈">o5102o.com</a>
+      <div class="topbar-end">
+        <span class="topbar-meta">SEOUL / <span class="js-year">2026</span></span>
+        <nav class="topnav" aria-label="주요 메뉴">
+          <a href="https://card.o5102o.com/" data-themed>Card</a>
+          <a href="https://by.o5102o.com/" data-themed>Portfolio</a>
+          <a href="https://blog.o5102o.com/" data-themed>Blog</a>
+          <a href="https://default.o5102o.com/" data-themed>Default 전시</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="테마 변경. 현재 COBALT">
+          <span class="theme-label">Theme</span>
+          <span class="theme-name">Cobalt</span>
+          <span class="theme-dot" aria-hidden="true"></span>
+        </button>
+      </div>
+    </header>
 
-    <div class="row"><p class="intro-line dim" data-text="화려한 것을 좋아하는 편입니다."></p></div>
-    <div class="row"><p class="intro-line dim" data-text="깊게 또는 가볍게 응시하는 것을 좋아합니다."></p></div>
-    <div class="row"><p class="intro-line dim" data-text="예술을 추구하지만 작가는 아닙니다."></p></div>
-    <div class="row"><p class="intro-line dim" data-text="디자이너이고 싶습니다."></p></div>
-    <div class="row"><p class="intro-line dim" data-text="개발자이고 싶습니다."></p></div>
-    <div class="row"><p class="intro-line dim" data-text="AI에 관한 모든 것에 관심이 많고 잘 압니다."></p></div>
-    <div class="gap"></div>
+    <main id="main">
+      <section class="index-hero" aria-labelledby="intro-title">
+        <aside class="system-rail" aria-hidden="true">
+          <div class="rail-mark"><span>SYS</span><span>—</span></div>
+          <div class="rail-index">
+            <span>01</span><span>02</span><span>03</span><span>04</span><span>·</span><span>12</span>
+          </div>
+        </aside>
 
-    <div class="row"><a class="btn link" id="l-card" href="https://card.o5102o.com/" target="_blank" rel="noopener" data-themed><span class="btn-label">Card</span><span class="mobile-only">[↗]</span></a></div>
-    <div class="row"><a class="btn link" id="l-portfolio" href="https://by.o5102o.com/" target="_blank" rel="noopener" data-themed><span class="btn-label">Portfolio</span><span class="mobile-only">[↗]</span></a></div>
-    <div class="row"><a class="btn link" id="l-blog" href="https://blog.o5102o.com/" target="_blank" rel="noopener" data-themed><span class="btn-label">Blog</span><span class="mobile-only">[↗]</span></a></div>
-    <div class="row"><a class="btn link" id="l-exhibit" href="https://default.o5102o.com/" target="_blank" rel="noopener" data-themed><span class="btn-label">Default 전시</span><span class="mobile-only">[↗]</span></a></div>
-    <div class="gap"></div>
+        <div class="hero-copy">
+          <p class="eyebrow" data-reveal>01 / INTRO</p>
+          <h1 class="display-name" id="intro-title" data-reveal>
+            <span>Jooyoung</span>
+            <span>Lee</span>
+          </h1>
+          <p class="hero-role" data-reveal>Designer &amp; Developer</p>
+        </div>
 
-    <div class="row"><a class="btn link" id="l-github" href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer"><span class="btn-label">Github</span><span class="mobile-only">[↗]</span></a></div>
-    <div class="row"><a class="btn link" id="l-instagram" href="https://www.instagram.com/eeooyoung" target="_blank" rel="noopener noreferrer"><span class="btn-label">Instagram</span><span class="mobile-only">[↗]</span></a></div>
-    <div class="row"><button class="btn copy" id="email-btn"><span class="btn-label">Email</span><span class="mobile-only">[+]</span></button></div>
-    <div class="row theme-row"><button class="btn" id="theme-btn"><span class="btn-label">Theme</span></button></div>
-    <div class="row kbd-hint" aria-hidden="true"><p>C P B D 이동 · E 메일 복사 · T 테마</p></div>
-  </div></div></div>
+        <div class="hero-aside">
+          <ul class="manifesto">
+            <li data-reveal>화려한 것을 좋아하는 편입니다.</li>
+            <li data-reveal>깊게 또는 가볍게 응시하는 것을 좋아합니다.</li>
+            <li data-reveal>예술을 추구하지만 작가는 아닙니다.</li>
+            <li data-reveal>디자이너이고 싶습니다.</li>
+            <li data-reveal>개발자이고 싶습니다.</li>
+            <li data-reveal>AI에 관한 모든 것에 관심이 많고 잘 압니다.</li>
+          </ul>
+          <a class="primary-link" href="https://by.o5102o.com/" data-themed>Selected work</a>
+        </div>
+      </section>
 
-  <script src="/site.js"></script>
-  <script>
-    const site = window.o5102oSite;
+      <nav class="statusbar" aria-label="바로가기">
+        <p class="status-copy">Focus: design / code / AI</p>
+        <div class="status-links">
+          <a href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer" aria-label="GitHub 프로필, 새 탭에서 열기">Github</a>
+          <a href="https://www.instagram.com/eeooyoung" target="_blank" rel="noopener noreferrer" aria-label="Instagram 프로필, 새 탭에서 열기">Instagram</a>
+          <a href="mailto:jyounglee1020@gmail.com" data-copy="jyounglee1020@gmail.com" data-copy-label="Email" data-copy-aria-label="이메일 주소 복사" data-fallback-href="mailto:jyounglee1020@gmail.com" aria-label="이메일 보내기"><span data-copy-status>Email</span></a>
+        </div>
+      </nav>
 
-    // Keep ?t= on internal links so the current theme follows across subdomains.
-    function syncThemedLinks() {
-      document.querySelectorAll('a[data-themed]').forEach(function (anchor) {
-        anchor.href = site.buildThemedUrl(anchor.href);
-      });
-    }
-    syncThemedLinks();
+      <section class="content-section" id="work" aria-labelledby="work-title">
+        <div class="section-heading">
+          <span class="section-index">02 / 04</span>
+          <h2 id="work-title">Selected Work</h2>
+        </div>
+        <div class="section-body">
+          <div class="directory-list">
+            <a class="directory-row" href="https://default.o5102o.com/" data-themed>
+              <span class="directory-number">01</span>
+              <span class="directory-title">Default</span>
+              <span class="directory-description">카메라와 파티클 타이포그래피가 반응하는 인터랙티브 전시.</span>
+              <span class="directory-meta">Exhibition</span>
+              <span class="directory-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="directory-row" href="https://github.com/jaylee1020/intent" target="_blank" rel="noopener noreferrer" aria-label="Intent GitHub 저장소, 새 탭에서 열기">
+              <span class="directory-number">02</span>
+              <span class="directory-title">Intent</span>
+              <span class="directory-description">사진을 찍기 전에 보는 법을 배우는 SwiftUI 학습 앱.</span>
+              <span class="directory-meta">iOS / Photo</span>
+              <span class="directory-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="directory-row" href="https://github.com/jaylee1020/Unseen" target="_blank" rel="noopener noreferrer" aria-label="Unseen GitHub 저장소, 새 탭에서 열기">
+              <span class="directory-number">03</span>
+              <span class="directory-title">Unseen</span>
+              <span class="directory-description">실시간 색각 시뮬레이션과 WCAG 대비 진단을 제공하는 iPad 앱.</span>
+              <span class="directory-meta">iPad / A11y</span>
+              <span class="directory-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="directory-row" href="https://github.com/jaylee1020/ku-notice-monitor-for-all" target="_blank" rel="noopener noreferrer" aria-label="KU Notice Monitor GitHub 저장소, 새 탭에서 열기">
+              <span class="directory-number">04</span>
+              <span class="directory-title">KU Notice Monitor</span>
+              <span class="directory-description">사용자 프로필에 맞춰 대학 공지를 분류하고 전달하는 알림 시스템.</span>
+              <span class="directory-meta">AI / Automation</span>
+              <span class="directory-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
 
-    const emailButton = document.getElementById('email-btn');
-    const emailMobileLabel = emailButton.querySelector('.mobile-only');
-    let copyResetTimer = null;
+      <section class="content-section" aria-labelledby="notes-title">
+        <div class="section-heading">
+          <span class="section-index">03 / 04</span>
+          <h2 id="notes-title">Recent Notes</h2>
+        </div>
+        <div class="section-body">
+          <div class="note-list">
+            <a class="note-row" href="https://blog.o5102o.com/posts/no-build.html" data-themed>
+              <span class="note-title">빌드 없이 굴러가는 블로그</span>
+              <span class="note-type">Design / Dev</span>
+              <time class="note-date" datetime="2026-06-09">2026.06.09</time>
+            </a>
+          </div>
+          <a class="primary-link" href="https://blog.o5102o.com/" data-themed>All notes</a>
+        </div>
+      </section>
 
-    function setCopyIndicator(label) {
-      document.documentElement.style.setProperty('--copy-text', '"' + label + '"');
-      if (emailMobileLabel) {
-        emailMobileLabel.textContent = label.trim();
-      }
-    }
+      <section class="content-section" aria-labelledby="contact-title">
+        <div class="section-heading">
+          <span class="section-index">04 / 04</span>
+          <h2 id="contact-title">Contact</h2>
+        </div>
+        <div class="section-body contact-strip">
+          <p class="contact-copy">관심 있는 것에 관해 이야기해요.</p>
+          <div class="contact-actions">
+            <a class="text-action" href="mailto:jyounglee1020@gmail.com" data-copy="jyounglee1020@gmail.com" data-copy-label="Copy email" data-copy-aria-label="이메일 주소 복사" data-fallback-href="mailto:jyounglee1020@gmail.com" aria-label="이메일 보내기"><span data-copy-status>Email</span><span aria-hidden="true">+</span></a>
+            <a class="text-action" href="https://card.o5102o.com/" data-themed>Open card <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
+    </main>
 
-    async function copyEmail() {
-      const copied = await site.copyText('jyounglee1020@gmail.com').catch(function () {
-        return false;
-      });
+    <footer class="footer">
+      <span>© <span class="js-year">2026</span> JOOYOUNG LEE</span>
+      <span>HTML / CSS / JAVASCRIPT — NO BUILD</span>
+    </footer>
+  </div>
 
-      if (!copied) {
-        window.location.href = 'mailto:jyounglee1020@gmail.com';
-        return;
-      }
-
-      setCopyIndicator(' [COPIED]');
-      window.clearTimeout(copyResetTimer);
-      copyResetTimer = window.setTimeout(function () {
-        setCopyIndicator(' [+]');
-      }, 2000);
-    }
-
-    function nextTheme() {
-      site.cycleTheme(2, 5);
-      syncThemedLinks();
-    }
-
-    emailButton.addEventListener('click', copyEmail);
-    document.getElementById('theme-btn').addEventListener('click', nextTheme);
-
-    // Keyboard shortcuts (desktop): jump rows without the mouse.
-    const keyTargets = {
-      c: 'l-card',
-      p: 'l-portfolio',
-      b: 'l-blog',
-      d: 'l-exhibit',
-      g: 'l-github',
-      i: 'l-instagram',
-    };
-
-    document.addEventListener('keydown', function (event) {
-      if (event.metaKey || event.ctrlKey || event.altKey || event.repeat) return;
-      const tag = document.activeElement && document.activeElement.tagName;
-      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-
-      const key = event.key.toLowerCase();
-      if (keyTargets[key]) {
-        document.getElementById(keyTargets[key]).click();
-      } else if (key === 'e') {
-        copyEmail();
-      } else if (key === 't') {
-        nextTheme();
-      }
-    });
-
-    console.log('%c o5102o ', 'font-family:monospace;font-size:20px;color:#dcdcdc;background:#1b00c8;border-radius:3px', '\nhttps://github.com/jaylee1020/o5102o.com');
-
-    const introLines = Array.from(document.querySelectorAll('.intro-line'));
-    const prefersReducedMotion = matchMedia('(prefers-reduced-motion:reduce)').matches;
-
-    function typeLine(line, text, speed) {
-      return new Promise(function (resolve) {
-        line.classList.add('visible');
-
-        if (prefersReducedMotion) {
-          line.textContent = text;
-          resolve();
-          return;
-        }
-
-        const cursor = document.createElement('span');
-        cursor.className = 'cursor';
-        line.appendChild(cursor);
-
-        let index = 0;
-
-        (function tick() {
-          if (index < text.length) {
-            line.insertBefore(document.createTextNode(text[index]), cursor);
-            index += 1;
-            window.setTimeout(tick, speed);
-            return;
-          }
-
-          cursor.remove();
-          resolve();
-        })();
-      });
-    }
-
-    (function playIntro() {
-      let currentIndex = 0;
-
-      function renderNextLine() {
-        if (currentIndex >= introLines.length) {
-          return;
-        }
-
-        typeLine(introLines[currentIndex], introLines[currentIndex].dataset.text, 25).then(function () {
-          currentIndex += 1;
-          window.setTimeout(renderNextLine, 120);
-        });
-      }
-
-      window.setTimeout(renderNextLine, 600);
-    })();
-
-    site.registerServiceWorker('/sw.js');
-  </script>
+  <script src="/site.js?v=5"></script>
+  <script>window.o5102oSite.registerServiceWorker('/sw.js');</script>
 </body>
 </html>

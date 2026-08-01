@@ -5,215 +5,256 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="color-scheme" content="dark light">
   <link rel="apple-touch-icon" href="/icon-192.png">
   <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
-  <link rel="preload" href="/site.js" as="script">
+  <link rel="preload" href="/site.css?v=5" as="style">
+  <link rel="stylesheet" href="/site.css?v=5">
+  <link rel="preload" href="/site.js?v=5" as="script">
   <link rel="preconnect" href="https://api.github.com" crossorigin>
-  <title>PORTFOLIO</title>
-  <meta name="description" content="PORTFOLIO — JOOYOUNG LEE">
+  <title>PORTFOLIO — JOOYOUNG LEE</title>
+  <meta name="description" content="이주영의 디자인, iOS, AI, 웹 프로젝트.">
   <meta name="theme-color" content="#1b00c8">
   <link rel="canonical" href="https://by.o5102o.com/">
-  <meta property="og:title" content="PORTFOLIO">
-  <meta property="og:description" content="portfolio">
+  <meta property="og:title" content="PORTFOLIO — JOOYOUNG LEE">
+  <meta property="og:description" content="Selected work in design, development, and AI.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://by.o5102o.com/">
   <meta property="og:site_name" content="JOOYOUNG LEE">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:image" content="https://by.o5102o.com/icon-512.png">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
-  <meta name="twitter:card" content="summary">
-  <script>var t=new URLSearchParams(location.search).get('t')||localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);</script>
-  <style>
-    /* Themes */
-    html[data-theme="2"]{--bg:#1a1a1e;--fg:#dcdcdc}
-    html[data-theme="3"]{--bg:#1b00c8;--fg:#dcdcdc}
-    html[data-theme="4"]{--bg:#0a0a0a;--fg:#4ade80}
-    html[data-theme="5"]{--bg:#ffe916;--fg:#1b00c8}
-    :root{--bg:#1b00c8;--fg:#dcdcdc}
-
-    /* Reset */
-    *{margin:0;padding:0;box-sizing:border-box}
-
-    /* Base */
-    html,body{
-      min-height:100vh;min-height:100dvh;height:100%;
-      font-size:17px;line-height:26px;
-      font-family:"SF Mono",ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Monaco,Consolas,monospace;
-      font-weight:400;background:var(--bg);color:var(--fg);
-      -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;
-      -webkit-user-select:none;user-select:none;touch-action:manipulation;
-    }
-
-    .outer{width:100%;min-height:100vh;min-height:100dvh;display:flex;align-items:flex-start;justify-content:flex-start;padding:40px 36px;padding-top:max(40px,env(safe-area-inset-top,0px));padding-bottom:max(40px,env(safe-area-inset-bottom,0px))}
-    .inner{width:100%;max-width:480px}
-    .row{height:26px;width:100%}
-    .row p{display:inline-block;padding-left:3px;border-radius:2px}
-    .gap{height:36px}
-    .dim{opacity:.45}
-    .label{padding-left:3px;opacity:.45;font-size:13px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
-    .back{display:inline-block;padding:1px 4px;border-radius:2px;text-decoration:none;color:var(--fg);opacity:.45;margin-bottom:8px}
-    .back:hover{opacity:1}
-
-    /* Project rows */
-    .proj{display:flex;justify-content:space-between;align-items:baseline;padding:1px 4px;text-decoration:none;color:var(--fg);border-radius:2px;height:26px}
-    .proj:hover,.proj:active,.proj:focus-visible{color:var(--bg);background:var(--fg);outline:none}
-    .proj .meta{opacity:.3;font-size:13px}
-
-    .status{padding-left:3px;opacity:.3;font-size:14px}
-    .retry{padding:1px 4px;border:none;background:none;font:inherit;color:var(--fg);opacity:.45;font-size:13px;text-transform:uppercase;cursor:pointer}
-    .retry:hover{opacity:1}
-    .footer{margin-top:36px;opacity:.2;font-size:13px;padding-left:3px}
-
-    /* Mobile */
-    @media(max-width:768px){
-      body{font-size:16px;line-height:28px}
-      .outer{padding:28px 20px;padding-top:max(28px,env(safe-area-inset-top,0px));padding-bottom:max(28px,env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-      .row{height:28px}.proj{height:auto;min-height:44px;padding:6px 4px;flex-wrap:wrap}.gap{height:28px}
-    }
-    @media(max-width:380px){body{font-size:15px;line-height:26px}.outer{padding:24px 16px}}
-  </style>
+  <meta property="og:image" content="https://by.o5102o.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="PORTFOLIO — JOOYOUNG LEE">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PORTFOLIO — JOOYOUNG LEE">
+  <meta name="twitter:description" content="Selected work in design, development, and AI.">
+  <meta name="twitter:image" content="https://by.o5102o.com/og-image.png">
+  <script>document.documentElement.classList.add('js');try{var t=new URLSearchParams(location.search).get('t')||localStorage.getItem('theme');if(/^[2-5]$/.test(t||''))document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
-  <div class="outer"><div class="inner">
-    <a class="back" href="https://o5102o.com">&larr; o5102o.com</a>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <div class="site-frame">
+    <header class="topbar topbar-nav">
+      <a class="brand" href="https://o5102o.com/" data-themed>o5102o.com</a>
+      <div class="topbar-end">
+        <span class="topbar-meta">SELECTED WORK / <span class="js-year">2026</span></span>
+        <nav class="topnav" aria-label="주요 메뉴">
+          <a href="https://card.o5102o.com/" data-themed>Card</a>
+          <a href="https://by.o5102o.com/" aria-current="page" data-themed>Portfolio</a>
+          <a href="https://blog.o5102o.com/" data-themed>Blog</a>
+          <a href="https://default.o5102o.com/" data-themed>Default 전시</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="테마 변경. 현재 COBALT">
+          <span class="theme-label">Theme</span><span class="theme-name">Cobalt</span><span class="theme-dot" aria-hidden="true"></span>
+        </button>
+      </div>
+    </header>
 
-    <div class="row"><p>PORTFOLIO</p></div>
-    <div class="row"><p class="dim">THINGS I'VE BUILT</p></div>
-    <div class="gap"></div>
+    <main id="main">
+      <section class="page-hero" aria-labelledby="page-title">
+        <div class="page-hero-rail">
+          <a class="breadcrumb" href="https://o5102o.com/" data-themed data-back-link>← Index</a>
+          <span class="page-count">01 / 04</span>
+        </div>
+        <div class="page-hero-main">
+          <p class="eyebrow" data-reveal>Things I've built</p>
+          <h1 class="page-title" id="page-title" data-reveal>Portfolio</h1>
+          <p class="page-lede" data-reveal>디자인과 개발 사이에서 만든 작업들. 인터랙티브 전시, iOS 앱, 접근성 도구, 그리고 일상의 문제를 해결하는 자동화 프로젝트를 모았습니다.</p>
+        </div>
+      </section>
 
-    <p class="label">FEATURED</p>
-    <a class="proj" href="https://default.o5102o.com/" target="_blank" rel="noopener noreferrer"><span>Default</span><span class="meta">인터랙티브 전시</span></a>
-    <div class="gap"></div>
+      <section class="content-section" aria-labelledby="featured-title">
+        <div class="section-heading">
+          <span class="section-index">01 / Featured</span>
+          <h2 id="featured-title">Selected Projects</h2>
+        </div>
+        <div class="section-body">
+          <div class="project-grid">
+            <a class="project-card" href="https://default.o5102o.com/" data-themed>
+              <div>
+                <div class="project-card-top"><span class="tag">Exhibition</span><span aria-hidden="true">01 ↗</span></div>
+                <h3>Default</h3>
+                <p>카메라 입력, 세그멘테이션, 파티클 타이포그래피가 관람자의 움직임에 반응하는 인터랙티브 전시.</p>
+              </div>
+              <div class="project-card-bottom"><span>Web / MediaPipe</span><span>2026</span></div>
+            </a>
+            <a class="project-card" href="https://github.com/jaylee1020/intent" target="_blank" rel="noopener noreferrer" aria-label="Intent GitHub 저장소, 새 탭에서 열기">
+              <div>
+                <div class="project-card-top"><span class="tag">Photography</span><span aria-hidden="true">02 ↗</span></div>
+                <h3>Intent</h3>
+                <p>무심코 촬영하기 전에 구도, 초점 거리, 표현을 의식적으로 보는 법을 익히는 SwiftUI 학습 앱.</p>
+              </div>
+              <div class="project-card-bottom"><span>iOS / SwiftUI</span><span>2026</span></div>
+            </a>
+            <a class="project-card" href="https://github.com/jaylee1020/Unseen" target="_blank" rel="noopener noreferrer" aria-label="Unseen GitHub 저장소, 새 탭에서 열기">
+              <div>
+                <div class="project-card-top"><span class="tag">Accessibility</span><span aria-hidden="true">03 ↗</span></div>
+                <h3>Unseen</h3>
+                <p>실물 디자인을 카메라로 검사하며 색각 이상 시뮬레이션과 WCAG 텍스트 대비 진단을 제공하는 iPad 앱.</p>
+              </div>
+              <div class="project-card-bottom"><span>iPad / Vision</span><span>2026</span></div>
+            </a>
+            <a class="project-card" href="https://github.com/jaylee1020/ku-notice-monitor-for-all" target="_blank" rel="noopener noreferrer" aria-label="KU Notice GitHub 저장소, 새 탭에서 열기">
+              <div>
+                <div class="project-card-top"><span class="tag">Automation</span><span aria-hidden="true">04 ↗</span></div>
+                <h3>KU Notice</h3>
+                <p>대학 공지를 수집하고 각 사용자의 프로필과 관심사에 맞춰 분류해 전달하는 다중 사용자 알림 시스템.</p>
+              </div>
+              <div class="project-card-bottom"><span>AI / Python</span><span>2026</span></div>
+            </a>
+          </div>
+        </div>
+      </section>
 
-    <p class="label">GITHUB</p>
-    <p class="status" id="status">불러오는 중...</p>
-    <div id="list"></div>
+      <section class="content-section" aria-labelledby="github-title">
+        <div class="section-heading">
+          <span class="section-index">02 / Live</span>
+          <h2 id="github-title">Recent Code</h2>
+        </div>
+        <div class="section-body">
+          <p class="repo-status" id="repo-status" role="status" aria-live="polite">최근 공개 저장소는 <a href="https://github.com/jaylee1020?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub에서 확인할 수 있습니다.</a></p>
+          <nav class="directory-list" id="repo-list" aria-label="최근 GitHub 저장소"></nav>
+        </div>
+      </section>
+    </main>
 
-    <p class="footer">&copy; 2026 JOOYOUNG LEE</p>
-  </div></div>
+    <footer class="footer">
+      <span>© <span class="js-year">2026</span> JOOYOUNG LEE</span>
+      <a href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer" aria-label="모든 GitHub 저장소, 새 탭에서 열기">ALL REPOSITORIES ↗</a>
+    </footer>
+  </div>
 
-  <script src="/site.js"></script>
+  <script src="/site.js?v=5"></script>
   <script>
-    const site = window.o5102oSite;
-    const list = document.getElementById('list');
-    const status = document.getElementById('status');
-    const REPO_CACHE_KEY = 'o5102o-github-repos-v1';
-    const GITHUB_REPOS_URL = 'https://api.github.com/users/jaylee1020/repos?sort=updated&per_page=5&type=public';
+    (function () {
+      'use strict';
+      const list = document.getElementById('repo-list');
+      const status = document.getElementById('repo-status');
+      const cacheKey = 'o5102o-github-repos-v3';
+      const cacheFreshMs = 30 * 60 * 1000;
+      const cacheMaxAgeMs = 24 * 60 * 60 * 1000;
+      const endpoint = 'https://api.github.com/users/jaylee1020/repos?sort=pushed&per_page=20&type=owner';
 
-    function formatRelativeTime(timestamp) {
-      const date = new Date(timestamp);
-      if (Number.isNaN(date.getTime())) {
-        return '';
+      function relativeTime(timestamp) {
+        const date = new Date(timestamp);
+        if (Number.isNaN(date.getTime())) return '';
+        const minutes = Math.max(0, Math.floor((Date.now() - date.getTime()) / 60000));
+        if (minutes < 60) return minutes + 'm';
+        const hours = Math.floor(minutes / 60);
+        if (hours < 24) return hours + 'h';
+        const days = Math.floor(hours / 24);
+        if (days < 30) return days + 'd';
+        return Math.floor(days / 30) + 'mo';
       }
 
-      const minutes = Math.floor((Date.now() - date.getTime()) / 60000);
-      if (minutes < 60) return minutes + 'm';
-
-      const hours = Math.floor(minutes / 60);
-      if (hours < 24) return hours + 'h';
-
-      const days = Math.floor(hours / 24);
-      if (days < 30) return days + 'd';
-
-      return Math.floor(days / 30) + 'mo';
-    }
-
-    function writeRepoCache(repos) {
-      try {
-        localStorage.setItem(REPO_CACHE_KEY, JSON.stringify(repos));
-      } catch (_error) {
-        // Ignore storage quota failures.
-      }
-    }
-
-    function readRepoCache() {
-      try {
-        const raw = localStorage.getItem(REPO_CACHE_KEY);
-        return raw ? JSON.parse(raw) : [];
-      } catch (_error) {
-        return [];
-      }
-    }
-
-    function createRepoItem(repo) {
-      const link = document.createElement('a');
-      link.className = 'proj';
-      link.href = repo.html_url;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-
-      const name = document.createElement('span');
-      name.textContent = repo.name;
-
-      const meta = document.createElement('span');
-      meta.className = 'meta';
-      meta.textContent = (repo.language || '') + (repo.language ? ' · ' : '') + formatRelativeTime(repo.updated_at);
-
-      link.append(name, meta);
-      return link;
-    }
-
-    function renderRepos(repos) {
-      list.innerHTML = '';
-      repos.forEach(function (repo) {
-        list.appendChild(createRepoItem(repo));
-      });
-      status.hidden = true;
-    }
-
-    async function fetchRepos() {
-      const response = await fetch(GITHUB_REPOS_URL, {
-        headers: { Accept: 'application/vnd.github+json' },
-      });
-
-      if (!response.ok) {
-        throw new Error(String(response.status));
-      }
-
-      const repos = await response.json();
-      writeRepoCache(repos);
-      return repos;
-    }
-
-    async function loadRepos() {
-      // Render cached repos immediately, then refresh from the network.
-      const cachedRepos = readRepoCache();
-      if (cachedRepos.length) {
-        renderRepos(cachedRepos);
-      } else {
-        status.textContent = '불러오는 중...';
-        status.hidden = false;
-        list.innerHTML = '';
-      }
-
-      try {
-        const repos = await fetchRepos();
-        if (!repos.length) {
-          status.hidden = true;
-          return;
-        }
-
-        renderRepos(repos);
-        return;
-      } catch (_error) {
-        if (cachedRepos.length) {
-          return;
+      function readCache() {
+        try {
+          const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+          if (!cached || !Number.isFinite(cached.savedAt) || !Array.isArray(cached.repos)) return null;
+          const age = Date.now() - cached.savedAt;
+          if (age < 0 || age > cacheMaxAgeMs) return null;
+          return { repos: cached.repos, fresh: age < cacheFreshMs };
+        } catch (_error) {
+          return null;
         }
       }
 
-      status.textContent = '불러오기 실패. ';
-      const retryButton = document.createElement('button');
-      retryButton.className = 'retry';
-      retryButton.textContent = '[다시 시도]';
-      retryButton.addEventListener('click', loadRepos);
-      status.appendChild(retryButton);
-    }
+      function writeCache(repos) {
+        try {
+          localStorage.setItem(cacheKey, JSON.stringify({ savedAt: Date.now(), repos: repos }));
+        } catch (_error) {}
+      }
 
-    loadRepos();
-    site.updateBackLink('.back');
-    site.registerServiceWorker('/sw.js');
+      function createRepoRow(repo, index) {
+        const link = document.createElement('a');
+        link.className = 'directory-row';
+        link.href = repo.html_url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.setAttribute('aria-label', repo.name + ' GitHub 저장소, 새 탭에서 열기');
+
+        const number = document.createElement('span');
+        number.className = 'directory-number';
+        number.textContent = String(index + 1).padStart(2, '0');
+
+        const title = document.createElement('span');
+        title.className = 'directory-title';
+        title.textContent = repo.name;
+
+        const description = document.createElement('span');
+        description.className = 'directory-description';
+        description.textContent = repo.description || 'Public repository';
+
+        const meta = document.createElement('span');
+        meta.className = 'directory-meta';
+        meta.textContent = [repo.language, relativeTime(repo.pushed_at)].filter(Boolean).join(' / ');
+
+        const arrow = document.createElement('span');
+        arrow.className = 'directory-arrow';
+        arrow.setAttribute('aria-hidden', 'true');
+        arrow.textContent = '→';
+
+        link.append(number, title, description, meta, arrow);
+        return link;
+      }
+
+      function render(repos) {
+        list.replaceChildren();
+        repos.slice(0, 6).forEach(function (repo, index) {
+          list.appendChild(createRepoRow(repo, index));
+        });
+        status.hidden = true;
+      }
+
+      async function loadRepos(force) {
+        const cached = readCache();
+        if (cached && cached.repos.length) render(cached.repos);
+        if (cached && cached.fresh && !force) return;
+
+        if (!cached) {
+          status.hidden = false;
+          status.textContent = 'GitHub에서 최근 저장소를 불러오는 중…';
+        }
+
+        const controller = new AbortController();
+        const timeout = window.setTimeout(function () { controller.abort(); }, 6500);
+
+        try {
+          const response = await fetch(endpoint, {
+            headers: { Accept: 'application/vnd.github+json' },
+            signal: controller.signal
+          });
+          if (!response.ok) throw new Error(String(response.status));
+          const payload = await response.json();
+          const repos = Array.isArray(payload) ? payload.filter(function (repo) { return !repo.fork; }) : [];
+          if (repos.length) {
+            writeCache(repos);
+            render(repos);
+          } else if (!cached || !cached.repos.length) {
+            status.hidden = false;
+            status.textContent = '표시할 공개 저장소가 없습니다.';
+          }
+        } catch (_error) {
+          if (!cached || !cached.repos.length) {
+            status.hidden = false;
+            status.textContent = '최근 저장소를 불러오지 못했습니다. ';
+            const retry = document.createElement('button');
+            retry.type = 'button';
+            retry.textContent = '[다시 시도]';
+            retry.addEventListener('click', function () { loadRepos(true); }, { once: true });
+            status.appendChild(retry);
+          }
+        } finally {
+          window.clearTimeout(timeout);
+        }
+      }
+
+      loadRepos();
+      window.o5102oSite.registerServiceWorker('/sw.js');
+    })();
   </script>
 </body>
 </html>
