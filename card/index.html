@@ -48,7 +48,7 @@
     <main id="main">
       <section class="intro" aria-labelledby="page-title">
         <h1 class="page-title" id="page-title">이주영 Jooyoung Lee</h1>
-        <p class="lede">건국대학교 컴퓨터공학부. 디자인과 개발, AI를 다룹니다.</p>
+        <p class="lede">디자인과 개발, AI를 다룹니다. 건국대학교 컴퓨터공학부.</p>
       </section>
 
       <section class="section" aria-labelledby="contact-title">
@@ -149,7 +149,7 @@
       }
 
       function clearField(field) {
-        field.classList.remove('invalid', 'shake');
+        field.classList.remove('invalid');
         field.removeAttribute('aria-invalid');
         field.removeAttribute('aria-errormessage');
         successActions.classList.remove('visible');
@@ -157,7 +157,7 @@
       }
 
       function invalidate(field, text) {
-        field.classList.add('invalid', 'shake');
+        field.classList.add('invalid');
         field.setAttribute('aria-invalid', 'true');
         field.setAttribute('aria-errormessage', 'form-message');
         setMessage(text, 'error');

@@ -1,14 +1,14 @@
 {
   "name": "o5102o",
   "short_name": "o5102o",
-  "description": "이주영(Jay) — designer · developer",
+  "description": "Jooyoung Lee — Designer & Developer",
   "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
-  "background_color": "#1b00c8",
-  "theme_color": "#1b00c8",
+  "background_color": "#fbfbfa",
+  "theme_color": "#fbfbfa",
   "categories": ["personalization", "developer"],
   "icons": [
     {

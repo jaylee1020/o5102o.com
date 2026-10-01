@@ -16,7 +16,7 @@
 /_headers              캐시/보안 헤더
 /manifest.json         루트 PWA 매니페스트
 /sw.js                 공용 서비스 워커
-/site.css              공용 Editorial Terminal 디자인 시스템
+/site.css              공용 스타일 (단일 컬럼, 시스템 글꼴, 라이트/다크)
 /site.js               공용 프런트엔드 유틸
 ```
 
