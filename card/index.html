@@ -1,130 +1,111 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="3">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="color-scheme" content="dark light">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="color-scheme" content="light dark">
   <link rel="apple-touch-icon" href="/icon-192.png">
   <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
-  <link rel="preload" href="/site.css?v=5" as="style">
-  <link rel="stylesheet" href="/site.css?v=5">
-  <link rel="preload" href="/site.js?v=5" as="script">
-  <title>CARD — JOOYOUNG LEE</title>
+  <link rel="preload" href="/site.css?v=6" as="style">
+  <link rel="stylesheet" href="/site.css?v=6">
+  <link rel="preload" href="/site.js?v=6" as="script">
+  <title>Card — Jooyoung Lee</title>
   <meta name="description" content="이주영(Jooyoung Lee)의 디지털 명함과 연락처.">
-  <meta name="theme-color" content="#1b00c8">
+  <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://card.o5102o.com/">
-  <meta property="og:title" content="CARD — JOOYOUNG LEE">
+  <meta property="og:title" content="Card — Jooyoung Lee">
   <meta property="og:description" content="Designer · Developer · Contact">
   <meta property="og:type" content="profile">
   <meta property="og:url" content="https://card.o5102o.com/">
-  <meta property="og:site_name" content="JOOYOUNG LEE">
+  <meta property="og:site_name" content="Jooyoung Lee">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:image" content="https://card.o5102o.com/og-image.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="CARD — JOOYOUNG LEE">
+  <meta property="og:image:alt" content="Card — Jooyoung Lee">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="CARD — JOOYOUNG LEE">
+  <meta name="twitter:title" content="Card — Jooyoung Lee">
   <meta name="twitter:description" content="Designer · Developer · Contact">
   <meta name="twitter:image" content="https://card.o5102o.com/og-image.png">
-  <script>document.documentElement.classList.add('js');try{var t=new URLSearchParams(location.search).get('t')||localStorage.getItem('theme');if(/^[2-5]$/.test(t||''))document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
-  <div class="site-frame">
-    <header class="topbar topbar-nav">
-      <a class="brand" href="https://o5102o.com/" data-themed>o5102o.com</a>
-      <div class="topbar-end">
-        <span class="topbar-meta">IDENTITY / CONTACT</span>
-        <nav class="topnav" aria-label="주요 메뉴">
-          <a href="https://card.o5102o.com/" aria-current="page" data-themed>Card</a>
-          <a href="https://by.o5102o.com/" data-themed>Portfolio</a>
-          <a href="https://blog.o5102o.com/" data-themed>Blog</a>
-          <a href="https://default.o5102o.com/" data-themed>Default 전시</a>
-        </nav>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-label="테마 변경. 현재 COBALT">
-          <span class="theme-label">Theme</span><span class="theme-name">Cobalt</span><span class="theme-dot" aria-hidden="true"></span>
-        </button>
-      </div>
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="https://o5102o.com/">Jooyoung Lee</a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="https://by.o5102o.com/">Portfolio</a>
+        <a href="https://blog.o5102o.com/">Blog</a>
+        <a href="https://card.o5102o.com/" aria-current="page">Card</a>
+      </nav>
     </header>
 
     <main id="main">
-      <section class="page-hero" aria-labelledby="page-title">
-        <div class="page-hero-rail">
-          <a class="breadcrumb" href="https://o5102o.com/" data-themed data-back-link>← Index</a>
-          <span class="page-count">03 / 04</span>
-        </div>
-        <div class="page-hero-main">
-          <p class="eyebrow" data-reveal>Jooyoung Lee / 이주영</p>
-          <h1 class="page-title" id="page-title" data-reveal>Card</h1>
-          <p class="page-lede" data-reveal>건국대학교 컴퓨터공학부. 디자인과 개발, AI를 다룹니다. 연락처를 저장하거나 아래에 메시지를 남겨 주세요.</p>
-        </div>
+      <section class="intro" aria-labelledby="page-title">
+        <h1 class="page-title" id="page-title">이주영 Jooyoung Lee</h1>
+        <p class="lede">건국대학교 컴퓨터공학부. 디자인과 개발, AI를 다룹니다.</p>
       </section>
 
-      <section class="contact-layout" aria-label="연락처와 연락처 남기기">
-        <div class="contact-panel">
-          <h2 class="panel-heading">Direct contact</h2>
-          <div class="contact-list">
-            <a class="contact-row" href="mailto:jyounglee1020@gmail.com">
-              <span>Email</span><span class="contact-value">jyounglee1020@gmail.com</span><span aria-hidden="true">→</span>
-            </a>
-            <a class="contact-row" href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer" aria-label="GitHub 프로필, 새 탭에서 열기">
-              <span>Github</span><span class="contact-value">@jaylee1020</span><span aria-hidden="true">↗</span>
-            </a>
-            <a class="contact-row" href="https://www.instagram.com/eeooyoung" target="_blank" rel="noopener noreferrer" aria-label="Instagram 프로필, 새 탭에서 열기">
-              <span>Instagram</span><span class="contact-value">@eeooyoung</span><span aria-hidden="true">↗</span>
-            </a>
-          </div>
-          <a class="primary-link vcard-action" href="jooyoung-lee.vcf" download>연락처에 저장</a>
-        </div>
+      <section class="section" aria-labelledby="contact-title">
+        <h2 class="section-title" id="contact-title">Contact</h2>
+        <ul class="list contact-list">
+          <li><a class="row" href="mailto:jyounglee1020@gmail.com">
+            <span class="row-meta">Email</span><span class="row-value">jyounglee1020@gmail.com</span>
+          </a></li>
+          <li><a class="row" href="https://github.com/jaylee1020" target="_blank" rel="noopener noreferrer">
+            <span class="row-meta">GitHub</span><span class="row-value">@jaylee1020</span>
+          </a></li>
+          <li><a class="row" href="https://www.instagram.com/eeooyoung" target="_blank" rel="noopener noreferrer">
+            <span class="row-meta">Instagram</span><span class="row-value">@eeooyoung</span>
+          </a></li>
+        </ul>
+        <a class="more" href="jooyoung-lee.vcf" download>연락처 파일(.vcf) 저장</a>
+      </section>
 
-        <div class="form-panel">
-          <h2 class="panel-heading">Leave your contact</h2>
-          <form class="contact-form" id="contact-form" action="/api/contact" method="post" aria-busy="false" novalidate>
-            <div class="field">
-              <label for="name">이름 *</label>
-              <input id="name" name="name" type="text" autocomplete="name" placeholder="홍길동" maxlength="40" enterkeyhint="next" required aria-required="true">
-            </div>
-            <div class="field">
-              <label for="phone">휴대전화 *</label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="010-0000-0000" maxlength="20" enterkeyhint="next" required aria-required="true">
-            </div>
-            <div class="field">
-              <label for="place">만난 곳</label>
-              <input id="place" name="place" type="text" autocomplete="off" placeholder="해커톤" maxlength="60" enterkeyhint="send">
-            </div>
-            <div class="honeypot" aria-hidden="true">
-              <label for="contact-url-confirm">Contact URL</label>
-              <input id="contact-url-confirm" name="contact_url_confirm" type="text" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true">
-            </div>
-            <label class="consent-row">
-              <input id="consent" name="consent" type="checkbox" required aria-required="true" aria-describedby="privacy-copy">
-              <span id="privacy-copy">이 폼으로 새로 제출하는 이름·전화번호·만난 곳을 연락 목적으로 최대 90일 저장하는 데 동의합니다. *</span>
-            </label>
-
-            <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
-            <div class="form-footer">
-              <p class="privacy-note">새 접수 건에는 원시 IP 주소와 국가 정보를 저장하지 않습니다. 삭제 요청은 이메일로 보내 주세요.</p>
-              <button class="submit-button" id="submit-button" type="submit" disabled>보내기 →</button>
-            </div>
-            <noscript><p class="privacy-note">이 폼은 자바스크립트가 필요합니다. 위 이메일 링크로 연락해 주세요.</p></noscript>
-            <p class="success-actions" id="success-actions">저장 완료. <a class="inline-button" href="jooyoung-lee.vcf" download>내 연락처에도 저장</a></p>
-          </form>
+      <section class="section" aria-labelledby="form-title">
+        <h2 class="section-title" id="form-title">연락처 남기기</h2>
+        <form class="contact-form" id="contact-form" action="/api/contact" method="post" aria-busy="false" novalidate>
+        <div class="field">
+          <label for="name">이름 *</label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="홍길동" maxlength="40" enterkeyhint="next" required aria-required="true">
         </div>
+        <div class="field">
+          <label for="phone">휴대전화 *</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="010-0000-0000" maxlength="20" enterkeyhint="next" required aria-required="true">
+        </div>
+        <div class="field">
+          <label for="place">만난 곳</label>
+          <input id="place" name="place" type="text" autocomplete="off" placeholder="해커톤" maxlength="60" enterkeyhint="send">
+        </div>
+        <div class="honeypot" aria-hidden="true">
+          <label for="contact-url-confirm">Contact URL</label>
+          <input id="contact-url-confirm" name="contact_url_confirm" type="text" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true">
+        </div>
+        <label class="consent-row">
+          <input id="consent" name="consent" type="checkbox" required aria-required="true" aria-describedby="privacy-copy">
+          <span id="privacy-copy">이 폼으로 새로 제출하는 이름·전화번호·만난 곳을 연락 목적으로 최대 90일 저장하는 데 동의합니다. *</span>
+        </label>
+
+        <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+        <div>
+          <button class="button" id="submit-button" type="submit" disabled>보내기</button>
+        </div>
+        <p class="privacy-note">IP 주소와 국가 정보는 저장하지 않습니다. 삭제 요청은 이메일로 보내 주세요.</p>
+        <noscript><p class="privacy-note">이 폼은 자바스크립트가 필요합니다. 위 이메일 링크로 연락해 주세요.</p></noscript>
+        <p class="success-actions" id="success-actions">저장 완료. <a href="jooyoung-lee.vcf" download>내 연락처에도 저장</a></p>
+        </form>
       </section>
     </main>
 
-    <footer class="footer">
-      <span>© <span class="js-year">2026</span> JOOYOUNG LEE</span>
-      <span>SEOUL / KOREA</span>
-    </footer>
+    <footer class="site-footer">© <span class="js-year">2026</span> Jooyoung Lee</footer>
   </div>
 
-  <script src="/site.js?v=5"></script>
+  <script src="/site.js?v=6"></script>
   <script>
     (function () {
       'use strict';
@@ -274,7 +255,7 @@
           submitting = false;
           form.setAttribute('aria-busy', 'false');
           submitButton.disabled = false;
-          submitButton.textContent = '보내기 →';
+          submitButton.textContent = '보내기';
         }
       });
 

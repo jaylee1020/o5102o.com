@@ -1,96 +1,72 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="3">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="color-scheme" content="dark light">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="color-scheme" content="light dark">
   <link rel="apple-touch-icon" href="/icon-192.png">
   <link rel="icon" href="/icon-192.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
-  <link rel="preload" href="/site.css?v=5" as="style">
-  <link rel="stylesheet" href="/site.css?v=5">
-  <link rel="preload" href="/site.js?v=5" as="script">
-  <title>BLOG — JOOYOUNG LEE</title>
+  <link rel="preload" href="/site.css?v=6" as="style">
+  <link rel="stylesheet" href="/site.css?v=6">
+  <link rel="preload" href="/site.js?v=6" as="script">
+  <title>Blog — Jooyoung Lee</title>
   <meta name="description" content="디자인, 개발, AI, 그리고 만들고 있는 것들에 대한 이주영의 기록.">
-  <meta name="theme-color" content="#1b00c8">
+  <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://blog.o5102o.com/">
-  <link rel="alternate" type="application/atom+xml" title="JOOYOUNG LEE — Blog" href="https://blog.o5102o.com/feed.xml">
-  <meta property="og:title" content="BLOG — JOOYOUNG LEE">
+  <link rel="alternate" type="application/atom+xml" title="Jooyoung Lee — Blog" href="https://blog.o5102o.com/feed.xml">
+  <meta property="og:title" content="Blog — Jooyoung Lee">
   <meta property="og:description" content="Thoughts, notes, and logs.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://blog.o5102o.com/">
-  <meta property="og:site_name" content="JOOYOUNG LEE">
+  <meta property="og:site_name" content="Jooyoung Lee">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:image" content="https://blog.o5102o.com/og-image.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="BLOG — JOOYOUNG LEE">
+  <meta property="og:image:alt" content="Blog — Jooyoung Lee">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="BLOG — JOOYOUNG LEE">
+  <meta name="twitter:title" content="Blog — Jooyoung Lee">
   <meta name="twitter:description" content="Thoughts, notes, and logs.">
   <meta name="twitter:image" content="https://blog.o5102o.com/og-image.png">
-  <script>document.documentElement.classList.add('js');try{var t=new URLSearchParams(location.search).get('t')||localStorage.getItem('theme');if(/^[2-5]$/.test(t||''))document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
-<body class="blog-index">
+<body>
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
-  <div class="site-frame">
-    <header class="topbar topbar-nav">
-      <a class="brand" href="https://o5102o.com/" data-themed>o5102o.com</a>
-      <div class="topbar-end">
-        <span class="topbar-meta">NOTES / <span class="js-year">2026</span></span>
-        <nav class="topnav" aria-label="주요 메뉴">
-          <a href="https://card.o5102o.com/" data-themed>Card</a>
-          <a href="https://by.o5102o.com/" data-themed>Portfolio</a>
-          <a href="https://blog.o5102o.com/" aria-current="page" data-themed>Blog</a>
-          <a href="https://default.o5102o.com/" data-themed>Default 전시</a>
-        </nav>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-label="테마 변경. 현재 COBALT">
-          <span class="theme-label">Theme</span><span class="theme-name">Cobalt</span><span class="theme-dot" aria-hidden="true"></span>
-        </button>
-      </div>
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="https://o5102o.com/">Jooyoung Lee</a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="https://by.o5102o.com/">Portfolio</a>
+        <a href="https://blog.o5102o.com/" aria-current="page">Blog</a>
+        <a href="https://card.o5102o.com/">Card</a>
+      </nav>
     </header>
 
     <main id="main">
-      <section class="page-hero" aria-labelledby="page-title">
-        <div class="page-hero-rail">
-          <a class="breadcrumb" href="https://o5102o.com/" data-themed data-back-link>← Index</a>
-          <span class="page-count">02 / 04</span>
-        </div>
-        <div class="page-hero-main">
-          <p class="eyebrow" data-reveal>Thoughts, notes, and logs</p>
-          <h1 class="page-title" id="page-title" data-reveal>Blog</h1>
-          <p class="page-lede" data-reveal>만들고 있는 것들, AI에 대한 생각, 디자인과 개발 사이에서 발견한 것을 느리게 기록합니다.</p>
-        </div>
+      <section class="intro" aria-labelledby="page-title">
+        <h1 class="page-title" id="page-title">Blog</h1>
+        <p class="lede">만들고 있는 것, AI에 대한 생각, 디자인과 개발 사이에서 발견한 것들.</p>
       </section>
 
-      <section class="content-section" aria-labelledby="posts-title">
-        <div class="section-heading">
-          <span class="section-index">001 Note</span>
-          <h2 id="posts-title">All Notes</h2>
-        </div>
-        <div class="section-body">
-          <!-- 새 글 추가: blog/posts/no-build.html을 복사한 뒤 최신 글을 위에 추가합니다. -->
-          <div class="post-list">
-            <a class="post-row" href="posts/no-build.html" data-themed>
-              <span class="directory-number">01</span>
-              <span class="post-row-title">빌드 없이 굴러가는 블로그</span>
-              <span class="post-row-meta"><time datetime="2026-06-09">2026.06.09</time> / 3 MIN</span>
-            </a>
-          </div>
-        </div>
+      <section class="section" aria-label="글 목록">
+        <!-- 새 글 추가: blog/posts/no-build.html을 복사한 뒤 최신 글을 위에 추가합니다. -->
+        <ul class="list">
+          <li><a class="row" href="posts/no-build.html">
+            <span class="row-title">빌드 없이 굴러가는 블로그</span>
+            <time class="row-meta" datetime="2026-06-09">2026.06.09</time>
+          </a></li>
+        </ul>
       </section>
     </main>
 
-    <footer class="footer">
-      <span>© <span class="js-year">2026</span> JOOYOUNG LEE</span>
-      <span>WORDS / DESIGN / CODE</span>
-    </footer>
+    <footer class="site-footer">© <span class="js-year">2026</span> Jooyoung Lee</footer>
   </div>
 
-  <script src="/site.js?v=5"></script>
+  <script src="/site.js?v=6"></script>
   <script>window.o5102oSite.registerServiceWorker('/sw.js');</script>
 </body>
 </html>
