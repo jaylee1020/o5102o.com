@@ -540,7 +540,7 @@ a.row[data-copy] {
   --my: 50%;
   display: block;
   width: min(100%, 340px);
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   padding: 0;
   border: 0;
   border-radius: 10px;
@@ -632,10 +632,17 @@ a.row[data-copy] {
   color: var(--fg);
 }
 
-.bcard-hint {
-  margin-top: 10px;
+.bcard-flip {
+  position: absolute;
+  top: 12px;
+  right: 14px;
   color: var(--muted);
   font-size: 13px;
+  line-height: 1;
+}
+
+.card-lede {
+  margin-top: 0;
 }
 
 @media (prefers-color-scheme: dark) {
