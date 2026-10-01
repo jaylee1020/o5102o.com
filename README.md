@@ -64,7 +64,7 @@ python3 -m http.server 8082 --directory default
   - `[data-progress]` 블로그 글 상단 1px 읽기 진행 선.
   - 모든 인터랙션은 `prefers-reduced-motion`에서 즉시 전환되고, JS가 없어도 페이지는 그대로 읽힙니다. 같은 서브도메인 안의 이동에는 `@view-transition` 크로스페이드가 적용됩니다.
 - 프로젝트 상세 페이지는 `by/<slug>/index.html` 하나로 구성됩니다. 사실 목록(연도, 플랫폼, 링크)과 짧은 문단 몇 개, 이전/다음 프로젝트 링크만 둡니다. 새 프로젝트를 추가하면 `by/sitemap.xml`과 루트·포트폴리오 목록도 함께 갱신합니다.
-- HTML에서는 `?v=6`이 붙은 공용 CSS/JS URL을 사용해 기존 서비스 워커 캐시와 새 셸이 섞이지 않게 합니다.
+- HTML에서는 `?v=7`이 붙은 공용 CSS/JS URL을 사용해 기존 서비스 워커 캐시와 새 셸이 섞이지 않게 합니다.
 - 블로그는 기존처럼 글 하나가 HTML 파일 하나이며 `blog/feed.xml`을 수동으로 함께 갱신합니다.
 
 ## 연락처 데이터
