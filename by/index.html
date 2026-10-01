@@ -49,7 +49,7 @@
     <main id="main">
       <section class="intro" aria-labelledby="page-title">
         <h1 class="page-title" id="page-title">Portfolio</h1>
-        <p class="lede">인터랙티브 전시, iOS 앱, 접근성 도구, 자동화 프로젝트.</p>
+        <p class="lede">움직이는 글자, 보는 법을 가르치는 앱, 안 보이는 색을 찾는 앱, 공지를 대신 읽는 봇.</p>
       </section>
 
       <section class="section" aria-labelledby="featured-title">
@@ -59,7 +59,7 @@
             <summary class="row">
               <span class="row-title">Default</span>
               <span class="row-meta">Web · MediaPipe</span>
-              <span class="row-desc">카메라 입력, 세그멘테이션, 파티클 타이포그래피가 관람자의 움직임에 반응하는 인터랙티브 전시.</span>
+              <span class="row-desc">카메라 앞에 서면 글자가 비켜선다. 몸으로 미는 파티클 포스터.</span>
             </summary>
             <div class="project-body">
               <dl class="facts">
@@ -69,9 +69,9 @@
               </dl>
 
               <div class="prose">
-                <p>브라우저에서 동작한다. 카메라 입력을 MediaPipe로 분할해 사람의 형태를 분리하고, 텍스트에서 샘플링한 파티클이 그 움직임에 밀려나며 포스터를 이룬다.</p>
-                <p>12초마다 폰트, 색상, 간격이 바뀐 새 변형이 생성된다. 손 제스처 인식과 아스키 모자이크 합성이 함께 돌아가고, 색상 팔레트는 WCAG 대비 기준으로 만든다.</p>
-                <p>모델과 WASM 런타임을 같이 배포해 오프라인에서도 열린다. 기기 성능에 따라 파티클 간격과 프레임 처리를 조정한다.</p>
+                <p>관람객이 곧 커서다. MediaPipe가 카메라 속 실루엣을 오려 내면, 글자에서 뽑은 파티클이 그 몸을 피해 흩어졌다가 다시 포스터로 모인다.</p>
+                <p>12초마다 폰트, 색, 간격을 새로 뽑는다. 랜덤이어도 팔레트는 WCAG 대비를 통과한 것만 쓴다. 배경은 카메라 영상을 한글로 다시 그린 모자이크다. 밝은 곳엔 ‘빛’, ‘별’, 가로 윤곽엔 ‘으’, 세로 윤곽엔 ‘이’.</p>
+                <p>모델과 WASM을 통째로 싣고 다녀 인터넷이 끊겨도 전시는 계속된다. Apple 실리콘이면 파티클을 더 촘촘히 뿌리고, 카메라에 새 프레임이 없을 땐 아무것도 계산하지 않는다.</p>
               </div>
             </div>
           </details></li>
@@ -79,7 +79,7 @@
             <summary class="row">
               <span class="row-title">Intent</span>
               <span class="row-meta">iOS · SwiftUI</span>
-              <span class="row-desc">촬영하기 전에 구도, 초점 거리, 표현을 의식적으로 보는 법을 익히는 학습 앱.</span>
+              <span class="row-desc">좋은 카메라는 이미 주머니에 있다. 없는 건 의도뿐.</span>
             </summary>
             <div class="project-body">
               <dl class="facts">
@@ -89,9 +89,9 @@
               </dl>
 
               <div class="prose">
-                <p>Swift Student Challenge 출품작. 무심코 셔터를 누르는 대신 구도, 초점 거리, 표현을 의식하며 보도록 안내한다.</p>
-                <p>Learn 탭은 “See First”부터 “Go Shoot”까지 5개 챕터로 이어진다. 수평선을 드래그해 기울이기, 삼분할 오버레이, 초점 거리 비교 같은 연습이 들어 있다.</p>
-                <p>Try Out 탭에서는 사진을 불러와 한 장 안에서 여러 구도를 찾고, 비율 프리셋과 삼분할 격자로 잘라 저장한다. 외부 의존성 없이 만들었고 오프라인에서 동작하며, 데이터는 기기 밖으로 나가지 않는다.</p>
+                <p>Swift Student Challenge 출품작. 온보딩 첫 문장이 “You already have a great camera.”다. 부족한 건 장비가 아니라 의도라는 이야기.</p>
+                <p>Learn은 See First에서 Go Shoot까지 다섯 챕터. 기운 수평선을 손으로 바로 세우고, 피사체를 삼분할 교차점으로 끌어다 놓고, 초점 거리 슬라이더로 광각과 망원을 만져 본다. 마지막 미니 챌린지를 다 깨야 “Now go see.”가 열린다.</p>
+                <p>Try Out에서는 사진 한 장을 불러와 그 안에 숨은 여러 장의 사진을 잘라 낸다. 프레임마다 왜 골랐는지 회고를 남긴다. 외부 라이브러리 0개, 일러스트까지 SwiftUI Canvas로 그렸고, 사진은 기기 밖으로 나가지 않는다.</p>
               </div>
             </div>
           </details></li>
@@ -99,7 +99,7 @@
             <summary class="row">
               <span class="row-title">Unseen</span>
               <span class="row-meta">iPadOS · Vision</span>
-              <span class="row-desc">실물 디자인을 카메라로 검사하며 색각 이상 시뮬레이션과 WCAG 텍스트 대비 진단을 제공하는 앱.</span>
+              <span class="row-desc">내 눈엔 멀쩡한 색이 누군가에겐 사라진다. 그 순간을 카메라로 잡는다.</span>
             </summary>
             <div class="project-body">
               <dl class="facts">
@@ -109,9 +109,9 @@
               </dl>
 
               <div class="prose">
-                <p>Swift Student Challenge 2026 출품작. 포스터, 교과서, 표지판, 화면 UI를 현장에서 바로 검사하는 도구다.</p>
-                <p>AVFoundation으로 받은 카메라 프레임을 CoreImage 색상 행렬로 바꿔 Normal, Deuteranopia, Protanopia, Tritanopia 네 모드를 실시간으로 보여준다. Vision OCR로 텍스트를 찾아 WCAG 대비를 계산하고 PASS/FAIL 배지를 겹친다.</p>
-                <p>탭하면 HEX/RGB 값과 모드별 변환, 대체 색상 제안을 볼 수 있고 FAIL 영역에서는 햅틱이 울린다. 프레임 고정, 카메라가 없을 때의 샘플 모드, VoiceOver 레이블과 Dynamic Type을 지원한다.</p>
+                <p>Swift Student Challenge 2026 출품작. 포스터, 교과서, 표지판에 카메라를 대면 색각 이상이 있는 사람의 눈으로 다시 보여 준다.</p>
+                <p>카메라 프레임마다 Brettel·Viénot·Mollon(1997) 색각 행렬을 CoreImage로 곱해 Deuteranopia, Protanopia, Tritanopia를 실시간으로 바꾼다. 10프레임마다 Vision OCR이 글자를 찾아 안쪽과 테두리 색으로 대비를 재고, 4.5:1에 못 미치면 FAIL을 붙인다. 측정은 시뮬레이션된 화면에서 한다. 그 눈에도 읽혀야 통과다.</p>
+                <p>의심 가는 곳을 탭하면 HEX/RGB 값과 대체 색을 제안하고, FAIL이면 햅틱으로 손끝이 먼저 안다. 카메라가 없으면 샘플 포스터로 돌고, VoiceOver와 Dynamic Type도 챙겼다. 접근성 앱이 접근성을 빼먹을 순 없으니까.</p>
               </div>
             </div>
           </details></li>
@@ -119,7 +119,7 @@
             <summary class="row">
               <span class="row-title">KU Notice Monitor</span>
               <span class="row-meta">Python</span>
-              <span class="row-desc">대학 공지를 수집해 사용자의 프로필과 관심사에 맞춰 분류·전달하는 다중 사용자 알림 시스템.</span>
+              <span class="row-desc">공지는 매일 쏟아지고 내 얘기는 한두 줄. 그것만 골라 텔레그램으로.</span>
             </summary>
             <div class="project-body">
               <dl class="facts">
@@ -129,9 +129,9 @@
               </dl>
 
               <div class="prose">
-                <p>학사, 장학, 취창업 등 공지 RSS 피드를 매일 수집하고 새 공지 본문을 크롤링한 뒤, Gemini로 사용자별 관련도를 1~5점으로 매긴다. API 키가 없거나 쿼터를 넘기면 키워드 매칭으로 자동 전환한다.</p>
-                <p>사용자는 봇에게 /profile로 학과, 학년, 캠퍼스를 등록하고 /filter로 알림 강도를 정한다. 관리자 승인 기반의 다중 사용자 구조이며 /delete_me로 자기 정보를 지울 수 있다.</p>
-                <p>GitHub Actions 워크플로우 두 개(15분 주기 명령 처리, 매일 오전 10시 공지 모니터링)로 돌아간다. 별도 서버 없이 무료로 운영된다.</p>
+                <p>학사, 장학, 취창업 RSS를 긁어 와 본문까지 읽고, Gemini가 사용자 프로필을 보고 1~5점을 매긴다. Gemini가 쿼터에 걸리면 조용히 키워드 매칭으로 갈아탄다. 알림은 멈추지 않는다.</p>
+                <p>텔레그램 봇에 /profile로 학과, 학년, 캠퍼스를 알려 주고 /filter 상·중·하·없음으로 얼마나 깐깐하게 거를지 정한다. 새 사용자는 관리자가 /allow 해야 들어오고, /delete_me 한 번이면 흔적 없이 나간다.</p>
+                <p>서버는 없다. GitHub Actions가 15분마다 명령을 받고 매일 오전 10시에 공지를 돈다. 데이터베이스도 없다. 상태는 JSON 파일로 저장소에 커밋된다. 운영비 0원.</p>
               </div>
             </div>
           </details></li>
