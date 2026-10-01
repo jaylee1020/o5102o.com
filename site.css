@@ -532,6 +532,72 @@ a.row[data-copy] {
   text-align: right;
 }
 
+/* Inline project details (by.o5102o.com): rows expand in place */
+summary.row {
+  cursor: pointer;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+summary.row::-webkit-details-marker {
+  display: none;
+}
+
+summary.row::marker {
+  content: "";
+}
+
+@media (hover: hover) and (pointer: fine) {
+  summary.row:hover .row-title {
+    text-decoration: underline;
+  }
+}
+
+summary.row .row-meta::after {
+  content: "+";
+  display: inline-block;
+  width: 1ch;
+  margin-left: 10px;
+  color: var(--fg);
+  text-align: center;
+  transition: transform 160ms ease;
+}
+
+details[open] > summary.row .row-meta::after {
+  transform: rotate(45deg);
+}
+
+.project-body {
+  padding: 0 0 24px;
+}
+
+.project-body .facts {
+  margin-top: 4px;
+  padding-top: 16px;
+}
+
+.project-body .prose {
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+details.project[open] .project-body {
+  animation: project-in 200ms ease;
+}
+
+@keyframes project-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  summary.row .row-meta::after,
+  details.project[open] .project-body {
+    animation: none;
+    transition: none;
+  }
+}
+
 /* Business card (card.o5102o.com) */
 .bcard {
   --rx: 0deg;
