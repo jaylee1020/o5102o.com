@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  <link rel="icon" href="/icon-192.png" type="image/png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preload" href="/site.css?v=6" as="style">
+  <link rel="stylesheet" href="/site.css?v=6">
+  <link rel="preload" href="/site.js?v=6" as="script">
+  <title>Default — Jooyoung Lee</title>
+  <meta name="description" content="카메라, 세그멘테이션, 파티클 타이포그래피로 만든 인터랙티브 웹 전시.">
+  <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://by.o5102o.com/default/">
+  <meta property="og:title" content="Default — Jooyoung Lee">
+  <meta property="og:description" content="카메라, 세그멘테이션, 파티클 타이포그래피로 만든 인터랙티브 웹 전시.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://by.o5102o.com/default/">
+  <meta property="og:site_name" content="Jooyoung Lee">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://by.o5102o.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Default — Jooyoung Lee">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Default — Jooyoung Lee">
+  <meta name="twitter:description" content="카메라, 세그멘테이션, 파티클 타이포그래피로 만든 인터랙티브 웹 전시.">
+  <meta name="twitter:image" content="https://by.o5102o.com/og-image.png">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="https://o5102o.com/" data-scramble="이주영" aria-label="Jooyoung Lee">Jooyoung Lee</a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="https://by.o5102o.com/" aria-current="page">Portfolio</a>
+        <a href="https://blog.o5102o.com/">Blog</a>
+        <a href="https://card.o5102o.com/">Card</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <article class="project">
+        <header class="intro">
+          <h1 class="page-title">Default</h1>
+          <p class="lede">카메라와 세그멘테이션, 파티클 타이포그래피가 관람자의 움직임에 반응하는 웹 전시.</p>
+        </header>
+
+        <dl class="facts">
+          <div><dt>Year</dt><dd>2026</dd></div>
+          <div><dt>Platform</dt><dd>Web · MediaPipe</dd></div>
+          <div><dt>Links</dt><dd><a href="https://default.o5102o.com/" target="_blank" rel="noopener noreferrer">Live ↗</a><a href="https://github.com/jaylee1020/o5102o.com/tree/main/default" target="_blank" rel="noopener noreferrer">Source ↗</a></dd></div>
+        </dl>
+
+        <div class="prose">
+          <p>브라우저에서 동작한다. 카메라 입력을 MediaPipe로 분할해 사람의 형태를 분리하고, 텍스트에서 샘플링한 파티클이 그 움직임에 밀려나며 포스터를 이룬다.</p>
+          <p>12초마다 폰트, 색상, 간격이 바뀐 새 변형이 생성된다. 손 제스처 인식과 아스키 모자이크 합성이 함께 돌아가고, 색상 팔레트는 WCAG 대비 기준으로 만든다.</p>
+          <p>모델과 WASM 런타임을 같이 배포해 오프라인에서도 열린다. 기기 성능에 따라 파티클 간격과 프레임 처리를 조정한다.</p>
+        </div>
+
+        <nav class="pager" aria-label="다른 프로젝트">
+          <a rel="next" href="/intent/">Intent →</a>
+        </nav>
+      </article>
+    </main>
+
+    <footer class="site-footer"><span>© <span class="js-year">2026</span> Jooyoung Lee</span><span class="clock" data-clock="Asia/Seoul">Seoul</span></footer>
+  </div>
+
+  <script src="/site.js?v=6"></script>
+  <script>window.o5102oSite.registerServiceWorker('/sw.js');</script>
+</body>
+</html>

@@ -2,6 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://by.o5102o.com/</loc>
-    <lastmod>2026-08-01</lastmod>
+    <lastmod>2026-10-01</lastmod>
+  </url>
+  <url>
+    <loc>https://by.o5102o.com/default/</loc>
+    <lastmod>2026-10-01</lastmod>
+  </url>
+  <url>
+    <loc>https://by.o5102o.com/intent/</loc>
+    <lastmod>2026-10-01</lastmod>
+  </url>
+  <url>
+    <loc>https://by.o5102o.com/unseen/</loc>
+    <lastmod>2026-10-01</lastmod>
+  </url>
+  <url>
+    <loc>https://by.o5102o.com/ku-notice-monitor/</loc>
+    <lastmod>2026-10-01</lastmod>
   </url>
 </urlset>

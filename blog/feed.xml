@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko">
-  <title>JOOYOUNG LEE — Blog</title>
+  <title>Jooyoung Lee — Blog</title>
   <subtitle>디자인, 개발, AI, 그리고 만들고 있는 것들에 대한 기록.</subtitle>
   <link href="https://blog.o5102o.com/" />
   <link href="https://blog.o5102o.com/feed.xml" rel="self" type="application/atom+xml" />

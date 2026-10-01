@@ -7,6 +7,7 @@
 ```text
 /                      메인 허브
 /by/                   포트폴리오
+/by/<slug>/            프로젝트 상세 페이지 (default, intent, unseen, ku-notice-monitor)
 /blog/                 블로그 인덱스
 /blog/posts/           블로그 글 (HTML 파일 1개 = 글 1개)
 /card/                 개발자 카드 + 연락처 폼
@@ -16,8 +17,8 @@
 /_headers              캐시/보안 헤더
 /manifest.json         루트 PWA 매니페스트
 /sw.js                 공용 서비스 워커
-/site.css              공용 Editorial Terminal 디자인 시스템
-/site.js               공용 프런트엔드 유틸
+/site.css              공용 스타일 (단일 컬럼, 시스템 글꼴, 라이트/다크)
+/site.js               공용 프런트엔드 유틸 (연도, 서비스 워커, 소소한 인터랙션)
 ```
 
 ## 블로그 글 쓰기
@@ -52,10 +53,18 @@ python3 -m http.server 8082 --directory default
 
 ## 공용 사이트 셸
 
-- `site.css`가 루트, 포트폴리오, 블로그, 카드, 404의 레이아웃·테마·반응형 스타일을 공유합니다.
-- `site.js`가 테마 동기화, 링크의 테마 전달, 복사 버튼, 점진적 등장 효과를 담당합니다.
-- 테마 ID `2–5`와 기존 색상은 호환성을 위해 유지합니다. `default` 전시는 독립된 작품이라 테마 전달 대상에서 제외합니다.
-- HTML에서는 `?v=5`가 붙은 공용 CSS/JS URL을 사용해 기존 서비스 워커 캐시와 새 셸이 섞이지 않게 합니다.
+- `site.css`가 루트, 포트폴리오, 블로그, 카드, 404의 레이아웃을 공유합니다. 단일 컬럼(640px), 시스템 글꼴, 시스템 라이트/다크 설정을 따르는 중립 색상만 씁니다.
+- `site.js`는 연도 표시와 서비스 워커 등록, 그리고 data 속성으로 켜지는 작은 인터랙션을 담당합니다. 테마 전환 기능은 제거했습니다.
+  - `.brand[data-scramble="이주영"]` 호버/포커스 시 글자가 섞였다가 한글 이름으로 바뀜 (터치 기기는 로드 시 1회).
+  - `[data-scramble-once]` 로드 시 1회 숫자 스크램블 (404).
+  - `a.row[data-preview="url"]` 파인 포인터에서는 커서를 따라다니는 미리보기, 터치에서는 행 안에 인라인 썸네일 (`data-preview-size="WxH"`로 공간 예약). 이미지가 있는 프로젝트에만 붙입니다.
+  - `[data-clock="Asia/Seoul"]` 푸터 서울 시계. JS 없으면 "Seoul" 텍스트만 남습니다.
+  - `a[data-copy="주소"]` 클릭 시 클립보드 복사 후 잠시 `Copied` 표시, 실패하면 mailto로 폴백.
+  - `button[data-card]` 명함 뒤집기(aria-pressed). 파인 포인터에서는 포인터 방향으로 살짝 기울고 광택이 생깁니다. QR은 `card/index.html`에 정적 SVG로 들어 있습니다.
+  - `[data-progress]` 블로그 글 상단 1px 읽기 진행 선.
+  - 모든 인터랙션은 `prefers-reduced-motion`에서 즉시 전환되고, JS가 없어도 페이지는 그대로 읽힙니다. 같은 서브도메인 안의 이동에는 `@view-transition` 크로스페이드가 적용됩니다.
+- 프로젝트 상세 페이지는 `by/<slug>/index.html` 하나로 구성됩니다. 사실 목록(연도, 플랫폼, 링크)과 짧은 문단 몇 개, 이전/다음 프로젝트 링크만 둡니다. 새 프로젝트를 추가하면 `by/sitemap.xml`과 루트·포트폴리오 목록도 함께 갱신합니다.
+- HTML에서는 `?v=6`이 붙은 공용 CSS/JS URL을 사용해 기존 서비스 워커 캐시와 새 셸이 섞이지 않게 합니다.
 - 블로그는 기존처럼 글 하나가 HTML 파일 하나이며 `blog/feed.xml`을 수동으로 함께 갱신합니다.
 
 ## 연락처 데이터

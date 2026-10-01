@@ -1,11 +1,11 @@
-const SHELL_CACHE = 'o5102o-shell-v5';
-const PAGE_CACHE = 'o5102o-pages-v5';
-const RETAINED_CACHE_NAMES = new Set(['o5102o-v4']);
+const SHELL_CACHE = 'o5102o-shell-v6';
+const PAGE_CACHE = 'o5102o-pages-v6';
+const RETAINED_CACHE_NAMES = new Set(['o5102o-shell-v5', 'o5102o-pages-v5']);
 const CRITICAL_PRECACHE_URLS = [
   '/',
   '/offline.html',
-  '/site.css?v=5',
-  '/site.js?v=5',
+  '/site.css?v=6',
+  '/site.js?v=6',
 ];
 const OPTIONAL_PRECACHE_URLS = [
   '/manifest.json',
