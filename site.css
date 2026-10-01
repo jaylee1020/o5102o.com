@@ -637,8 +637,13 @@ a.row[data-copy] {
   top: 12px;
   right: 14px;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 13px;
   line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.bcard-back .bcard-flip {
+  font-size: 16px;
 }
 
 .card-lede {
