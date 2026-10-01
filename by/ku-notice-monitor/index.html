@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  <link rel="icon" href="/icon-192.png" type="image/png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preload" href="/site.css?v=6" as="style">
+  <link rel="stylesheet" href="/site.css?v=6">
+  <link rel="preload" href="/site.js?v=6" as="script">
+  <title>KU Notice Monitor — Jooyoung Lee</title>
+  <meta name="description" content="건국대학교 공지 RSS를 수집하고 Gemini로 사용자별 관련도를 매겨 텔레그램으로 전달하는 다중 사용자 봇.">
+  <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://by.o5102o.com/ku-notice-monitor/">
+  <meta property="og:title" content="KU Notice Monitor — Jooyoung Lee">
+  <meta property="og:description" content="건국대학교 공지 RSS를 수집하고 Gemini로 사용자별 관련도를 매겨 텔레그램으로 전달하는 다중 사용자 봇.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://by.o5102o.com/ku-notice-monitor/">
+  <meta property="og:site_name" content="Jooyoung Lee">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://by.o5102o.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="KU Notice Monitor — Jooyoung Lee">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KU Notice Monitor — Jooyoung Lee">
+  <meta name="twitter:description" content="건국대학교 공지 RSS를 수집하고 Gemini로 사용자별 관련도를 매겨 텔레그램으로 전달하는 다중 사용자 봇.">
+  <meta name="twitter:image" content="https://by.o5102o.com/og-image.png">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="https://o5102o.com/" data-scramble="이주영" aria-label="Jooyoung Lee">Jooyoung Lee</a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="https://by.o5102o.com/" aria-current="page">Portfolio</a>
+        <a href="https://blog.o5102o.com/">Blog</a>
+        <a href="https://card.o5102o.com/">Card</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <article class="project">
+        <header class="intro">
+          <h1 class="page-title">KU Notice Monitor</h1>
+          <p class="lede">건국대학교 공지를 모아 사용자 프로필에 맞게 골라 텔레그램으로 보내는 알림 봇.</p>
+        </header>
+
+        <dl class="facts">
+          <div><dt>Year</dt><dd>2026</dd></div>
+          <div><dt>Platform</dt><dd>Python · GitHub Actions · Telegram</dd></div>
+          <div><dt>Links</dt><dd><a href="https://github.com/jaylee1020/ku-notice-monitor-for-all" target="_blank" rel="noopener noreferrer">GitHub ↗</a></dd></div>
+        </dl>
+
+        <div class="prose">
+          <p>학사, 장학, 취창업 등 공지 RSS 피드를 매일 수집하고 새 공지 본문을 크롤링한 뒤, Gemini로 사용자별 관련도를 1~5점으로 매긴다. API 키가 없거나 쿼터를 넘기면 키워드 매칭으로 자동 전환한다.</p>
+          <p>사용자는 봇에게 /profile로 학과, 학년, 캠퍼스를 등록하고 /filter로 알림 강도를 정한다. 관리자 승인 기반의 다중 사용자 구조이며 /delete_me로 자기 정보를 지울 수 있다.</p>
+          <p>GitHub Actions 워크플로우 두 개(15분 주기 명령 처리, 매일 오전 10시 공지 모니터링)로 돌아간다. 별도 서버 없이 무료로 운영된다.</p>
+        </div>
+
+        <nav class="pager" aria-label="다른 프로젝트">
+          <a rel="prev" href="/unseen/">← Unseen</a>
+        </nav>
+      </article>
+    </main>
+
+    <footer class="site-footer"><span>© <span class="js-year">2026</span> Jooyoung Lee</span><span class="clock" data-clock="Asia/Seoul">Seoul</span></footer>
+  </div>
+
+  <script src="/site.js?v=6"></script>
+  <script>window.o5102oSite.registerServiceWorker('/sw.js');</script>
+</body>
+</html>
