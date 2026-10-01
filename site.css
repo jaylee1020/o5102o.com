@@ -627,9 +627,13 @@ a.row[data-copy] {
 }
 
 .bcard-qr {
-  width: 40%;
-  max-width: 120px;
-  color: var(--fg);
+  box-sizing: content-box;
+  width: 100px;
+  height: 100px;
+  padding: 16px; /* 4-module quiet zone (25 modules at 4px) */
+  border-radius: 8px;
+  background: #fbfbfa;
+  color: #1a1a1a;
 }
 
 .bcard-flip {
