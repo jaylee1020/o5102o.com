@@ -72,6 +72,7 @@ a {
 }
 
 /* Inline links reach a 44px touch target without changing the layout */
+.brand,
 .nav a,
 .links a,
 .more,
@@ -79,8 +80,8 @@ a {
 .facts dd a,
 .article-footer a {
   display: inline-block;
-  padding-block: 9px;
-  margin-block: -9px;
+  padding-block: 11px;
+  margin-block: -11px;
 }
 
 /* Pressed state on touch, where there is no hover */
@@ -205,7 +206,7 @@ main {
 }
 
 @keyframes blink {
-  50% { opacity: 0.25; }
+  50% { opacity: 0.35; }
 }
 
 /* Brand name scramble: fixed box so glyph swaps never reflow the header */
