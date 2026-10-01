@@ -13,7 +13,7 @@
 ├── card/                  → card.o5102o.com (개발자 카드 + 연락처 폼)
 ├── default/               → default.o5102o.com (인터랙티브 전시)
 │   ├── assets/            → 번들 JS/CSS (Vite 빌드 결과물, 소스 없음)
-│   ├── models/            → MediaPipe 모델 (hand_landmarker.task 등)
+│   ├── models/            → MediaPipe 모델 (gesture_recognizer.task 사용, selfie_segmenter.tflite는 현재 미사용)
 │   └── vendor/mediapipe/  → MediaPipe WASM 런타임 (오프라인용)
 ├── functions/api/         → Cloudflare Pages Functions (contact.js, wallet.js)
 ├── tools/                 → 일회성 개발 스크립트 (배포와 무관)
@@ -55,24 +55,36 @@
 | `randomFloat` | `no` | 실수 랜덤 |
 | `lerp` | `Pe` | 선형 보간 |
 | `getScreenScale` | `Z3` | 화면 크기 기반 스케일 계수 |
-| App 컴포넌트 | `t5` | React 앱 루트 (카메라, 세그멘테이션, 파티클) |
-| `createMosaicCompositor` | `zv` | 아스키 아트 합성기 |
+| App 컴포넌트 | `t5` | React 앱 루트 (카메라, 손 인식, 파티클) |
+| `createMosaicCompositor` | `zv` | 아스키 아트 합성기 (**미사용** — 아래 참고) |
 
 ### Apple Silicon 최적화 (현재 적용됨)
 - WebGL `UNMASKED_RENDERER_WEBGL`로 Apple GPU 감지
 - `hardwareConcurrency`로 코어 수 기반 티어 분류:
-  - **ultra**: M칩 8코어+ (간격 0.75-2, 반발 180px, 8초 주기)
-  - **high**: A칩 6코어+ (간격 1-2.5, 반발 160px)
-  - **default**: 비-Apple (간격 1.5-3, 반발 130px)
+  - **ultra**: M칩 8코어+ (간격 0.85-1.55, 반발 190px)
+  - **high**: Apple 그 외 (간격 0.9-1.7, 반발 180px)
+  - **default**: 비-Apple (간격 1.5-2.5, 반발 140px)
+  - 간격은 짧은 변 기준(≤375/≤480/≤768/≤1024/그 이상). 모바일·태블릿은 예전보다 촘촘(파티클 약 2배), 데스크톱은 그대로
 - 전역 변수: `window.__APPLE_SILICON`, `window.__PERF_TIER`
 
 ### 프레임 게이팅 최적화 (현재 적용됨)
-- **비디오 프레임 게이팅**: `requestVideoFrameCallback`(폴백: rAF 타임스탬프 31ms 스로틀)으로 새 카메라 프레임이 있을 때만 세그멘테이션·모자이크 렌더·제스처 인식 실행. 120Hz 디스플레이에서 MediaPipe/모자이크 중복 작업 제거 (`_nfF`, `_rvfc`, `_vfc` 변수)
-- **적응형 모자이크 스킵**: FPS 거버너의 파티클 스킵 레벨(`_fpS`)이 3 이상이면 모자이크를 비디오 프레임 2개당 1회만 렌더
-- **모자이크 렌더 상태 호이스팅**: `font`/`textAlign`/`textBaseline`을 셀 루프 밖에서 1회만 설정
-- **버퍼 재사용**: 모자이크의 휘도 버퍼(`_lb`)·마스크 리샘플 버퍼(`_mb`)를 프레임 간 재사용 (per-frame Float32Array 할당 제거)
+- **비디오 프레임 게이팅**: `requestVideoFrameCallback`(폴백: rAF 타임스탬프 31ms 스로틀)으로 새 카메라 프레임이 있을 때만 제스처(손) 인식 실행 (`_nfF`, `_rvfc`, `_vfc` 변수)
+- **WebGL 파티클 렌더러**: `e5`가 `webgl` 컨텍스트로 `gl.POINTS` 한 번에 그림(원형 AA는 프래그먼트 셰이더). 위치는 매 프레임 Float32Array로 업로드, 색은 `n.particles` 배열이 바뀔 때만 업로드. WebGL 사용 시 색 정렬(`_glOn`) 생략. 셰이더 링크 실패 시 캔버스를 교체하고 기존 2D arc 경로로 폴백. 컨텍스트 손실/복구 처리 포함
+  - 셰이더 uniform 정밀도는 VS/FS가 같아야 함(`uniform mediump float S`) — 다르면 링크 실패
+  - 배경은 기존 2D 결과와 동일하게 `clearColor = bg * trailAlpha` (alpha:false 캔버스에 clearRect→검정 위에 반투명 fill 하던 결과)
+- **파티클 스킵 없음**: FPS 거버너가 `setParticleSkip`을 불러도 무시(no-op) — 파티클을 솎아내지 않음
+- **모자이크/세그멘테이션 제거**: 파티클 캔버스가 불투명이라 그 아래 아스키 모자이크 레이어는 원래 화면에 보이지 않았음. 그런데 프레임당 수십~수백 ms를 쓰고 있었으므로 `zv`·`Mv` 초기화와 `segmentation-layer` 캔버스를 제거(코드는 번들에 남아 있음)
+- **카메라 720p**: 카메라는 손 인식에만 쓰이므로 1280×720@30 요청 (손바닥 검출 입력이 192px라 그 이상은 낭비). 숨겨진 video의 CSS filter도 제거
 - **파티클 루프**: `forEach` 클로저 → 인덱스 for 루프, 반발 강도 상수 호이스팅
 - **백그라운드 탭**: `document.hidden`이면 12초 변형 재생성 스킵
+- **손 반발 컬링**: 랜드마크 바운딩 박스(+반발 반경 `zl`) 밖 파티클은 랜드마크 루프를 건너뜀 (결과 동일)
+- **FPS 거버너 갭 무시**: 2.5초 이상 프레임 공백(탭 복귀)은 저FPS로 판정하지 않음
+- **리사이즈 디바운스**: 150ms, 크기 변화 없으면 무시 (모바일 주소창 resize 폭주로 포스터가 리셋되던 문제)
+
+### 화면 매핑 / 조작 (현재 적용됨)
+- **커버 크롭**: 비디오를 화면 비율에 맞춰 중앙 크롭(`object-fit: cover`와 동일)해서 손 랜드마크(`bv(hands, size, videoWidth, videoHeight)`)에 적용 (모자이크 `s4`에도 같은 크롭 코드가 있음). 예전엔 세로 화면에서 영상이 찌그러지고 손 위치가 어긋났음
+- **다음 포스터**: 엔진 `next()` = 변형 재생성 + 12초 타이머 재시작. 트리거: Space/Enter/→ 키, ✌️(Victory) 제스처 약 0.2초 유지(쿨다운 3초). `F` 키는 전체화면
+- **카메라 오류**: `NotAllowedError`/`NotFoundError`/`NotReadableError` 별로 다른 안내 문구
 
 ### 중요 주의사항
 
@@ -90,7 +102,7 @@ mv default/assets/index-OLD.js "default/assets/index-${NEW_HASH}.js"
 // 잘못된: (g*r+y)*4  ← 소수점 spacing에서 엉뚱한 픽셀 참조
 ```
 
-**⚠️ Canvas alpha**: 파티클 캔버스는 `getContext("2d",{desynchronized:true,alpha:false})` 필수. `alpha:true`면 배경이 투명해져 세그멘테이션 레이어가 비침.
+**⚠️ Canvas alpha**: 파티클 캔버스는 `alpha:false`(WebGL·2D 폴백 모두) 유지. 투명이면 아래 video/배경이 비침.
 
 ## 배포
 
