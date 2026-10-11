@@ -23,8 +23,9 @@
 
 ## 공용 셸 (site.css / site.js)
 
-- 모든 공용 페이지는 `https://o5102o.com/site.css?v=8`, `https://o5102o.com/site.js?v=8`를 메인 도메인 절대 경로로 씁니다(서브도메인에서 `/site.css`가 해당 폴더로 매핑되어 스타일이 빠지는 문제 방지). 캐시 정책을 바꾸면 버전 쿼리와 `sw.js`의 precache 목록을 함께 올립니다.
-- `site.js`의 인터랙션은 전부 data 속성으로 켜집니다: `.brand[data-scramble]`(이름 스크램블), `[data-scramble-once]`(404), `a.row[data-preview]`(호버 미리보기 / 터치 인라인 썸네일), `[data-clock]`(서울 시계), `a[data-copy]`(이메일 복사), `button[data-card]`(명함 뒤집기·기울기), `[data-progress]`(읽기 진행 선).
+- 모든 공용 페이지는 `https://o5102o.com/site.css?v=9`, `https://o5102o.com/site.js?v=9`를 메인 도메인 절대 경로로 씁니다(서브도메인에서 `/site.css`가 해당 폴더로 매핑되어 스타일이 빠지는 문제 방지). 캐시 정책을 바꾸면 버전 쿼리와 `sw.js`의 precache 목록을 함께 올립니다.
+- `site.js`의 인터랙션은 전부 data 속성으로 켜집니다: `.brand[data-scramble]`(이름 스크램블), `[data-scramble-once]`(404), `a.row[data-preview]`(호버 미리보기 / 터치 인라인 썸네일), `[data-clock]`(서울 시계), `a[data-copy]`(이메일 복사), `button[data-card]`(명함 뒤집기·기울기), `[data-progress]`(읽기 진행 선), `h1[data-dots]`(홈 이름을 잉크 점으로 다시 그리고 포인터가 밀어냄 — Default의 축소판, JS 없으면 일반 h1).
+- 색: 차가운 종이(`--bg`), 그래파이트 글자(`--fg`), 만질 수 있는 것에만 쓰는 리소 블루 잉크(`--ink`: 점 이름, 링크 밑줄, 포커스, 선택, 진행 선).
 - 규칙: 짧고 빠르게(≤400ms), `prefers-reduced-motion`이면 즉시, 터치에서는 호버 대신 탭/로드 시 동작, JS 없이도 페이지가 완전히 읽혀야 합니다. 외부 라이브러리·폰트·CDN은 쓰지 않습니다.
 - 프로젝트 상세는 별도 페이지가 아니라 `by/index.html` 안의 `<details class="project" id="<slug>">`로 펼쳐집니다(링크: `https://by.o5102o.com/#<slug>`). `by/<slug>/index.html`은 예전 URL 호환용 리다이렉트만 남깁니다. 내용은 각 저장소 README와 기존 사이트 문구에서만 가져옵니다. 추가 시 포트폴리오 목록과 루트 Work 목록을 함께 갱신합니다.
 

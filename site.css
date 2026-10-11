@@ -1,8 +1,10 @@
 :root {
-  --bg: #fbfbfa;
-  --fg: #1a1a1a;
-  --muted: #6e6e6b;
-  --line: #e6e6e3;
+  /* Cool paper, graphite type, one riso-blue ink for things you can touch */
+  --bg: #f4f5f7;
+  --fg: #1d2028;
+  --muted: #646a78;
+  --line: #dde0e7;
+  --ink: #2347d6;
   --danger: #b42318;
   --success: #1f7a3d;
   --measure: 640px;
@@ -14,10 +16,11 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #121212;
-    --fg: #e8e8e6;
-    --muted: #9a9a96;
-    --line: #2a2a29;
+    --bg: #16181e;
+    --fg: #e6e8ee;
+    --muted: #979cab;
+    --line: #2a2e38;
+    --ink: #8aa2ff;
     --danger: #ff8a80;
     --success: #7fd394;
   }
@@ -66,6 +69,7 @@ ol {
 
 a {
   color: inherit;
+  text-decoration-color: color-mix(in srgb, var(--ink) 55%, transparent);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   -webkit-tap-highlight-color: transparent;
@@ -107,12 +111,16 @@ button {
 }
 
 ::selection {
-  background: var(--fg);
-  color: var(--bg);
+  background: var(--ink);
+  color: #fff;
+}
+
+a:hover {
+  text-decoration-color: var(--ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--fg);
+  outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
 
@@ -226,10 +234,44 @@ main {
 
 .intro h1,
 .page-title {
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.35;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+}
+
+/* Home: the name as a field of ink dots (canvas added by site.js; plain h1 without JS) */
+.intro h1[data-dots] {
+  font-size: clamp(64px, 22vw, 168px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.intro h1.has-dots {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.dots {
+  display: block;
+  width: calc(100% + 24px);
+  height: clamp(96px, 30vw, 196px);
+  margin: -12px -12px 4px;
+  color: var(--ink);
+  touch-action: pan-y;
+  cursor: crosshair;
+}
+
+.dots + p {
+  margin-top: 8px;
+  color: var(--fg);
+  font-size: 18px;
 }
 
 .intro p,
@@ -292,6 +334,7 @@ main {
 
 a.row:hover .row-title {
   text-decoration: underline;
+  text-decoration-color: var(--ink);
 }
 
 .row-meta {
@@ -313,7 +356,7 @@ a.row:hover .row-title {
   grid-column: 2;
   grid-row: 1;
   justify-self: end;
-  color: var(--fg);
+  color: var(--ink);
   font-size: 14px;
   opacity: 0;
   transform: translateX(-4px);
@@ -445,8 +488,8 @@ a.row[data-copy] {
   top: 0;
   left: 0;
   width: 100%;
-  height: 1px;
-  background: var(--fg);
+  height: 2px;
+  background: var(--ink);
   transform: scaleX(var(--progress, 0));
   transform-origin: 0 50%;
   pointer-events: none;
@@ -558,7 +601,7 @@ summary.row .row-meta::after {
   display: inline-block;
   width: 1ch;
   margin-left: 10px;
-  color: var(--fg);
+  color: var(--ink);
   text-align: center;
   transition: transform 160ms ease;
 }
@@ -722,7 +765,7 @@ details.project[open] .project-body {
 
 @media (prefers-color-scheme: dark) {
   .bcard-face {
-    --card-bg: #1c1c1c;
+    --card-bg: #1e2129;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -16px rgba(0, 0, 0, 0.8);
   }
 
@@ -816,7 +859,7 @@ details.project[open] .project-body {
 }
 
 .field input:focus {
-  border-color: var(--fg);
+  border-color: var(--ink);
   outline: none;
 }
 
@@ -838,7 +881,7 @@ details.project[open] .project-body {
   width: 16px;
   height: 16px;
   margin: 3px 0 0;
-  accent-color: var(--fg);
+  accent-color: var(--ink);
 }
 
 .consent-row input.invalid {

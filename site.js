@@ -292,11 +292,170 @@
     update();
   }
 
+  // --- Dot name: the h1 resampled into ink dots that step aside for the pointer (after Default). ---
+  function initDots() {
+    var title = document.querySelector('[data-dots]');
+    if (!title || !window.HTMLCanvasElement) return;
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    canvas.className = 'dots';
+    canvas.setAttribute('aria-hidden', 'true');
+    title.parentNode.insertBefore(canvas, title.nextSibling);
+    title.classList.add('has-dots');
+
+    var dots = [];
+    var width = 0;
+    var height = 0;
+    var ratio = 1;
+    var color = '#000';
+    var pointer = null;
+    var raf = 0;
+    var RADIUS = 64;
+
+    function sample() {
+      var rect = canvas.getBoundingClientRect();
+      if (!rect.width) return;
+      width = rect.width;
+      height = rect.height;
+      ratio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      color = getComputedStyle(canvas).color;
+      var step = width < 480 ? 4 : 5;
+      var off = document.createElement('canvas');
+      off.width = Math.ceil(width);
+      off.height = Math.ceil(height);
+      var o = off.getContext('2d');
+      var family = getComputedStyle(title).fontFamily;
+      var text = title.textContent.trim();
+      var pad = 12; // matches the canvas's negative margin, so dots sit on the text column
+      var size = height * 0.92;
+      o.font = '800 ' + size + 'px ' + family;
+      var measured = o.measureText(text).width;
+      if (measured > width - pad * 2) {
+        size *= (width - pad * 2) / measured;
+        o.font = '800 ' + size + 'px ' + family;
+      }
+      o.textBaseline = 'middle';
+      var inkLeft = o.measureText(text).actualBoundingBoxLeft || 0;
+      o.fillText(text, pad + inkLeft, height / 2 + size * 0.04);
+      var data = o.getImageData(0, 0, off.width, off.height).data;
+      var previous = dots;
+      var fresh = !previous.length;
+      dots = [];
+      for (var y = step / 2; y < off.height; y += step) {
+        for (var x = step / 2; x < off.width; x += step) {
+          if (data[((y | 0) * off.width + (x | 0)) * 4 + 3] < 128) continue;
+          var d = { hx: x, hy: y, x: x, y: y, vx: 0, vy: 0 };
+          if (fresh && !reduceMotion.matches) {
+            // Load: dots arrive from a loose scatter around their home.
+            var a = Math.random() * Math.PI * 2;
+            var r = 20 + Math.random() * 60;
+            d.x += Math.cos(a) * r;
+            d.y += Math.sin(a) * r;
+          }
+          dots.push(d);
+        }
+      }
+      start();
+    }
+
+    function draw() {
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      for (var i = 0; i < dots.length; i += 1) {
+        var d = dots[i];
+        ctx.moveTo(d.x + 1.6, d.y);
+        ctx.arc(d.x, d.y, 1.6, 0, Math.PI * 2);
+      }
+      ctx.fill();
+    }
+
+    function tick() {
+      raf = 0;
+      var moving = false;
+      var px = pointer ? pointer.x : -1e4;
+      var py = pointer ? pointer.y : -1e4;
+      var r2 = RADIUS * RADIUS;
+      for (var i = 0; i < dots.length; i += 1) {
+        var d = dots[i];
+        var dx = d.x - px;
+        var dy = d.y - py;
+        var dist2 = dx * dx + dy * dy;
+        if (dist2 < r2 && dist2 > 0.01) {
+          var dist = Math.sqrt(dist2);
+          var push = (1 - dist / RADIUS) * 3.2;
+          d.vx += (dx / dist) * push;
+          d.vy += (dy / dist) * push;
+        }
+        d.vx = (d.vx + (d.hx - d.x) * 0.12) * 0.72;
+        d.vy = (d.vy + (d.hy - d.y) * 0.12) * 0.72;
+        d.x += d.vx;
+        d.y += d.vy;
+        if (Math.abs(d.vx) + Math.abs(d.vy) > 0.02 || Math.abs(d.hx - d.x) + Math.abs(d.hy - d.y) > 0.1) {
+          moving = true;
+        }
+      }
+      draw();
+      if (moving || pointer) raf = window.requestAnimationFrame(tick);
+    }
+
+    function start() {
+      if (reduceMotion.matches) {
+        dots.forEach(function (d) { d.x = d.hx; d.y = d.hy; });
+        draw();
+        return;
+      }
+      if (!raf) raf = window.requestAnimationFrame(tick);
+    }
+
+    function track(event) {
+      var rect = canvas.getBoundingClientRect();
+      pointer = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+      start();
+    }
+
+    function release() {
+      pointer = null;
+      start();
+    }
+
+    if (!reduceMotion.matches) {
+      canvas.addEventListener('pointermove', track);
+      canvas.addEventListener('pointerdown', track);
+      canvas.addEventListener('pointerleave', release);
+      canvas.addEventListener('pointerup', function (event) {
+        if (event.pointerType !== 'mouse') release();
+      });
+      canvas.addEventListener('pointercancel', release);
+    }
+
+    var resizeTimer = 0;
+    var lastWidth = 0;
+    window.addEventListener('resize', function () {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(function () {
+        var w = canvas.getBoundingClientRect().width;
+        if (w !== lastWidth) { lastWidth = w; sample(); }
+      }, 150);
+    });
+    var scheme = window.matchMedia('(prefers-color-scheme: dark)');
+    var recolor = function () { color = getComputedStyle(canvas).color; draw(); };
+    if (scheme.addEventListener) scheme.addEventListener('change', recolor);
+
+    var go = function () { lastWidth = canvas.getBoundingClientRect().width; sample(); };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(go); else go();
+  }
+
   function init() {
     document.querySelectorAll('.js-year').forEach(function (node) {
       node.textContent = String(new Date().getFullYear());
     });
     initBrand();
+    initDots();
     initScrambleOnce();
     initPreviews();
     initClock();
